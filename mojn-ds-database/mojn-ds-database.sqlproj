@@ -137,6 +137,7 @@
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="temp\" />
     <Folder Include="temp\Stored Procedures\" />
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="data\Tables\SpringbrookDimensions.sql">
@@ -553,5 +554,8 @@
     <Build Include="Security\temp.sql" />
     <Build Include="Security\Permissions.sql" />
     <Build Include="ExtendedProperties.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\MigrateData.sql" />
   </ItemGroup>
 </Project>
