@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/mojn-ds-original
+/mojn-ds-database/mojn-ds-database.refactorlog

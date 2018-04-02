@@ -13,7 +13,7 @@ FROM            data.SensorRetrievalAttempt INNER JOIN
                          data.Site ON data.Visit.SiteID = data.Site.ID AND data.Visit.SiteID = data.Site.ID INNER JOIN
                          data.SensorDeployment ON data.SensorRetrievalAttempt.SensorDeploymentID = data.SensorDeployment.ID AND data.SensorRetrievalAttempt.SensorDeploymentID = data.SensorDeployment.ID INNER JOIN
                          ref.Sensor ON data.SensorDeployment.SensorID = ref.Sensor.ID INNER JOIN
-                         lookup.IsSensorRetrieved ON data.SensorRetrievalAttempt.IsSensorRetrieved = lookup.IsSensorRetrieved.ID AND data.SensorRetrievalAttempt.IsSensorRetrieved = lookup.IsSensorRetrieved.ID INNER JOIN
+                         lookup.IsSensorRetrieved ON data.SensorRetrievalAttempt.IsSensorRetrievedID = lookup.IsSensorRetrieved.ID AND data.SensorRetrievalAttempt.IsSensorRetrievedID = lookup.IsSensorRetrieved.ID INNER JOIN
                          lookup.SensorProblem ON data.SensorRetrievalAttempt.SensorProblemID = lookup.SensorProblem.ID AND data.SensorRetrievalAttempt.SensorProblemID = lookup.SensorProblem.ID
 
 

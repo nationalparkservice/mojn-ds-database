@@ -42,7 +42,7 @@ BEGIN
 	
 	-- Check whether there is already a successful sensor retrieval for this sensor deployment and spring location visit.	
 	SELECT 
-		@existingSuccessfulRetrieval = IsSensorRetrieved,
+		@existingSuccessfulRetrieval = IIF(sra.IsSensorRetrievedID = 1, 1, 0),
 		@existingSuccessfulRetrievalDate = COALESCE(sra.RetrievalTimeOfDay,/*wqe.MeasurementStartTime,*/slv.VisitDate)
 	FROM
 		data.SensorRetrievalAttempt sra
@@ -50,7 +50,7 @@ BEGIN
 		INNER JOIN data.Visit slv ON sra.VisitID = slv.ID
 	WHERE
 		sra.SensorDeploymentID = @sensorDeploymentID
-		AND IsSensorRetrieved = 1
+		AND sra.IsSensorRetrievedID = 1
 		AND sra.VisitID <> @VisitID;
 	
 	SELECT @existingSuccessfulRetrieval = ISNULL(@existingSuccessfulRetrieval,0);
@@ -60,7 +60,7 @@ BEGIN
 		data.SensorRetrievalAttempt sra
 		--INNER JOIN dbo.WaterQuantityEvent wqe ON sra.WaterQuantityEventID = wqe.ID
 		INNER JOIN data.Visit slv ON sra.VisitID = slv.ID
-	WHERE sra.SensorDeploymentID = @sensorDeploymentID AND sra.IsSensorRetrieved = 0
+	WHERE sra.SensorDeploymentID = @sensorDeploymentID AND sra.IsSensorRetrievedID <> 1
 	ORDER BY slv.VisitDate DESC;
 			
 	SELECT @Result = 

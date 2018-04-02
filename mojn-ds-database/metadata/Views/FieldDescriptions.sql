@@ -1,10 +1,10 @@
 ﻿CREATE VIEW [metadata].[FieldDescriptions]
 AS
-SELECT        s.name AS SchemaName, t .Name AS TableName, c.name AS ColumnName, tp.name AS DataType, c.max_length AS FieldSize, ep.value AS ColumnDescription
+SELECT        s.name AS SchemaName, t.name AS TableName, c.name AS ColumnName, tp.name AS DataType, c.max_length AS FieldSize, ep.value AS ColumnDescription
 FROM            sys.tables t INNER JOIN
-                         sys.schemas s ON t .schema_id = s.schema_id INNER JOIN
-                         sys.columns c ON t .object_id = c.object_id INNER JOIN
-                         sys.types tp ON c.user_type_id = tp.user_type_id OUTER APPLY fn_listextendedproperty('MS_Description', 'schema', s.name, 'table', t .name, 'column', c.name) ep
+                         sys.schemas s ON t.schema_id = s.schema_id INNER JOIN
+                         sys.columns c ON t.object_id = c.object_id INNER JOIN
+                         sys.types tp ON c.user_type_id = tp.user_type_id OUTER APPLY fn_listextendedproperty('MS_Description', 'schema', s.name, 'table', t.name, 'column', c.name) ep
 WHERE        s.name IN ('ref', 'lookup', 'data')
 
 

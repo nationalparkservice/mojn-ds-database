@@ -558,4 +558,23 @@
   <ItemGroup>
     <PostDeploy Include="Scripts\MigrateData.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mojn-ds-original\mojn-ds-original.sqlproj">
+      <Name>mojn-ds-original</Name>
+      <Project>{7b727efd-d995-4162-b241-e08072ae0f7b}</Project>
+      <Private>True</Private>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>MOJN_DS</DatabaseVariableLiteralValue>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ArtifactReference Include="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\Extensions\Microsoft\SQLDB\Extensions\SqlServer\130\SqlSchemas\master.dacpac">
+      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\130\SqlSchemas\master.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+    </ArtifactReference>
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="mojn-ds-database.refactorlog" />
+  </ItemGroup>
 </Project>

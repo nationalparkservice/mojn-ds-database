@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [metadata].[ViewDescriptions]
 AS
-SELECT        S.name AS [Schema Name], O.name AS [Object Name], EP.name, EP.value AS [Extended property]
+SELECT        S.name AS SchemaName, O.name AS ViewName, EP.value AS Description
 FROM            sys.extended_properties AS EP LEFT OUTER JOIN
                          sys.all_objects AS O ON EP.major_id = O.object_id LEFT OUTER JOIN
                          sys.schemas AS S ON O.schema_id = S.schema_id LEFT OUTER JOIN

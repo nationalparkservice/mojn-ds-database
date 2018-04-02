@@ -1,8 +1,8 @@
 ﻿CREATE VIEW [metadata].[TableDescriptions]
 AS
-SELECT        s.name AS SchemaName, t .Name AS TableName, ep.value AS TableDescription
+SELECT        s.name AS SchemaName, t.name AS TableName, ep.value AS TableDescription
 FROM            sys.tables t INNER JOIN
-                         sys.schemas s ON t .schema_id = s.schema_id OUTER APPLY fn_listextendedproperty('MS_Description', 'schema', s.name, 'table', t .name, NULL, NULL) ep
+                         sys.schemas s ON t.schema_id = s.schema_id OUTER APPLY fn_listextendedproperty('MS_Description', 'schema', s.name, 'table', t.name, NULL, NULL) ep
 WHERE s.name IN ('ref', 'lookup', 'data')
 
 

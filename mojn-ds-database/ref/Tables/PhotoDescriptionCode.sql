@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [ref].[PhotoDescriptionCode] (
     [ID]                SMALLINT     IDENTITY (1, 1) NOT NULL,
-    [Code]              VARCHAR (10) NOT NULL,
+    [Code]              VARCHAR (15) NOT NULL,
     [Label]             VARCHAR (50) NOT NULL,
     [IsMonitoringPhoto] BIT          NOT NULL,
     [PhotoSOPID]        TINYINT      NOT NULL,
