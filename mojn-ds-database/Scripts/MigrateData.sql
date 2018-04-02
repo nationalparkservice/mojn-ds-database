@@ -1112,49 +1112,49 @@ END
 ------------------------------------
 ----ref.PhotoDescriptionCode
 ------------------------------------
---IF NOT EXISTS (SELECT TOP 1 1 FROM ref.PhotoDescriptionCode)
---BEGIN
---	INSERT INTO ref.PhotoDescriptionCode (
---		Code,
---		Label,
---		PhotoSOPID,
---		IsMonitoringPhoto,
---		IsActive
---	)
---	SELECT
---		Code,
---		Label,
---		1 AS PhotoSOPID,
---		1 AS IsMonitoringPhoto,
---		IsActive
---	FROM lookup.RepeatPhotoType
---	UNION
---	SELECT
---		Code,
---		Label,
---		2 AS PhotoSOPID,
---		1 AS IsMonitoringPhoto,
---		1 AS IsActive
---	FROM lookup.LifeForm
---	UNION
---	SELECT
---		USDAPlantsCode AS Code,
---		ScientificName AS Label,
---		3 AS PhotoSOPID,
---		1 AS IsMonitoringPhoto,
---		1 AS IsActive
---	FROM ref.Taxon
---	WHERE Invasive = 1
---	UNION
---	SELECT
---		Code,
---		Label,
---		4 AS PhotoSOPID,
---		1 AS IsMonitoringPhoto,
---		1 AS IsActive
---	FROM lookup.WildlifeType
---	ORDER BY PhotoSOPID
---END
+IF NOT EXISTS (SELECT TOP 1 1 FROM ref.PhotoDescriptionCode)
+BEGIN
+	INSERT INTO ref.PhotoDescriptionCode (
+		Code,
+		Label,
+		PhotoSOPID,
+		IsMonitoringPhoto,
+		IsActive
+	)
+	SELECT
+		Code,
+		Label,
+		1 AS PhotoSOPID,
+		1 AS IsMonitoringPhoto,
+		IsActive
+	FROM lookup.RepeatPhotoType
+	UNION
+	SELECT
+		Code,
+		Label,
+		2 AS PhotoSOPID,
+		1 AS IsMonitoringPhoto,
+		1 AS IsActive
+	FROM lookup.LifeForm
+	UNION
+	SELECT
+		USDAPlantsCode AS Code,
+		ScientificName AS Label,
+		3 AS PhotoSOPID,
+		1 AS IsMonitoringPhoto,
+		1 AS IsActive
+	FROM ref.Taxon
+	WHERE Invasive = 1
+	UNION
+	SELECT
+		Code,
+		Label,
+		4 AS PhotoSOPID,
+		1 AS IsMonitoringPhoto,
+		1 AS IsActive
+	FROM lookup.WildlifeType
+	ORDER BY PhotoSOPID
+END
 GO
 
 
