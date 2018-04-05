@@ -11,7 +11,6 @@
     CONSTRAINT [PK_SensorRetrievalAttempt] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [CK_SensorRetrievalAttempt_Notes_DisallowZeroLength] CHECK (len([Notes])>(0)),
     CONSTRAINT [CK_SensorRetrievalAttempt_Notes_DisallowZeroLengthString] CHECK (len([Notes])>(0)),
-    CONSTRAINT [CK_SensorRetrievalAttempt_OneSuccessfulRetrievalPerDeployment] CHECK ([qa].[Sensor_Validate_OneSuccessfulRetrievalPerDeployment]([VisitID],[SensorDeploymentID],[RetrievalTimeOfDay],[IsSensorRetrievedID])=(1)),
     CONSTRAINT [FK_SensorRetrievalAttempt_IsDownloadSuccessful] FOREIGN KEY ([IsDownloadSuccessfulID]) REFERENCES [lookup].[IsDownloadSuccessful] ([ID]),
     CONSTRAINT [FK_SensorRetrievalAttempt_IsSensorRetrieved] FOREIGN KEY ([IsSensorRetrievedID]) REFERENCES [lookup].[IsSensorRetrieved] ([ID]),
     CONSTRAINT [FK_SensorRetrievalAttempt_SensorDeployment] FOREIGN KEY ([SensorDeploymentID]) REFERENCES [data].[SensorDeployment] ([ID]),

@@ -1744,6 +1744,29 @@ END
 GO
 
 ----------------------------------
+--data.PhotoActivity
+----------------------------------
+IF NOT EXISTS (SELECT TOP 1 1 FROM data.PhotoActivity)
+BEGIN
+	INSERT INTO data.PhotoActivity (
+		VisitID,
+		CameraID,
+		CameraCardID,
+		DataProcessingLevelID,
+		DataProcessingLevelDate,
+		DataProcessingLevelNote
+	)
+	SELECT
+		v.ID AS VisitID,
+		rp.CameraID,
+		rp.CameraCardID,
+		v.DataProcessingLevelID,
+		v.DataProcessingLevelDate,
+		NULL AS DataProcessingLevelNote
+	FROM data.RepeatPhotoActivity rp
+	LEFT JOIN data.Visit v ON rp.VisitID = v.ID
+END
+----------------------------------
 --data.RiparianVegetationActivity
 ----------------------------------
 IF NOT EXISTS (SELECT TOP 1 1 FROM data.RiparianVegetationActivity)
@@ -1835,6 +1858,8 @@ GO
 ----------------------------------
 --data.SensorDeployment
 ----------------------------------
+ALTER TABLE data.SensorRetrievalAttempt NOCHECK CONSTRAINT ALL
+
 IF NOT EXISTS (SELECT TOP 1 1 FROM data.SensorDeployment)
 BEGIN
 	SET IDENTITY_INSERT data.SensorDeployment ON;
@@ -1868,7 +1893,7 @@ BEGIN
 		ID,
 		VisitID,
 		SensorDeploymentID,
-		IsSensorRetrieved,
+		IsSensorRetrievedID,
 		SensorProblemID,
 		RetrievalTimeOfDay,
 		IsDownloadSuccessfulID,
@@ -1889,7 +1914,7 @@ BEGIN
 	SET IDENTITY_INSERT data.SensorRetrievalAttempt OFF;
 END
 GO
-
+ALTER TABLE data.SensorRetrievalAttempt WITH CHECK CHECK CONSTRAINT ALL
 ----------------------------------
 --data.SpringbrookDimensions
 ----------------------------------

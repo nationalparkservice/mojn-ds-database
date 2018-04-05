@@ -525,10 +525,6 @@
     <Build Include="Security\NPS_awhalen.sql" />
     <Build Include="Security\NPS_acalvert.sql" />
     <Build Include="Security\RoleMemberships.sql" />
-    <Build Include="qa\Functions\Sensor_Validate_OneSuccessfulRetrievalPerDeployment.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
     <Build Include="qa\Functions\Water_Year.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -556,7 +552,7 @@
     <Build Include="ExtendedProperties.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\MigrateData.sql" />
+    <PostDeploy Include="Scripts\MigrateData.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mojn-ds-original\mojn-ds-original.sqlproj">
