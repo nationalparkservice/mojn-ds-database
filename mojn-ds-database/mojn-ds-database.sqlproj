@@ -550,6 +550,7 @@
     <Build Include="Security\temp.sql" />
     <Build Include="Security\Permissions.sql" />
     <Build Include="ExtendedProperties.sql" />
+    <None Include="Scripts\AllPhotos.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\MigrateData.sql" />
@@ -558,7 +559,7 @@
     <ProjectReference Include="..\mojn-ds-original\mojn-ds-original.sqlproj">
       <Name>mojn-ds-original</Name>
       <Project>{7b727efd-d995-4162-b241-e08072ae0f7b}</Project>
-      <Private>True</Private>
+      <Private>False</Private>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
       <DatabaseVariableLiteralValue>MOJN_DS</DatabaseVariableLiteralValue>
     </ProjectReference>
@@ -568,9 +569,13 @@
       <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\130\SqlSchemas\master.dacpac</HintPath>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
       <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+      <Private>False</Private>
     </ArtifactReference>
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="mojn-ds-database.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\DeleteData.sql" />
   </ItemGroup>
 </Project>

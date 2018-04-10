@@ -1858,8 +1858,6 @@ GO
 ----------------------------------
 --data.SensorDeployment
 ----------------------------------
-ALTER TABLE data.SensorRetrievalAttempt NOCHECK CONSTRAINT ALL
-
 IF NOT EXISTS (SELECT TOP 1 1 FROM data.SensorDeployment)
 BEGIN
 	SET IDENTITY_INSERT data.SensorDeployment ON;
@@ -1914,7 +1912,6 @@ BEGIN
 	SET IDENTITY_INSERT data.SensorRetrievalAttempt OFF;
 END
 GO
-ALTER TABLE data.SensorRetrievalAttempt WITH CHECK CHECK CONSTRAINT ALL
 ----------------------------------
 --data.SpringbrookDimensions
 ----------------------------------
