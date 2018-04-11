@@ -1154,6 +1154,14 @@ BEGIN
 		1 AS IsActive
 	FROM lookup.WildlifeType
 	ORDER BY PhotoSOPID
+	
+	INSERT INTO ref.PhotoDescriptionCode (
+		Code,
+		Label,
+		PhotoSOPID,
+		IsMonitoringPhoto,
+		IsActive
+	) VALUES (N'MISC', N'Miscellaneous', 9, 1, 1)
 END
 GO
 
