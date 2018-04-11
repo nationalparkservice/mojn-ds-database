@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [data].[Photo] (
     [ID]                     INT           IDENTITY (1, 1) NOT NULL,
     [PhotoActivityID]        INT           NOT NULL,
+	[DateTaken]				 DATETIME2 (0) NOT NULL,
     [PhotoDescriptionCodeID] SMALLINT      NOT NULL,
     [IsLibraryPhotoID]       TINYINT       NOT NULL,
     [OriginalFilePath]       VARCHAR (300) NOT NULL,
@@ -18,16 +19,7 @@
 
 
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [UX_Photo_OriginalFilePath]
-    ON [data].[Photo]([OriginalFilePath] ASC);
 
-
-GO
-CREATE UNIQUE NONCLUSTERED INDEX [UX_Photo_RenamedFilePath]
-    ON [data].[Photo]([RenamedFilePath] ASC);
-
-
-GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Photos taken at the spring', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'Photo';
 
 
@@ -62,3 +54,11 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Notes about
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Date the record was created', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'Photo', @level2type = N'COLUMN', @level2name = N'DateCreated';
 
+
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UX_Photo_PhotoActivityID_PhotoDescriptionCodeID_OriginalFilePath] ON [data].[Photo] (PhotoActivityID ASC, PhotoDescriptionCodeID ASC, OriginalFilePath ASC)
+
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UX_RenamedFilePath] ON [data].[Photo] (RenamedFilePath ASC)

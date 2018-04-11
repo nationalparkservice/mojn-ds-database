@@ -1154,6 +1154,14 @@ BEGIN
 		1 AS IsActive
 	FROM lookup.WildlifeType
 	ORDER BY PhotoSOPID
+	
+	INSERT INTO ref.PhotoDescriptionCode (
+		Code,
+		Label,
+		PhotoSOPID,
+		IsMonitoringPhoto,
+		IsActive
+	) VALUES (N'MISC', N'Miscellaneous', 9, 1, 1)
 END
 GO
 
@@ -1744,6 +1752,29 @@ END
 GO
 
 ----------------------------------
+--data.PhotoActivity
+----------------------------------
+IF NOT EXISTS (SELECT TOP 1 1 FROM data.PhotoActivity)
+BEGIN
+	INSERT INTO data.PhotoActivity (
+		VisitID,
+		CameraID,
+		CameraCardID,
+		DataProcessingLevelID,
+		DataProcessingLevelDate,
+		DataProcessingLevelNote
+	)
+	SELECT
+		v.ID AS VisitID,
+		rp.CameraID,
+		rp.CameraCardID,
+		v.DataProcessingLevelID,
+		v.DataProcessingLevelDate,
+		NULL AS DataProcessingLevelNote
+	FROM data.RepeatPhotoActivity rp
+	LEFT JOIN data.Visit v ON rp.VisitID = v.ID
+END
+----------------------------------
 --data.RiparianVegetationActivity
 ----------------------------------
 IF NOT EXISTS (SELECT TOP 1 1 FROM data.RiparianVegetationActivity)
@@ -1868,7 +1899,7 @@ BEGIN
 		ID,
 		VisitID,
 		SensorDeploymentID,
-		IsSensorRetrieved,
+		IsSensorRetrievedID,
 		SensorProblemID,
 		RetrievalTimeOfDay,
 		IsDownloadSuccessfulID,
@@ -1889,7 +1920,6 @@ BEGIN
 	SET IDENTITY_INSERT data.SensorRetrievalAttempt OFF;
 END
 GO
-
 ----------------------------------
 --data.SpringbrookDimensions
 ----------------------------------
@@ -2194,5 +2224,73 @@ BEGIN
 END
 GO
 
-USE MOJN_DS_Dev;
+----------------------------------
+--temp.LoadPhotoData
+----------------------------------
+
+IF NOT EXISTS (SELECT TOP 1 1  FROM temp.LoadPhotoData)
+BEGIN
+	BULK INSERT temp.LoadPhotoData 
+	FROM 'C:\Users\sewright\Documents\R\mojn-ds-migratephotos\DataToLoad' 
+	WITH   
+      (  
+		 CODEPAGE = 1252,
+         FIELDTERMINATOR ='|',  
+         ROWTERMINATOR ='\n'  
+      );
+END
+GO
+
+----------------------------------
+--data.Photo
+----------------------------------
+IF NOT EXISTS (SELECT TOP 1 1 FROM data.Photo)
+BEGIN
+	INSERT INTO data.Photo (
+		PhotoActivityID,
+		DateTaken,
+		PhotoDescriptionCodeID,
+		IsLibraryPhotoID,
+		OriginalFilePath,
+		RenamedFilePath,
+		Notes
+	)
+	SELECT
+		pa.ID AS PhotoActivityID,
+		lp.DateTaken,
+		pd.ID AS PhotoDescriptionCodeID,
+		lp.IsLibraryPhotoID,
+		lp.OriginalFilePath,
+		lp.RenamedFilePath,
+		lp.Notes
+	FROM temp.LoadPhotoData lp
+	LEFT JOIN data.PhotoActivity pa ON pa.VisitID = lp.VisitID
+	LEFT JOIN ref.PhotoDescriptionCode pd ON pd.Code = lp.PhotoDescription AND pd.PhotoSOPID = lp.SOPID;
+END
+GO
+
+----------------------------------
+--data.PhotoCoordinates
+----------------------------------
+IF NOT EXISTS (SELECT TOP 1 1 FROM data.PhotoCoordinates)
+BEGIN
+	INSERT INTO data.PhotoCoordinates (
+		GPSUnitID,
+		PhotoID,
+		HorizontalDatumID,
+		UTMZoneID,
+		UtmX_m,
+		UtmY_m
+	)
+	SELECT
+		lp.GPSUnitID,
+		p.ID AS PhotoID,
+		lp.HorizontalDatumID,
+		lp.UTMZoneID,
+		lp.UtmX_m,
+		lp.UtmY_m
+	FROM temp.LoadPhotoData lp
+	LEFT JOIN data.Photo p ON p.RenamedFilePath = lp.RenamedFilePath
+	WHERE GPSUnitID IS NOT NULL;
+END
 GO
