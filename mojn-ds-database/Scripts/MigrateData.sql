@@ -2224,5 +2224,14 @@ BEGIN
 END
 GO
 
-USE MOJN_DS_Dev;
+IF NOT EXISTS (SELECT TOP 1 1  FROM temp.LoadPhotoData)
+BEGIN
+	BULK INSERT temp.LoadPhotoData 
+	FROM 'D:\SQL\DataToLoad\MOJN_DS_Dev\DataToLoad' 
+	WITH   
+      (  
+         FIELDTERMINATOR ='|',  
+         ROWTERMINATOR ='\n'  
+      );
+END
 GO

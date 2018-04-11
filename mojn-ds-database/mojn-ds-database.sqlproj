@@ -551,6 +551,7 @@
     <Build Include="Security\Permissions.sql" />
     <Build Include="ExtendedProperties.sql" />
     <None Include="Scripts\AllPhotos.sql" />
+    <Build Include="temp\LoadPhotoData.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\MigrateData.sql" />
