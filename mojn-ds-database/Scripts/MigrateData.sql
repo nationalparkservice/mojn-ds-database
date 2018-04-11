@@ -2224,14 +2224,73 @@ BEGIN
 END
 GO
 
+----------------------------------
+--temp.LoadPhotoData
+----------------------------------
+
 IF NOT EXISTS (SELECT TOP 1 1  FROM temp.LoadPhotoData)
 BEGIN
 	BULK INSERT temp.LoadPhotoData 
-	FROM 'D:\SQL\DataToLoad\MOJN_DS_Dev\DataToLoad' 
+	FROM 'C:\Users\sewright\Documents\R\mojn-ds-migratephotos\DataToLoad' 
 	WITH   
       (  
+		 CODEPAGE = 1252,
          FIELDTERMINATOR ='|',  
          ROWTERMINATOR ='\n'  
       );
+END
+GO
+
+----------------------------------
+--data.Photo
+----------------------------------
+IF NOT EXISTS (SELECT TOP 1 1 FROM data.Photo)
+BEGIN
+	INSERT INTO data.Photo (
+		PhotoActivityID,
+		DateTaken,
+		PhotoDescriptionCodeID,
+		IsLibraryPhotoID,
+		OriginalFilePath,
+		RenamedFilePath,
+		Notes
+	)
+	SELECT
+		pa.ID AS PhotoActivityID,
+		lp.DateTaken,
+		pd.ID AS PhotoDescriptionCodeID,
+		lp.IsLibraryPhotoID,
+		lp.OriginalFilePath,
+		lp.RenamedFilePath,
+		lp.Notes
+	FROM temp.LoadPhotoData lp
+	LEFT JOIN data.PhotoActivity pa ON pa.VisitID = lp.VisitID
+	LEFT JOIN ref.PhotoDescriptionCode pd ON pd.Code = lp.PhotoDescription AND pd.PhotoSOPID = lp.SOPID;
+END
+GO
+
+----------------------------------
+--data.PhotoCoordinates
+----------------------------------
+IF NOT EXISTS (SELECT TOP 1 1 FROM data.PhotoCoordinates)
+BEGIN
+	INSERT INTO data.PhotoCoordinates (
+		GPSUnitID,
+		PhotoID,
+		HorizontalDatumID,
+		UTMZoneID,
+		UtmX_m,
+		UtmY_m
+	)
+	SELECT
+		lp.GPSUnitID,
+		p.ID AS PhotoID,
+		lp.HorizontalDatumID,
+		lp.UTMZoneID,
+		lp.UtmX_m,
+		lp.UtmY_m
+	FROM temp.LoadPhotoData lp
+	LEFT JOIN data.Photo p ON p.RenamedFilePath = lp.RenamedFilePath
+	WHERE GPSUnitID IS NOT NULL;
 END
 GO
