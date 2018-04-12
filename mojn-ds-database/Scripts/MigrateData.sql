@@ -10,8 +10,6 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-USE MOJN_DS_Dev;
-GO
 ----------------------------------
 --lookup.PhotoSOP
 ----------------------------------
@@ -1179,9 +1177,9 @@ BEGIN
 		Description
 	)
 	VALUES
-	(1, N'PhotoShareDirectory', N'\\INPLAKE52V\ORG\MONITORING\DesertSprings\Data\Images', N'UNC of the network share where photos reside.'),
-	(2, N'SiteInfoSheetShareDirectory', N'\\INPLAKE52V\ORG\MONITORING\DesertSprings\Implementation\SitePackets', N'UNC of the Site Information Sheet network share.'),
-	(3, N'FieldNotesShareDirectory', N'\\INPLAKE52V\ORG\MONITORING\DesertSprings\Data\FieldData', N'UNC of the network share where field notes reside.');
+	(1, N'PhotoShareDirectory', N'\\INPLAKE52V\ORG\MONITORING\DS_Water\Data\Images', N'UNC of the network share where photos reside.'),
+	(2, N'SiteInfoSheetShareDirectory', N'\\INPLAKE52V\ORG\MONITORING\DS_Water\Implementation\SitePackets', N'UNC of the Site Information Sheet network share.'),
+	(3, N'FieldNotesShareDirectory', N'\\INPLAKE52V\ORG\MONITORING\DS_Water\Data\FieldData', N'UNC of the network share where field notes reside.');
 	SET IDENTITY_INSERT app.ConfigurationVariable OFF;
 END
 GO
@@ -2228,7 +2226,23 @@ GO
 --temp.LoadPhotoData
 ----------------------------------
 
-IF NOT EXISTS (SELECT TOP 1 1  FROM temp.LoadPhotoData)
+CREATE TABLE [temp].[LoadPhotoData]
+(
+	[VisitID] INT NOT NULL , 
+    [DateTaken] DATETIME2(0) NOT NULL, 
+    [PhotoDescription] VARCHAR(20) NOT NULL, 
+    [SOPID] TINYINT NOT NULL, 
+    [IsLibraryPhotoID] TINYINT NOT NULL, 
+    [OriginalFilePath] VARCHAR(300) NOT NULL, 
+    [RenamedFilePath] VARCHAR(300) NOT NULL, 
+    [Notes] VARCHAR(500) NULL, 
+    [GPSUnitID] TINYINT NULL, 
+    [HorizontalDatumID] TINYINT NULL, 
+    [UTMZoneID] TINYINT NULL, 
+    [UtmX_m] DECIMAL(8, 2) NULL, 
+    [UtmY_m] DECIMAL(9, 2) NULL
+)
+
 BEGIN
 	BULK INSERT temp.LoadPhotoData 
 	FROM 'C:\Users\sewright\Documents\R\mojn-ds-migratephotos\DataToLoad' 
@@ -2294,3 +2308,5 @@ BEGIN
 	WHERE GPSUnitID IS NOT NULL;
 END
 GO
+
+DROP TABLE temp.LoadPhotoData;

@@ -19,16 +19,16 @@ SELECT
 	v.VisitDate AS VisitDate,
 	v.StartTime AS VisitTime,
 	s.Code AS SiteCode
-FROM MOJN_DS_Dev.data.RiparianVegetationPhoto rvp
-LEFT JOIN MOJN_DS_Dev.data.RiparianVegetationObservation ro ON rvp.RiparianVegetationObservationID = ro.ID
-LEFT JOIN MOJN_DS_Dev.lookup.LifeForm lf ON ro.LifeFormID = lf.ID
-LEFT JOIN MOJN_DS_Dev.data.RiparianVegetationActivity ra ON ro.RiparianVegetationActivityID = ra.ID
-LEFT JOIN MOJN_DS_Dev.data.Visit v ON ra.VisitID = v.ID
-LEFT JOIN MOJN_DS_Dev.data.PhotoActivity pa ON v.ID = pa.VisitID
-LEFT JOIN MOJN_DS_Dev.data.Site s ON v.SiteID = s.ID
-LEFT JOIN MOJN_DS_Dev.ref.Camera c ON pa.CameraID = c.ID
-LEFT JOIN MOJN_DS_Dev.ref.CameraCard cc ON pa.CameraCardID = cc.ID
-LEFT JOIN MOJN_DS_Dev.ref.PhotoDescriptionCode pc ON pc.Code = lf.Code AND pc.PhotoSOPID = 2
+FROM data.RiparianVegetationPhoto rvp
+LEFT JOIN data.RiparianVegetationObservation ro ON rvp.RiparianVegetationObservationID = ro.ID
+LEFT JOIN lookup.LifeForm lf ON ro.LifeFormID = lf.ID
+LEFT JOIN data.RiparianVegetationActivity ra ON ro.RiparianVegetationActivityID = ra.ID
+LEFT JOIN data.Visit v ON ra.VisitID = v.ID
+LEFT JOIN data.PhotoActivity pa ON v.ID = pa.VisitID
+LEFT JOIN data.Site s ON v.SiteID = s.ID
+LEFT JOIN ref.Camera c ON pa.CameraID = c.ID
+LEFT JOIN ref.CameraCard cc ON pa.CameraCardID = cc.ID
+LEFT JOIN ref.PhotoDescriptionCode pc ON pc.Code = lf.Code AND pc.PhotoSOPID = 2
 
 UNION
 
@@ -54,16 +54,16 @@ SELECT
 	v.StartTime AS VisitTime,
 	s.Code AS SiteCode
 FROM
-MOJN_DS_Dev.data.RepeatPhoto rp
-LEFT JOIN MOJN_DS_Dev.data.RepeatPhotoObservation ro ON rp.RepeatPhotoObservationID = ro.ID
-LEFT JOIN MOJN_DS_Dev.lookup.RepeatPhotoType rt ON ro.RepeatPhotoTypeID = rt.ID
-LEFT JOIN MOJN_DS_Dev.data.RepeatPhotoActivity ra ON ro.RepeatPhotoActivityID = ra.ID
-LEFT JOIN MOJN_DS_Dev.data.PhotoActivity pa ON ra.VisitID = pa.VisitID
-LEFT JOIN MOJN_DS_Dev.ref.Camera c ON pa.CameraID = c.ID
-LEFT JOIN MOJN_DS_Dev.ref.CameraCard cc ON pa.CameraCardID = cc.ID
-LEFT JOIN MOJN_DS_Dev.data.Visit v ON ra.VisitID = v.ID
-LEFT JOIN MOJN_DS_Dev.data.Site s ON v.SiteID = s.ID
-LEFT JOIN MOJN_DS_Dev.ref.PhotoDescriptionCode pc ON pc.Code = rt.Code AND pc.PhotoSOPID = 1
+data.RepeatPhoto rp
+LEFT JOIN data.RepeatPhotoObservation ro ON rp.RepeatPhotoObservationID = ro.ID
+LEFT JOIN lookup.RepeatPhotoType rt ON ro.RepeatPhotoTypeID = rt.ID
+LEFT JOIN data.RepeatPhotoActivity ra ON ro.RepeatPhotoActivityID = ra.ID
+LEFT JOIN data.PhotoActivity pa ON ra.VisitID = pa.VisitID
+LEFT JOIN ref.Camera c ON pa.CameraID = c.ID
+LEFT JOIN ref.CameraCard cc ON pa.CameraCardID = cc.ID
+LEFT JOIN data.Visit v ON ra.VisitID = v.ID
+LEFT JOIN data.Site s ON v.SiteID = s.ID
+LEFT JOIN ref.PhotoDescriptionCode pc ON pc.Code = rt.Code AND pc.PhotoSOPID = 1
 
 UNION
 
@@ -88,16 +88,16 @@ SELECT
 	v.VisitDate AS VisitDate,
 	v.StartTime AS VisitTime,
 	s.Code AS SiteCode
-FROM MOJN_DS_Dev.data.InvasivesPhoto ip
-LEFT JOIN MOJN_DS_Dev.data.InvasivesObservation inv ON ip.InvasivesObservationID = inv.ID
-LEFT JOIN MOJN_DS_Dev.ref.Taxon t ON inv.TaxonID = t.ID
-LEFT JOIN MOJN_DS_Dev.data.InvasivesActivity ia ON inv.InvasivesActivityID = ia.ID
-LEFT JOIN MOJN_DS_Dev.data.Visit v ON ia.VisitID = v.ID
-LEFT JOIN MOJN_DS_Dev.data.PhotoActivity pa ON v.ID = pa.VisitID
-LEFT JOIN MOJN_DS_Dev.data.Site s ON v.SiteID = s.ID
-LEFT JOIN MOJN_DS_Dev.ref.Camera c ON pa.CameraID = c.ID
-LEFT JOIN MOJN_DS_Dev.ref.CameraCard cc ON pa.CameraCardID = cc.ID
-LEFT JOIN MOJN_DS_Dev.ref.PhotoDescriptionCode pc ON pc.Code = t.USDAPlantsCode AND pc.PhotoSOPID = 3
+FROM data.InvasivesPhoto ip
+LEFT JOIN data.InvasivesObservation inv ON ip.InvasivesObservationID = inv.ID
+LEFT JOIN ref.Taxon t ON inv.TaxonID = t.ID
+LEFT JOIN data.InvasivesActivity ia ON inv.InvasivesActivityID = ia.ID
+LEFT JOIN data.Visit v ON ia.VisitID = v.ID
+LEFT JOIN data.PhotoActivity pa ON v.ID = pa.VisitID
+LEFT JOIN data.Site s ON v.SiteID = s.ID
+LEFT JOIN ref.Camera c ON pa.CameraID = c.ID
+LEFT JOIN ref.CameraCard cc ON pa.CameraCardID = cc.ID
+LEFT JOIN ref.PhotoDescriptionCode pc ON pc.Code = t.USDAPlantsCode AND pc.PhotoSOPID = 3
 
 UNION
 
@@ -123,8 +123,8 @@ SELECT
 	v.StartTime AS VisitTime,
 	s.Code AS SiteCode
 FROM MOJN_DS.dbo.MiscellaneousPhotos mp
-LEFT JOIN MOJN_DS_Dev.data.Visit v ON mp.SpringLocationVisitID = v.ID
-LEFT JOIN MOJN_DS_Dev.data.PhotoActivity pa ON v.ID = pa.VisitID
-LEFT JOIN MOJN_DS_Dev.data.Site s ON v.SiteID = s.ID
-LEFT JOIN MOJN_DS_Dev.ref.Camera c ON pa.CameraID = c.ID
-LEFT JOIN MOJN_DS_Dev.ref.CameraCard cc ON pa.CameraCardID = cc.ID
+LEFT JOIN data.Visit v ON mp.SpringLocationVisitID = v.ID
+LEFT JOIN data.PhotoActivity pa ON v.ID = pa.VisitID
+LEFT JOIN data.Site s ON v.SiteID = s.ID
+LEFT JOIN ref.Camera c ON pa.CameraID = c.ID
+LEFT JOIN ref.CameraCard cc ON pa.CameraCardID = cc.ID
