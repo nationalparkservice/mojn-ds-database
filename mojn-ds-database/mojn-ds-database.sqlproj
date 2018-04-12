@@ -552,6 +552,7 @@
     <Build Include="ExtendedProperties.sql" />
     <None Include="Scripts\AllPhotos.sql" />
     <Build Include="temp\MissingPhotos.sql" />
+    <Build Include="app\Views\ActivityDashboard.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\MigrateData.sql" />
