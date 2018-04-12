@@ -2245,7 +2245,7 @@ CREATE TABLE [temp].[LoadPhotoData]
 
 BEGIN
 	BULK INSERT temp.LoadPhotoData 
-	FROM 'C:\Users\sewright\Documents\R\mojn-ds-migratephotos\DataToLoad' 
+	FROM 'D:\SQL\DataToLoad\MOJN_DS_Dev\DataToLoad' 
 	WITH   
       (  
 		 CODEPAGE = 1252,
