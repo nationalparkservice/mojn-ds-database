@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [app].[Visit]
 AS
-SELECT        V.ID, V.VisitDate, V.StartTime, V.Notes, V.VisitTypeID, V.ProtocolID, V.MonitoringStatusID, S.Name, V.SpringTypeID, S.Code, S.AccessDirections, S.Lat_WGS84, S.Lon_WGS84, S.ID AS SiteID, P.Code AS ParkCode, 
+SELECT        V.ID, S.Code + ' (' + S.Name + ')' AS Label, V.VisitDate, V.StartTime, V.Notes, V.VisitTypeID, V.ProtocolID, V.MonitoringStatusID, S.Name, V.SpringTypeID, S.Code, S.AccessDirections, S.Lat_WGS84, S.Lon_WGS84, S.ID AS SiteID, P.Code AS ParkCode, 
                          SU.Code AS SubUnitCode, P.ID AS ParkID, V.DataProcessingLevelID, V.DataProcessingLevelDate, V.DataProcessingLevelNote
 FROM            data.Visit AS V INNER JOIN
                          data.Site AS S ON V.SiteID = S.ID INNER JOIN

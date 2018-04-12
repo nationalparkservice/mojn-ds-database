@@ -1,12 +1,3 @@
-USE [MOJN_DS_Dev]
-GO
-
-/****** Object:  View [app].[ActivityDashboard]    Script Date: 4/11/2018 3:00:58 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
 
 CREATE VIEW [app].[ActivityDashboard]
 AS
