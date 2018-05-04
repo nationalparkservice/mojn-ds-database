@@ -513,7 +513,6 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Security\NPS_nhupp.sql" />
-    <Build Include="Security\NPS_mhsteiner.sql" />
     <Build Include="Security\NPS_JBrackin.sql" />
     <Build Include="Security\NPS_jbailard.sql" />
     <Build Include="Security\NPS_GMoret.sql" />

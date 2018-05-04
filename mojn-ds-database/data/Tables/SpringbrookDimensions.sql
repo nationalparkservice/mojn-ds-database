@@ -1,14 +1,14 @@
 ﻿CREATE TABLE [data].[SpringbrookDimensions] (
     [ID]                       INT            IDENTITY (1, 1) NOT NULL,
     [DischargeActivityID]      INT            NOT NULL,
-    [SpringbrookLength_meters] DECIMAL (5, 2) NULL,
+    [SpringbrookLength_m] DECIMAL (5, 2) NULL,
     [SpringbrookWidth_m]       DECIMAL (5, 2) NULL,
     [SpringbrookLengthFlagID]  TINYINT        NULL,
     [Notes]                    VARCHAR (500)  NULL,
     [DateCreated]              DATETIME2 (0)  CONSTRAINT [DF_SpringbrookDimensions_DateCreated] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_SpringbrookDimensions] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [CK_SpringbrookDimensions_Notes_DisallowZeroLength] CHECK (len([Notes])>(0)),
-    CONSTRAINT [CK_SpringbrookDimensions_SpringbrookLength_meters] CHECK ([SpringbrookLength_meters]>=(0) AND [SpringbrookLength_meters]<=(1000)),
+    CONSTRAINT [CK_SpringbrookDimensions_SpringbrookLength_meters] CHECK ([SpringbrookLength_m]>=(0) AND [SpringbrookLength_m]<=(1000)),
     CONSTRAINT [CK_SpringbrookDimensions_SpringbrookWidth_m] CHECK ([SpringbrookWidth_m]>=(0) AND [SpringbrookWidth_m]<=(100)),
     CONSTRAINT [FK_SpringbrookDimensions_DischargeActivity] FOREIGN KEY ([DischargeActivityID]) REFERENCES [data].[DischargeActivity] ([ID]),
     CONSTRAINT [FK_SpringbrookDimensions_SpringbrookLengthFlag] FOREIGN KEY ([SpringbrookLengthFlagID]) REFERENCES [lookup].[SpringbrookLengthFlag] ([ID])
@@ -28,7 +28,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Foreign key
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Length of springbrook in meters', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'SpringbrookDimensions', @level2type = N'COLUMN', @level2name = N'SpringbrookLength_meters';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Length of springbrook in meters', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'SpringbrookDimensions', @level2type = N'COLUMN', @level2name = 'SpringbrookLength_m';
 
 
 GO

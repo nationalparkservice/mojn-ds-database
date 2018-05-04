@@ -2,6 +2,7 @@
     [ID]                      INT           IDENTITY (1, 1) NOT NULL,
     [VisitID]                 INT           NOT NULL,
     [IsWildlifeObservedID]    TINYINT       NOT NULL,
+	[Notes]					  VARCHAR (2000)NULL,
     [DataProcessingLevelID]   TINYINT       CONSTRAINT [DF_WildlifeActivity_DataProcessingLevelID] DEFAULT ((1)) NOT NULL,
     [DataProcessingLevelDate] DATETIME2 (0) CONSTRAINT [DF_WildlifeActivity_DataProcessingLevelDate] DEFAULT (getdate()) NOT NULL,
     [DataProcessingLevelNote] VARCHAR (500) NULL,
