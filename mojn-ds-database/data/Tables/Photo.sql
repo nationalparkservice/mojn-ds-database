@@ -7,7 +7,6 @@
     [OriginalFilePath]       VARCHAR (300) NOT NULL,
     [RenamedFilePath]        VARCHAR (300) NULL,
 	[GPSUnitID]				TINYINT        NULL,
-    [PhotoID]				INT            NULL,
     [HorizontalDatumID]		TINYINT        NULL,
     [UTMZoneID]				TINYINT        NULL,
     [UtmX_m]				DECIMAL (8, 2) NULL,
