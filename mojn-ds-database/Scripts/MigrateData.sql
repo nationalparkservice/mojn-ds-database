@@ -1629,7 +1629,7 @@ BEGIN
 		sl.UtmZoneNumber AS UTMZoneID,
 		sl.CoordinateSourceUnitID AS GPSUnitID,
 		4 AS ProtectedStatusID,
-		tx.TaxonomicReferenceAuthorityID,
+		1 as TaxonomicReferenceAuthorityID,
 		i.DateCreated
 	FROM MOJN_DS.dbo.Invasives AS i
 	LEFT JOIN MOJN_DS.dbo.SpringLocationVisit AS slv ON slv.ID = i.SpringLocationVisitID
@@ -1833,7 +1833,7 @@ BEGIN
 		rvo.DominantSpecies,
 		rvo.ConfirmedPlantCodeID,
 		4 AS ProtectedStatusID,
-		tx.TaxonomicReferenceAuthorityID,
+		1 as TaxonomicReferenceAuthorityID,
 		rvo.DateCreated
 	FROM MOJN_DS.dbo.RiparianVegetationObservation AS rvo
 	LEFT JOIN ref.Taxon AS tx ON tx.ID = rvo.ConfirmedPlantCodeID;
@@ -2247,7 +2247,7 @@ CREATE TABLE [temp].[LoadPhotoData]
 
 BEGIN
 	BULK INSERT temp.LoadPhotoData 
-	FROM 'C:\Users\sewright\Documents\R\mojn-ds-migratephotos\DataToLoad' /*'D:\SQL\DataToLoad\MOJN_DS_Dev\DataToLoad' */
+	FROM 'D:\SQL\DataToLoad\MOJN_DS_Dev\DataToLoad' /* 'C:\Users\sewright\Documents\R\mojn-ds-migratephotos\DataToLoad'*/
 	WITH   
       (  
 		 CODEPAGE = 1252,
