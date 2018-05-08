@@ -548,6 +548,7 @@
     <None Include="Scripts\AllPhotos.sql" />
     <Build Include="temp\MissingPhotos.sql" />
     <Build Include="app\Views\ActivityDashboard.sql" />
+    <Build Include="Security\NPS_mhsteiner.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\MigrateData.sql" />
