@@ -8,9 +8,7 @@
     [EndImplementationDate]   DATETIME2 (0) NULL,
     [CreatedDate]             DATETIME2 (0) NOT NULL DEFAULT (getdate()),
     CONSTRAINT [PK_ProtocolConfiguration] PRIMARY KEY CLUSTERED ([ID] ASC),
-    CONSTRAINT [CK_ProtocolConfiguration_CreatedBy_DisallowZeroLength] CHECK (len([CreatedBy])>(0)),
     CONSTRAINT [CK_ProtocolConfiguration_Description_DisallowZeroLength] CHECK (len([Description])>(0)),
-    CONSTRAINT [CK_ProtocolConfiguration_LastModifiedBy_DisallowZeroLength] CHECK (len([LastModifiedBy])>(0)),
     CONSTRAINT [CK_ProtocolConfiguration_ProtocolName_DisallowZeroLength] CHECK (len([ProtocolName])>(0)),
     CONSTRAINT [CK_ProtocolConfiguration_URL_DisallowZeroLength] CHECK (len([URL])>(0)),
     CONSTRAINT [UN_Protocol_ProtocolName] UNIQUE NONCLUSTERED ([ProtocolName] ASC)
