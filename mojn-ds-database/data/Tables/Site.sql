@@ -5,7 +5,7 @@
     [Code]              VARCHAR (20)   NOT NULL,
     [SubunitID]         SMALLINT       NULL,
     [AccessDirections]  VARCHAR (MAX)  NULL,
-    [GRTSNumber]        INT            NULL,
+    [LEGACY_GRTSNumber]        INT            NULL,
     [Lat_WGS84]         DECIMAL (8, 6) NULL,
     [Lon_WGS84]         DECIMAL (9, 6) NULL,
     [X_UTM_NAD83_11N]   DECIMAL (8, 2) NULL,
@@ -99,7 +99,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_SSMA_SOURCE', @value = N'MultiNetwor
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Legacy GRTS number; now replaced by GRTSOrder', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'Site', @level2type = N'COLUMN', @level2name = N'GRTSNumber';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Legacy GRTS number; now replaced by GRTSOrder', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'Site', @level2type = N'COLUMN', @level2name = 'LEGACY_GRTSNumber';
 
 
 GO

@@ -3,6 +3,7 @@
     [Code]    VARCHAR (5)   NOT NULL,
     [Label]   VARCHAR (25)  NOT NULL,
     [Summary] VARCHAR (200) NULL,
+    [SortOrder] SMALLINT NULL, 
     CONSTRAINT [PK_PhotoSOP] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [CK_PhotoSOP_Code_DisallowZeroLength] CHECK (len([Code])>(0)),
     CONSTRAINT [CK_PhotoSOP_Label_DisallowZeroLength] CHECK (len([Label])>(0)),

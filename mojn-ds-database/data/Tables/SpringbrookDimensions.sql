@@ -8,7 +8,7 @@
     [DateCreated]              DATETIME2 (0)  CONSTRAINT [DF_SpringbrookDimensions_DateCreated] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_SpringbrookDimensions] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [CK_SpringbrookDimensions_Notes_DisallowZeroLength] CHECK (len([Notes])>(0)),
-    CONSTRAINT [CK_SpringbrookDimensions_SpringbrookLength_meters] CHECK ([SpringbrookLength_m]>=(0) AND [SpringbrookLength_m]<=(1000)),
+    CONSTRAINT [CK_SpringbrookDimensions_SpringbrookLength_m] CHECK ([SpringbrookLength_m]>=(0) AND [SpringbrookLength_m]<=(1000)),
     CONSTRAINT [CK_SpringbrookDimensions_SpringbrookWidth_m] CHECK ([SpringbrookWidth_m]>=(0) AND [SpringbrookWidth_m]<=(100)),
     CONSTRAINT [FK_SpringbrookDimensions_DischargeActivity] FOREIGN KEY ([DischargeActivityID]) REFERENCES [data].[DischargeActivity] ([ID]),
     CONSTRAINT [FK_SpringbrookDimensions_SpringbrookLengthFlag] FOREIGN KEY ([SpringbrookLengthFlagID]) REFERENCES [lookup].[SpringbrookLengthFlag] ([ID])

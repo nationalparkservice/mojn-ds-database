@@ -20,18 +20,19 @@ BEGIN
 		ID,
 		Code,
 		Label,
-		Summary
+		Summary,
+		SortOrder
 	)
 	VALUES
-	(1, N'RPT', N'Repeat Photos', NULL),
-	(2, N'RVG', N'Riparian Veg', NULL),
-	(3, N'INV', N'Invasives', NULL),
-	(4, N'WLD', N'Wildlife', NULL),
-	(5, N'DSC', N'Discharge', NULL),
-	(6, N'DST', N'Disturbance', NULL),
-	(7, N'SEN', N'Sensor', NULL),
-	(8, N'WQU', N'Water Quality', NULL),
-	(9, N'MSC', N'Miscellaneous', NULL);
+	(1, N'RPT', N'Repeat Photos', NULL, 1),
+	(2, N'RVG', N'Riparian Veg', NULL, 60),
+	(3, N'INV', N'Invasives', NULL, 70),
+	(4, N'WLD', N'Wildlife', NULL, 50),
+	(5, N'DSC', N'Discharge', NULL, 20),
+	(6, N'DST', N'Disturbance', NULL, 40),
+	(7, N'SEN', N'Sensor', NULL, 10),
+	(8, N'WQU', N'Water Quality', NULL, 30),
+	(9, N'MSC', N'Miscellaneous', NULL, 80);
 	SET IDENTITY_INSERT lookup.PhotoSOP OFF;
 END
 GO
@@ -1628,7 +1629,7 @@ BEGIN
 		sl.UtmZoneNumber AS UTMZoneID,
 		sl.CoordinateSourceUnitID AS GPSUnitID,
 		4 AS ProtectedStatusID,
-		tx.TaxonomicReferenceAuthorityID,
+		1 as TaxonomicReferenceAuthorityID,
 		i.DateCreated
 	FROM MOJN_DS.dbo.Invasives AS i
 	LEFT JOIN MOJN_DS.dbo.SpringLocationVisit AS slv ON slv.ID = i.SpringLocationVisitID
@@ -1832,7 +1833,7 @@ BEGIN
 		rvo.DominantSpecies,
 		rvo.ConfirmedPlantCodeID,
 		4 AS ProtectedStatusID,
-		tx.TaxonomicReferenceAuthorityID,
+		1 as TaxonomicReferenceAuthorityID,
 		rvo.DateCreated
 	FROM MOJN_DS.dbo.RiparianVegetationObservation AS rvo
 	LEFT JOIN ref.Taxon AS tx ON tx.ID = rvo.ConfirmedPlantCodeID;
@@ -1928,7 +1929,7 @@ BEGIN
 	INSERT INTO data.SpringbrookDimensions (
 		ID,
 		DischargeActivityID,
-		SpringbrookLength_meters,
+		SpringbrookLength_m,
 		SpringbrookWidth_m,
 		SpringbrookLengthFlagID,
 		Notes,
@@ -2246,7 +2247,7 @@ CREATE TABLE [temp].[LoadPhotoData]
 
 BEGIN
 	BULK INSERT temp.LoadPhotoData 
-	FROM 'D:\SQL\DataToLoad\MOJN_DS_Dev\DataToLoad' 
+	FROM 'D:\SQL\DataToLoad\MOJN_DS_Dev\DataToLoad' /* 'C:\Users\sewright\Documents\R\mojn-ds-migratephotos\DataToLoad'*/
 	WITH   
       (  
 		 CODEPAGE = 1252,
