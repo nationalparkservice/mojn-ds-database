@@ -2,7 +2,7 @@
     [ID]      TINYINT       IDENTITY (1, 1) NOT NULL,
     [Code]    VARCHAR (10)  NOT NULL,
     [Label]   VARCHAR (50)  NOT NULL,
-    [Summary] VARCHAR (100) NULL,
+    [Summary] VARCHAR (500) NULL,
     CONSTRAINT [PK_GRTSStatus] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [CK_GRTSStatus_Code_DisallowZeroLength] CHECK (len([Code])>(0)),
     CONSTRAINT [CK_GRTSStatus_Label_DisallowZeroLength] CHECK (len([Label])>(0)),
