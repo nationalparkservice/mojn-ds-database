@@ -6,10 +6,7 @@
     [URL]                     VARCHAR (200) NOT NULL,
     [BeginImplementationDate] DATETIME2 (0) NOT NULL,
     [EndImplementationDate]   DATETIME2 (0) NULL,
-    [CreatedBy]               VARCHAR (50)  NOT NULL,
-    [LastModifiedBy]          VARCHAR (50)  NOT NULL,
-    [CreatedDate]             DATETIME2 (0) NOT NULL,
-    [LastModifiedDate]        DATETIME2 (0) NOT NULL,
+    [CreatedDate]             DATETIME2 (0) NOT NULL DEFAULT (getdate()),
     CONSTRAINT [PK_ProtocolConfiguration] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [CK_ProtocolConfiguration_CreatedBy_DisallowZeroLength] CHECK (len([CreatedBy])>(0)),
     CONSTRAINT [CK_ProtocolConfiguration_Description_DisallowZeroLength] CHECK (len([Description])>(0)),
@@ -53,11 +50,11 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Date that p
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Username of person who created record', @level0type = N'SCHEMA', @level0name = N'ref', @level1type = N'TABLE', @level1name = N'Protocol', @level2type = N'COLUMN', @level2name = N'CreatedBy';
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Username of person who last modified the record', @level0type = N'SCHEMA', @level0name = N'ref', @level1type = N'TABLE', @level1name = N'Protocol', @level2type = N'COLUMN', @level2name = N'LastModifiedBy';
+
 
 
 GO
@@ -65,5 +62,5 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Date the re
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Date the record was last modified', @level0type = N'SCHEMA', @level0name = N'ref', @level1type = N'TABLE', @level1name = N'Protocol', @level2type = N'COLUMN', @level2name = N'LastModifiedDate';
+
 

@@ -551,7 +551,7 @@
     <Build Include="Security\NPS_mhsteiner.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Scripts\MigrateData.sql" />
+    <None Include="Scripts\MigrateData.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mojn-ds-original\mojn-ds-original.sqlproj">
