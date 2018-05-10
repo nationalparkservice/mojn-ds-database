@@ -1,12 +1,11 @@
 ﻿CREATE TABLE [lookup].[MonitoringStatus] (
     [ID]                 TINYINT       IDENTITY (1, 1) NOT NULL,
     [Code]               VARCHAR (5)   NOT NULL,
-    [AcceptanceCategory] VARCHAR (10)  NOT NULL,
+    [IsSampled] VARCHAR (10)  NOT NULL,
     [Label]              VARCHAR (35)  NOT NULL,
     [Summary]            VARCHAR (200) NOT NULL,
     CONSTRAINT [PK_MonitoringStatus] PRIMARY KEY CLUSTERED ([ID] ASC),
-    CONSTRAINT [CK_MonitoringStatus_AcceptanceCategory] CHECK ([AcceptanceCategory]='Accepted' OR [AcceptanceCategory]='Rejected' OR [AcceptanceCategory]='Unknown'),
-    CONSTRAINT [CK_MonitoringStatus_AcceptanceCategory_DisallowZeroLength] CHECK (len([AcceptanceCategory])>(0)),
+    CONSTRAINT [CK_MonitoringStatus_IsSampled_DisallowZeroLength] CHECK (len([IsSampled])>(0)),
     CONSTRAINT [CK_MonitoringStatus_Code_DisallowZeroLength] CHECK (len([Code])>(0)),
     CONSTRAINT [CK_MonitoringStatus_Label_DisallowZeroLength] CHECK (len([Label])>(0)),
     CONSTRAINT [CK_MonitoringStatus_Summary_DisallowZeroLength] CHECK (len([Summary])>(0)),
@@ -28,7 +27,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Unique code
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Category name/description for acceptance rejection reason', @level0type = N'SCHEMA', @level0name = N'lookup', @level1type = N'TABLE', @level1name = N'MonitoringStatus', @level2type = N'COLUMN', @level2name = N'AcceptanceCategory';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Category name/description for acceptance rejection reason', @level0type = N'SCHEMA', @level0name = N'lookup', @level1type = N'TABLE', @level1name = N'MonitoringStatus', @level2type = N'COLUMN', @level2name = 'IsSampled';
 
 
 GO
