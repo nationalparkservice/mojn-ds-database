@@ -3,6 +3,7 @@
     [CalibrationTime]              DATETIME2 (0)  NULL,
     [CalibrationDate]              DATETIME2 (0)  NOT NULL,
     [StandardValue_pH]             DECIMAL (5, 2) NOT NULL,
+	[TemperatureCorrectedStd_pH]   DECIMAL (5,2)  NULL,
     [PreCalibrationReading_pH]     DECIMAL (5, 2) NULL,
     [PreCalibrationTemperature_C]  DECIMAL (5, 2) NULL,
     [PostCalibrationReading_pH]    DECIMAL (5, 2) NULL,
@@ -44,6 +45,12 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Standard va
 
 
 GO
+
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Temperature-corrected standard value of pH solution (only applies to some instruments)', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'CalibrationpH', @level2type = N'COLUMN', @level2name = N'TemperatureCorrectedStd_pH';
+
+
+GO
+
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Pre-calibration pH value', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'CalibrationpH', @level2type = N'COLUMN', @level2name = N'PreCalibrationReading_pH';
 
 
