@@ -26,7 +26,7 @@
     <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
     <AnsiNulls>False</AnsiNulls>
     <QuotedIdentifier>False</QuotedIdentifier>
-    <QueryStoreCaptureMode>All</QueryStoreCaptureMode>
+    <QueryStoreCaptureMode>None</QueryStoreCaptureMode>
     <QueryStoreDesiredState>Off</QueryStoreDesiredState>
     <QueryStoreFlushInterval>900</QueryStoreFlushInterval>
     <QueryStoreStatsInterval>60</QueryStoreStatsInterval>
@@ -138,6 +138,7 @@
     <Folder Include="temp\" />
     <Folder Include="temp\Stored Procedures\" />
     <Folder Include="Scripts\" />
+    <Folder Include="analysis" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="data\Tables\SpringbrookDimensions.sql">
@@ -549,18 +550,10 @@
     <Build Include="temp\MissingPhotos.sql" />
     <Build Include="app\Views\ActivityDashboard.sql" />
     <Build Include="Security\NPS_mhsteiner.sql" />
+    <Build Include="analysis\PrimaryVisit.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\mojn-ds-original\mojn-ds-original.sqlproj">
-      <Name>mojn-ds-original</Name>
-      <Project>{7b727efd-d995-4162-b241-e08072ae0f7b}</Project>
-      <Private>False</Private>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-      <DatabaseVariableLiteralValue>MOJN_DS</DatabaseVariableLiteralValue>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\Extensions\Microsoft\SQLDB\Extensions\SqlServer\130\SqlSchemas\master.dacpac">
