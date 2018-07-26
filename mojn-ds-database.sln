@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "mojn-ds-database", "mojn-ds-database\mojn-ds-database.sqlproj", "{138E09B6-DED6-4681-B596-2E5876EE09C5}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "mojn-ds-original", "mojn-ds-original\mojn-ds-original.sqlproj", "{7B727EFD-D995-4162-B241-E08072AE0F7B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojn-ds-unittests", "mojn-ds-unittests\mojn-ds-unittests.csproj", "{D5BC9056-6862-4BA7-B3A9-5B8E67150791}"
 EndProject
 Global
@@ -21,12 +19,6 @@ Global
 		{138E09B6-DED6-4681-B596-2E5876EE09C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{138E09B6-DED6-4681-B596-2E5876EE09C5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{138E09B6-DED6-4681-B596-2E5876EE09C5}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{7B727EFD-D995-4162-B241-E08072AE0F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B727EFD-D995-4162-B241-E08072AE0F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B727EFD-D995-4162-B241-E08072AE0F7B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{7B727EFD-D995-4162-B241-E08072AE0F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B727EFD-D995-4162-B241-E08072AE0F7B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B727EFD-D995-4162-B241-E08072AE0F7B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{D5BC9056-6862-4BA7-B3A9-5B8E67150791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D5BC9056-6862-4BA7-B3A9-5B8E67150791}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5BC9056-6862-4BA7-B3A9-5B8E67150791}.Release|Any CPU.ActiveCfg = Release|Any CPU
