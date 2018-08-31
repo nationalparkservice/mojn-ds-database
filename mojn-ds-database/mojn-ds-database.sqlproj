@@ -139,6 +139,7 @@
     <Folder Include="temp\Stored Procedures\" />
     <Folder Include="Scripts\" />
     <Folder Include="analysis" />
+    <Folder Include="analysis\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="data\Tables\SpringbrookDimensions.sql">
@@ -550,7 +551,66 @@
     <Build Include="temp\MissingPhotos.sql" />
     <Build Include="app\Views\ActivityDashboard.sql" />
     <Build Include="Security\NPS_mhsteiner.sql" />
-    <Build Include="analysis\PrimaryVisit.sql" />
+    <Build Include="analysis\Views\Visit.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\Site.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\Wildlife.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\WaterQualityTemperature.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\WaterQualitySpCond.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\WaterQualitypH.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\WaterQualityDO.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\VisitActivity.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\Riparian.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\Invasives.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\DisturbanceFlowModification.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\Disturbance.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\DischargeVolumetric.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\DischargeFlowCondition.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\DischargeEstimated.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />
