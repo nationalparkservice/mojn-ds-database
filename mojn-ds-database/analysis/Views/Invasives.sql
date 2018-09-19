@@ -1,25 +1,20 @@
 ﻿CREATE VIEW analysis.Invasives
 AS
-SELECT        P.Code AS ParkCode, S.Code AS SiteCode, S.Name AS SiteName, V.VisitDate, qa.Water_Year(V.VisitDate) AS VisitGroup, lookup.RiparianVegetationBuffer.Code, ref.Taxon.USDAPlantsCode, 
-                         ref.Taxon.ScientificName, lookup.VisitType.Label AS VisitType, lookup.ProtectedStatus.Code AS ProtectedStatus, DPL.Label AS DPL
-FROM            data.Site AS S LEFT OUTER JOIN
-                         data.Visit AS V ON S.ID = V.SiteID INNER JOIN
-                         lookup.Park AS P ON S.ParkID = P.ID INNER JOIN
-                         lookup.ProtectedStatus ON S.ProtectedStatusID = lookup.ProtectedStatus.ID INNER JOIN
-                         lookup.VisitType ON V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND 
-                         V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID INNER JOIN
-                         lookup.MonitoringStatus ON V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND 
-                         V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID INNER JOIN
-                         data.InvasivesActivity ON V.ID = data.InvasivesActivity.VisitID AND V.ID = data.InvasivesActivity.VisitID AND V.ID = data.InvasivesActivity.VisitID AND V.ID = data.InvasivesActivity.VisitID AND 
-                         V.ID = data.InvasivesActivity.VisitID AND V.ID = data.InvasivesActivity.VisitID AND V.ID = data.InvasivesActivity.VisitID AND V.ID = data.InvasivesActivity.VisitID AND V.ID = data.InvasivesActivity.VisitID AND 
-                         V.ID = data.InvasivesActivity.VisitID AND V.ID = data.InvasivesActivity.VisitID AND V.ID = data.InvasivesActivity.VisitID INNER JOIN
+SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, intermediate.SiteVisit.VisitType, 
+                         lookup.InvasivesObserved.Code AS InvasivesObserved, lookup.RiparianVegetationBuffer.Code AS InRiparianVegBuffer, ref.Taxon.USDAPlantsCode, ref.Taxon.ScientificName, 
+                         lookup.ProtectedStatus.Code AS ProtectedStatus, DPL.Label AS DPL
+FROM            lookup.ProtectedStatus RIGHT OUTER JOIN
+                         intermediate.SiteVisit INNER JOIN
+                         data.InvasivesActivity ON intermediate.SiteVisit.VisitID = data.InvasivesActivity.VisitID LEFT OUTER JOIN
+                         lookup.InvasivesObserved ON data.InvasivesActivity.InvasivesObservedID = lookup.InvasivesObserved.ID AND data.InvasivesActivity.InvasivesObservedID = lookup.InvasivesObserved.ID LEFT OUTER JOIN
                          data.InvasivesObservation ON data.InvasivesActivity.ID = data.InvasivesObservation.InvasivesActivityID AND data.InvasivesActivity.ID = data.InvasivesObservation.InvasivesActivityID AND 
                          data.InvasivesActivity.ID = data.InvasivesObservation.InvasivesActivityID AND data.InvasivesActivity.ID = data.InvasivesObservation.InvasivesActivityID AND 
-                         data.InvasivesActivity.ID = data.InvasivesObservation.InvasivesActivityID AND lookup.ProtectedStatus.ID = data.InvasivesObservation.ProtectedStatusID INNER JOIN
+                         data.InvasivesActivity.ID = data.InvasivesObservation.InvasivesActivityID LEFT OUTER JOIN
                          lookup.RiparianVegetationBuffer ON data.InvasivesObservation.RiparianVegetationBufferID = lookup.RiparianVegetationBuffer.ID AND 
                          data.InvasivesObservation.RiparianVegetationBufferID = lookup.RiparianVegetationBuffer.ID AND data.InvasivesObservation.RiparianVegetationBufferID = lookup.RiparianVegetationBuffer.ID AND 
                          data.InvasivesObservation.RiparianVegetationBufferID = lookup.RiparianVegetationBuffer.ID AND data.InvasivesObservation.RiparianVegetationBufferID = lookup.RiparianVegetationBuffer.ID AND 
-                         data.InvasivesObservation.RiparianVegetationBufferID = lookup.RiparianVegetationBuffer.ID AND data.InvasivesObservation.RiparianVegetationBufferID = lookup.RiparianVegetationBuffer.ID INNER JOIN
+                         data.InvasivesObservation.RiparianVegetationBufferID = lookup.RiparianVegetationBuffer.ID AND data.InvasivesObservation.RiparianVegetationBufferID = lookup.RiparianVegetationBuffer.ID ON 
+                         lookup.ProtectedStatus.ID = data.InvasivesObservation.ProtectedStatusID LEFT OUTER JOIN
                          ref.Taxon ON data.InvasivesObservation.TaxonID = ref.Taxon.ID AND data.InvasivesObservation.TaxonID = ref.Taxon.ID AND data.InvasivesObservation.TaxonID = ref.Taxon.ID AND 
                          data.InvasivesObservation.TaxonID = ref.Taxon.ID AND data.InvasivesObservation.TaxonID = ref.Taxon.ID AND data.InvasivesObservation.TaxonID = ref.Taxon.ID AND 
                          data.InvasivesObservation.TaxonID = ref.Taxon.ID LEFT OUTER JOIN
@@ -27,62 +22,25 @@ FROM            data.Site AS S LEFT OUTER JOIN
                          data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND 
                          data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND 
                          data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID LEFT OUTER JOIN
-                         lookup.Subunit ON S.SubunitID = lookup.Subunit.ID
+                         data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Invasives';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'       DisplayFlags = 280
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'0
+               Bottom = 375
+               Right = 890
+            End
+            DisplayFlags = 280
             TopColumn = 1
          End
-         Begin Table = "Subunit (lookup)"
+         Begin Table = "SiteVisit (intermediate)"
             Begin Extent = 
-               Top = 270
+               Top = 6
                Left = 38
-               Bottom = 400
-               Right = 208
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "InvasivesActivity (data)"
-            Begin Extent = 
-               Top = 256
-               Left = 412
-               Bottom = 386
-               Right = 635
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "InvasivesObservation (data)"
-            Begin Extent = 
-               Top = 421
-               Left = 25
-               Bottom = 551
-               Right = 286
-            End
-            DisplayFlags = 280
-            TopColumn = 9
-         End
-         Begin Table = "RiparianVegetationBuffer (lookup)"
-            Begin Extent = 
-               Top = 475
-               Left = 346
-               Bottom = 606
-               Right = 618
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "Taxon (ref)"
-            Begin Extent = 
-               Top = 396
-               Left = 695
-               Bottom = 586
-               Right = 1013
+               Bottom = 136
+               Right = 210
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -94,7 +52,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'       Dis
    Begin DataPane = 
       Begin ParameterDefaults = ""
       End
-      Begin ColumnWidths = 12
+      Begin ColumnWidths = 13
          Width = 284
          Width = 1500
          Width = 1500
@@ -107,13 +65,14 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'       Dis
          Width = 1500
          Width = 1500
          Width = 1500
+         Width = 1650
       End
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 1440
-         Alias = 900
-         Table = 1170
+         Column = 1575
+         Alias = 2205
+         Table = 2910
          Output = 720
          Append = 1400
          NewValue = 1170
@@ -130,13 +89,15 @@ End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Invasives';
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[46] 4[15] 2[20] 3) )"
+         Configuration = "(H (1[29] 4[17] 2[40] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -198,76 +159,74 @@ Begin DesignProperties =
    End
    Begin DiagramPane = 
       Begin Origin = 
-         Top = -96
+         Top = 0
          Left = 0
       End
       Begin Tables = 
-         Begin Table = "S"
-            Begin Extent = 
-               Top = 6
-               Left = 301
-               Bottom = 136
-               Right = 510
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "V"
-            Begin Extent = 
-               Top = 6
-               Left = 548
-               Bottom = 136
-               Right = 771
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "P"
-            Begin Extent = 
-               Top = 6
-               Left = 809
-               Bottom = 136
-               Right = 979
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
          Begin Table = "ProtectedStatus (lookup)"
             Begin Extent = 
-               Top = 106
-               Left = 30
-               Bottom = 241
-               Right = 200
+               Top = 171
+               Left = 1188
+               Bottom = 306
+               Right = 1358
             End
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "VisitType (lookup)"
+         Begin Table = "InvasivesActivity (data)"
             Begin Extent = 
-               Top = 148
+               Top = 87
                Left = 292
-               Bottom = 278
-               Right = 462
+               Bottom = 289
+               Right = 515
             End
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "MonitoringStatus (lookup)"
+         Begin Table = "InvasivesObserved (lookup)"
             Begin Extent = 
-               Top = 117
-               Left = 746
-               Bottom = 247
-               Right = 916
+               Top = 305
+               Left = 555
+               Bottom = 433
+               Right = 725
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "InvasivesObservation (data)"
+            Begin Extent = 
+               Top = 73
+               Left = 644
+               Bottom = 203
+               Right = 905
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "RiparianVegetationBuffer (lookup)"
+            Begin Extent = 
+               Top = 7
+               Left = 1122
+               Bottom = 138
+               Right = 1394
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "Taxon (ref)"
+            Begin Extent = 
+               Top = 338
+               Left = 1011
+               Bottom = 528
+               Right = 1329
             End
             DisplayFlags = 280
             TopColumn = 0
          End
          Begin Table = "DPL"
             Begin Extent = 
-               Top = 256
-               Left = 768
-               Bottom = 386
-               Right = 938
-            End
-     ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Invasives';
+               Top = 245
+               Left = 72', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Invasives';
+
+
 

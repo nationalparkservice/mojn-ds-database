@@ -1,20 +1,20 @@
 ﻿CREATE VIEW analysis.Site
 AS
-SELECT        P.Code AS ParkCode, lookup.Subunit.Label AS Subunit, S.Code AS SiteCode, S.Name AS SiteName, lookup.GRTSDraw.Label AS GRTSDraw, S.GRTSOrder, lookup.GRTSStatus.Code AS SiteStatus, 
-                         lookup.GRTSPanel.Code AS SampleFrame, lookup.ProtectedStatus.Label AS SiteProtectedStatus, S.Lat_WGS84, S.Lon_WGS84, S.X_UTM_NAD83_11N, S.Y_UTM_NAD83_11N
-FROM            data.Site AS S INNER JOIN
-                         lookup.Park AS P ON S.ParkID = P.ID INNER JOIN
-                         lookup.GRTSPanel ON S.GRTSPanelID = lookup.GRTSPanel.ID INNER JOIN
-                         lookup.GRTSStatus ON S.GRTSStatusID = lookup.GRTSStatus.ID INNER JOIN
-                         lookup.ProtectedStatus ON S.ProtectedStatusID = lookup.ProtectedStatus.ID INNER JOIN
-                         lookup.GRTSDraw ON S.GRTSDrawID = lookup.GRTSDraw.ID LEFT OUTER JOIN
-                         lookup.Subunit ON S.SubunitID = lookup.Subunit.ID
+SELECT        Park.Code AS ParkCode, lookup.Subunit.Label AS Subunit, Site_1.Code AS SiteCode, Site_1.Name AS SiteName, lookup.GRTSDraw.Label AS GRTSDraw, Site_1.GRTSOrder, lookup.GRTSStatus.Code AS SiteStatus, 
+                         lookup.GRTSPanel.Code AS SampleFrame, lookup.ProtectedStatus.Label AS SiteProtectedStatus, Site_1.Lat_WGS84, Site_1.Lon_WGS84, Site_1.X_UTM_NAD83_11N, Site_1.Y_UTM_NAD83_11N
+FROM            data.Site AS Site_1 INNER JOIN
+                         lookup.Park AS Park ON Site_1.ParkID = Park.ID LEFT OUTER JOIN
+                         lookup.GRTSPanel ON Site_1.GRTSPanelID = lookup.GRTSPanel.ID LEFT OUTER JOIN
+                         lookup.GRTSStatus ON Site_1.GRTSStatusID = lookup.GRTSStatus.ID LEFT OUTER JOIN
+                         lookup.GRTSDraw ON Site_1.GRTSDrawID = lookup.GRTSDraw.ID LEFT OUTER JOIN
+                         lookup.ProtectedStatus ON Site_1.ProtectedStatusID = lookup.ProtectedStatus.ID LEFT OUTER JOIN
+                         lookup.Subunit ON Site_1.SubunitID = lookup.Subunit.ID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Site';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'= 1044
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -65,13 +65,15 @@ End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Site';
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[44] 4[36] 2[14] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -137,7 +139,7 @@ Begin DesignProperties =
          Left = 0
       End
       Begin Tables = 
-         Begin Table = "S"
+         Begin Table = "Site_1"
             Begin Extent = 
                Top = 0
                Left = 19
@@ -147,12 +149,12 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "P"
+         Begin Table = "Park"
             Begin Extent = 
-               Top = 15
-               Left = 662
-               Bottom = 145
-               Right = 832
+               Top = 8
+               Left = 615
+               Bottom = 138
+               Right = 785
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -169,38 +171,40 @@ Begin DesignProperties =
          End
          Begin Table = "GRTSStatus (lookup)"
             Begin Extent = 
-               Top = 257
-               Left = 720
-               Bottom = 387
-               Right = 890
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "ProtectedStatus (lookup)"
-            Begin Extent = 
-               Top = 151
-               Left = 284
-               Bottom = 281
-               Right = 454
+               Top = 288
+               Left = 800
+               Bottom = 418
+               Right = 970
             End
             DisplayFlags = 280
             TopColumn = 0
          End
          Begin Table = "GRTSDraw (lookup)"
             Begin Extent = 
-               Top = 150
-               Left = 507
-               Bottom = 280
-               Right = 677
+               Top = 177
+               Left = 609
+               Bottom = 307
+               Right = 779
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "ProtectedStatus (lookup)"
+            Begin Extent = 
+               Top = 96
+               Left = 336
+               Bottom = 226
+               Right = 506
             End
             DisplayFlags = 280
             TopColumn = 0
          End
          Begin Table = "Subunit (lookup)"
             Begin Extent = 
-               Top = 13
-               Left = 865
-               Bottom = 143
-               Right = 1035', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Site';
+               Top = 61
+               Left = 874
+               Bottom = 191
+               Right ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Site';
+
+
 
