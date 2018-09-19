@@ -140,6 +140,7 @@
     <Folder Include="Scripts\" />
     <Folder Include="analysis" />
     <Folder Include="analysis\Views\" />
+    <Folder Include="data\Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="data\Tables\SpringbrookDimensions.sql">
@@ -611,6 +612,10 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+    <Build Include="data\Views\CalibrationDO_Shared.sql" />
+    <Build Include="data\Views\CalibrationpH_Shared.sql" />
+    <Build Include="data\Views\CalibrationSpCond_Shared.sql" />
+    <Build Include="ref\Views\WaterQualityInstrument_Shared.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />
@@ -622,8 +627,19 @@
       <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
       <Private>False</Private>
     </ArtifactReference>
+    <ArtifactReference Include="..\..\mojn-shared-tables\mojn-shared-tables\Snapshots\mojn-shared-tables_20180830.dacpac">
+      <HintPath>..\..\mojn-shared-tables\mojn-shared-tables\Snapshots\mojn-shared-tables_20180830.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseSqlCmdVariable>mojnSharedTables</DatabaseSqlCmdVariable>
+    </ArtifactReference>
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="mojn-ds-database.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="mojnSharedTables">
+      <DefaultValue>MOJN_SharedTables</DefaultValue>
+      <Value>$(SqlCmdVar__1)</Value>
+    </SqlCmdVariable>
   </ItemGroup>
 </Project>
