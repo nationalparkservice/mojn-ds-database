@@ -1,8 +1,8 @@
 ﻿CREATE VIEW analysis.VisitActivity
 AS
 SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, intermediate.SiteVisit.SpringType, 
-                         lookup.FlowCondition.Label AS FlowCondition, lookup.WaterQualityDataCollected.Code AS WQDataCollected, lookup.InvasivesObserved.Code AS InvasivesObserved, 
-                         lookup.IsVegetationObserved.Code AS RiparianObserved, lookup.MistletoePresent.Code AS MistletoePresent, lookup.IsWildlifeObserved.Code AS WildlifeObserved, intermediate.SiteVisit.SampleFrame, 
+                         lookup.FlowCondition.Label AS FlowCondition, lookup.WaterQualityDataCollected.Label AS WQDataCollected, lookup.InvasivesObserved.Label AS InvasivesObserved, 
+                         lookup.IsVegetationObserved.Label AS RiparianObserved, lookup.MistletoePresent.Label AS MistletoePresent, lookup.IsWildlifeObserved.Label AS WildlifeObserved, intermediate.SiteVisit.SampleFrame, 
                          intermediate.SiteVisit.VisitType, intermediate.SiteVisit.MonitoringStatus
 FROM            lookup.IsWildlifeObserved RIGHT OUTER JOIN
                          lookup.WaterQualityDataCollected RIGHT OUTER JOIN
@@ -73,40 +73,10 @@ GO
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'          Top = 0
-               Left = 660
-               Bottom = 160
-               Right = 883
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "IsVegetationObserved (lookup)"
-            Begin Extent = 
-               Top = 17
-               Left = 1112
-               Bottom = 130
-               Right = 1341
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "MistletoePresent (lookup)"
-            Begin Extent = 
-               Top = 144
-               Left = 1308
-               Bottom = 257
-               Right = 1478
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "InvasivesObserved (lookup)"
-            Begin Extent = 
-               Top = 211
-               Left = 1027
-               Bottom = 324
-               Right = 1255
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'     Top = 441
+               Left = 361
+               Bottom = 571
+               Right = 584
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -121,12 +91,42 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'          
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "SiteVisit (intermediate)"
+         Begin Table = "RiparianVegetationActivity (data)"
             Begin Extent = 
-               Top = 9
-               Left = 165
-               Bottom = 322
-               Right = 346
+               Top = 0
+               Left = 660
+               Bottom = 160
+               Right = 883
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "FlowCondition (lookup)"
+            Begin Extent = 
+               Top = 708
+               Left = 951
+               Bottom = 821
+               Right = 1121
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "IsVegetationObserved (lookup)"
+            Begin Extent = 
+               Top = 17
+               Left = 1112
+               Bottom = 130
+               Right = 1341
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "InvasivesObserved (lookup)"
+            Begin Extent = 
+               Top = 211
+               Left = 1027
+               Bottom = 324
+               Right = 1255
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -182,13 +182,15 @@ End
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[38] 4[36] 2[10] 3) )"
+         Configuration = "(H (1[56] 4[19] 2[10] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -250,16 +252,16 @@ Begin DesignProperties =
    End
    Begin DiagramPane = 
       Begin Origin = 
-         Top = 0
+         Top = -96
          Left = 0
       End
       Begin Tables = 
-         Begin Table = "WaterQualityActivity (data)"
+         Begin Table = "IsWildlifeObserved (lookup)"
             Begin Extent = 
-               Top = 324
-               Left = 701
-               Bottom = 454
-               Right = 944
+               Top = 542
+               Left = 1014
+               Bottom = 655
+               Right = 1184
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -274,6 +276,26 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 0
          End
+         Begin Table = "MistletoePresent (lookup)"
+            Begin Extent = 
+               Top = 144
+               Left = 1308
+               Bottom = 257
+               Right = 1478
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "WaterQualityActivity (data)"
+            Begin Extent = 
+               Top = 324
+               Left = 701
+               Bottom = 454
+               Right = 944
+            End
+            DisplayFlags = 280
+            TopColumn = 1
+         End
          Begin Table = "WildlifeActivity (data)"
             Begin Extent = 
                Top = 469
@@ -284,39 +306,21 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 1
          End
-         Begin Table = "IsWildlifeObserved (lookup)"
+         Begin Table = "SiteVisit (intermediate)"
             Begin Extent = 
-               Top = 542
-               Left = 1014
-               Bottom = 655
-               Right = 1184
+               Top = 9
+               Left = 165
+               Bottom = 322
+               Right = 346
             End
             DisplayFlags = 280
             TopColumn = 0
          End
          Begin Table = "DischargeActivity (data)"
             Begin Extent = 
-               Top = 441
-               Left = 361
-               Bottom = 571
-               Right = 584
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "FlowCondition (lookup)"
-            Begin Extent = 
-               Top = 708
-               Left = 951
-               Bottom = 821
-               Right = 1121
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "RiparianVegetationActivity (data)"
-            Begin Extent = 
-     ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'VisitActivity';
+          ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'VisitActivity';
+
+
 
 
 

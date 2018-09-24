@@ -1,8 +1,8 @@
 ﻿CREATE VIEW analysis.WaterQualitypH
 AS
 SELECT        intermediate.WaterQuality.ParkCode, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.VisitGroup, 
-                         lookup.DataQualityFlag.Code AS DataQualityFlag, intermediate.WaterQuality.DPL, intermediate.WaterQuality.pHInstrument, WaterQualitypH_1.pH, WaterQualitypH_1.DataQualityFlagNote, 
-                         intermediate.WaterQuality.VisitType
+                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualitypH_1.pH, lookup.DataQualityFlag.Code AS DataQualityFlag, WaterQualitypH_1.DataQualityFlagNote, 
+                         intermediate.WaterQuality.pHInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, intermediate.WaterQuality.MonitoringStatus
 FROM            lookup.DataQualityFlag RIGHT OUTER JOIN
                          data.WaterQualitypH AS WaterQualitypH_1 ON lookup.DataQualityFlag.ID = WaterQualitypH_1.DataQualityFlagID RIGHT OUTER JOIN
                          intermediate.WaterQuality ON WaterQualitypH_1.WaterQualityActivityID = intermediate.WaterQuality.WaterQualityActivityID
@@ -22,7 +22,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[42] 4[50] 2[3] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -142,7 +142,7 @@ Begin DesignProperties =
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 1440
+         Column = 2370
          Alias = 900
          Table = 3255
          Output = 720
@@ -159,6 +159,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualitypH';
+
+
 
 
 

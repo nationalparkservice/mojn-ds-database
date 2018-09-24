@@ -1,8 +1,8 @@
 ﻿CREATE VIEW analysis.DischargeVolumetric
 AS
 SELECT        intermediate.Discharge.ParkCode, intermediate.Discharge.SiteCode, intermediate.Discharge.SiteName, intermediate.Discharge.VisitDate, intermediate.Discharge.VisitGroup, 
-                         intermediate.Discharge.FlowCondition, intermediate.Discharge.VisitType, data.DischargeVolumetricObservation.ContainerVolume_mL, data.DischargeVolumetricObservation.FillTime_seconds, 
-                         data.DischargeVolumetricObservation.EstimatedCapture_percent, intermediate.Discharge.DPL
+                         intermediate.Discharge.FlowCondition, data.DischargeVolumetricObservation.ContainerVolume_mL, data.DischargeVolumetricObservation.FillTime_seconds, 
+                         data.DischargeVolumetricObservation.EstimatedCapture_percent, intermediate.Discharge.VisitType, intermediate.Discharge.DPL
 FROM            data.DischargeVolumetricObservation INNER JOIN
                          intermediate.Discharge ON data.DischargeVolumetricObservation.DischargeActivityID = intermediate.Discharge.DischargeActivityID
 GO
@@ -21,7 +21,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[48] 4[15] 2[16] 3) )"
+         Configuration = "(H (1[34] 4[50] 2[9] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -149,6 +149,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'DischargeVolumetric';
+
+
 
 
 

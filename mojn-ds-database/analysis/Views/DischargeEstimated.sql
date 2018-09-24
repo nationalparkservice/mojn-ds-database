@@ -2,7 +2,7 @@
 AS
 SELECT        intermediate.Discharge.ParkCode, intermediate.Discharge.SiteCode, intermediate.Discharge.SiteName, intermediate.Discharge.VisitDate, intermediate.Discharge.VisitGroup, 
                          intermediate.Discharge.FlowCondition, lookup.DischargeEstimatedFlag.Code AS DischargeFlag, data.DischargeEstimatedObservation.Discharge_L_per_min, intermediate.Discharge.VisitType, 
-                         intermediate.Discharge.DPL, intermediate.Discharge.DischargeActivityID
+                         intermediate.Discharge.DPL
 FROM            intermediate.Discharge INNER JOIN
                          data.DischargeEstimatedObservation ON intermediate.Discharge.DischargeActivityID = data.DischargeEstimatedObservation.DischargeActivityID LEFT OUTER JOIN
                          lookup.DischargeEstimatedFlag ON data.DischargeEstimatedObservation.DischargeEstimatedFlagID = lookup.DischargeEstimatedFlag.ID AND 
@@ -28,7 +28,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[45] 4[9] 2[17] 3) )"
+         Configuration = "(H (1[46] 4[31] 2[11] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -94,11 +94,21 @@ Begin DesignProperties =
          Left = 0
       End
       Begin Tables = 
+         Begin Table = "Discharge (intermediate)"
+            Begin Extent = 
+               Top = 0
+               Left = 34
+               Bottom = 265
+               Right = 226
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
          Begin Table = "DischargeEstimatedObservation (data)"
             Begin Extent = 
                Top = 9
                Left = 298
-               Bottom = 171
+               Bottom = 224
                Right = 524
             End
             DisplayFlags = 280
@@ -108,18 +118,8 @@ Begin DesignProperties =
             Begin Extent = 
                Top = 97
                Left = 600
-               Bottom = 218
+               Bottom = 261
                Right = 837
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "Discharge (intermediate)"
-            Begin Extent = 
-               Top = 0
-               Left = 34
-               Bottom = 238
-               Right = 226
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -150,7 +150,7 @@ Begin DesignProperties =
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 1440
+         Column = 1890
          Alias = 1800
          Table = 3510
          Output = 720
@@ -167,6 +167,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'DischargeEstimated';
+
+
 
 
 

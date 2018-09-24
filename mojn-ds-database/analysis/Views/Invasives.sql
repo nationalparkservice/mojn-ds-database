@@ -1,7 +1,7 @@
 ﻿CREATE VIEW analysis.Invasives
 AS
-SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, intermediate.SiteVisit.VisitType, 
-                         lookup.InvasivesObserved.Code AS InvasivesObserved, lookup.RiparianVegetationBuffer.Code AS InRiparianVegBuffer, ref.Taxon.USDAPlantsCode, ref.Taxon.ScientificName, 
+SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, 
+                         lookup.InvasivesObserved.Code AS InvasivesObserved, lookup.RiparianVegetationBuffer.Code AS InRiparianVegBuffer, ref.Taxon.USDAPlantsCode, ref.Taxon.ScientificName, intermediate.SiteVisit.VisitType, 
                          lookup.ProtectedStatus.Code AS ProtectedStatus, DPL.Label AS DPL
 FROM            lookup.ProtectedStatus RIGHT OUTER JOIN
                          intermediate.SiteVisit INNER JOIN
@@ -28,22 +28,22 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @leve
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'0
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'       Left = 1011
+               Bottom = 528
+               Right = 1329
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "DPL"
+            Begin Extent = 
+               Top = 245
+               Left = 720
                Bottom = 375
                Right = 890
             End
             DisplayFlags = 280
             TopColumn = 1
-         End
-         Begin Table = "SiteVisit (intermediate)"
-            Begin Extent = 
-               Top = 6
-               Left = 38
-               Bottom = 136
-               Right = 210
-            End
-            DisplayFlags = 280
-            TopColumn = 0
          End
       End
    End
@@ -91,13 +91,15 @@ End
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[29] 4[17] 2[40] 3) )"
+         Configuration = "(H (1[34] 4[41] 2[12] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -173,6 +175,16 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 0
          End
+         Begin Table = "SiteVisit (intermediate)"
+            Begin Extent = 
+               Top = 6
+               Left = 38
+               Bottom = 136
+               Right = 210
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
          Begin Table = "InvasivesActivity (data)"
             Begin Extent = 
                Top = 87
@@ -216,17 +228,9 @@ Begin DesignProperties =
          Begin Table = "Taxon (ref)"
             Begin Extent = 
                Top = 338
-               Left = 1011
-               Bottom = 528
-               Right = 1329
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "DPL"
-            Begin Extent = 
-               Top = 245
-               Left = 72', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Invasives';
+        ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Invasives';
+
+
 
 
 

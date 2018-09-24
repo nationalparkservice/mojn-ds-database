@@ -64,7 +64,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[20] 4[28] 2[28] 3) )"
+         Configuration = "(H (1[20] 4[35] 2[12] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -160,6 +160,16 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 0
          End
+         Begin Table = "SiteVisit (intermediate)"
+            Begin Extent = 
+               Top = 6
+               Left = 38
+               Bottom = 136
+               Right = 210
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
          Begin Table = "DataProcessingLevel (lookup)"
             Begin Extent = 
                Top = 248
@@ -180,22 +190,14 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "SiteVisit (intermediate)"
-            Begin Extent = 
-               Top = 6
-               Left = 38
-               Bottom = 136
-               Right = 210
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
       End
    End
    Begin SQLPane = 
    End
    Begin DataPane = 
       Begin ParameterDe', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'DisturbanceFlowModification';
+
+
 
 
 

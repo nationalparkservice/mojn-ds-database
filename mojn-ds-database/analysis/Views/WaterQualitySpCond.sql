@@ -1,8 +1,9 @@
 ﻿CREATE VIEW analysis.WaterQualitySpCond
 AS
 SELECT        intermediate.WaterQuality.ParkCode, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.VisitGroup, 
-                         lookup.DataQualityFlag.Code AS DataQualityFlag, intermediate.WaterQuality.DPL, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.SpCondInstrument, 
-                         WaterQualitySpCond_1.SpecificConductance_microS_per_cm, WaterQualitySpCond_1.DataQualityFlagNote
+                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualitySpCond_1.SpecificConductance_microS_per_cm, lookup.DataQualityFlag.Code AS DataQualityFlag, 
+                         WaterQualitySpCond_1.DataQualityFlagNote, intermediate.WaterQuality.SpCondInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, 
+                         intermediate.WaterQuality.MonitoringStatus
 FROM            lookup.DataQualityFlag RIGHT OUTER JOIN
                          data.WaterQualitySpCond AS WaterQualitySpCond_1 ON lookup.DataQualityFlag.ID = WaterQualitySpCond_1.DataQualityFlagID RIGHT OUTER JOIN
                          intermediate.WaterQuality ON WaterQualitySpCond_1.WaterQualityActivityID = intermediate.WaterQuality.WaterQualityActivityID
@@ -22,7 +23,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[29] 4[32] 2[20] 3) )"
+         Configuration = "(H (1[30] 4[53] 2[9] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -84,8 +85,8 @@ Begin DesignProperties =
    End
    Begin DiagramPane = 
       Begin Origin = 
-         Top = 0
-         Left = 0
+         Top = -96
+         Left = -384
       End
       Begin Tables = 
          Begin Table = "DataQualityFlag (lookup)"
@@ -96,7 +97,7 @@ Begin DesignProperties =
                Right = 214
             End
             DisplayFlags = 280
-            TopColumn = 0
+            TopColumn = 2
          End
          Begin Table = "WaterQualitySpCond_1"
             Begin Extent = 
@@ -141,8 +142,8 @@ Begin DesignProperties =
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 1440
-         Alias = 900
+         Column = 3195
+         Alias = 1485
          Table = 2520
          Output = 720
          Append = 1400
@@ -158,6 +159,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualitySpCond';
+
+
 
 
 

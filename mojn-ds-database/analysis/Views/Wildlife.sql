@@ -1,7 +1,8 @@
 ﻿CREATE VIEW analysis.Wildlife
 AS
-SELECT        lookup.WildlifeType.Code AS Type, data.WildlifeObservation.SpeciesName, lookup.WildlifeEvidence.Label AS Evidence, DPL.Label AS DPL, intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, 
-                         intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, intermediate.SiteVisit.VisitType, lookup.IsWildlifeObserved.Code AS IsWildlifeObserved
+SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, 
+                         lookup.IsWildlifeObserved.Code AS IsWildlifeObserved, lookup.WildlifeType.Code AS Type, data.WildlifeObservation.SpeciesName, lookup.WildlifeEvidence.Label AS Evidence, intermediate.SiteVisit.VisitType, 
+                         DPL.Label AS DPL
 FROM            lookup.IsWildlifeObserved RIGHT OUTER JOIN
                          data.WildlifeActivity ON lookup.IsWildlifeObserved.ID = data.WildlifeActivity.IsWildlifeObservedID AND lookup.IsWildlifeObserved.ID = data.WildlifeActivity.IsWildlifeObservedID LEFT OUTER JOIN
                          data.WildlifeObservation LEFT OUTER JOIN
@@ -28,8 +29,8 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @leve
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'               Bottom = 147
-               Right = 745
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'               Bottom = 411
+               Right = 730
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -81,13 +82,15 @@ End
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[64] 4[13] 2[11] 3) )"
+         Configuration = "(H (1[18] 4[60] 2[11] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -153,6 +156,16 @@ Begin DesignProperties =
          Left = 0
       End
       Begin Tables = 
+         Begin Table = "IsWildlifeObserved (lookup)"
+            Begin Extent = 
+               Top = 14
+               Left = 575
+               Bottom = 147
+               Right = 745
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
          Begin Table = "WildlifeActivity (data)"
             Begin Extent = 
                Top = 81
@@ -193,16 +206,6 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "DPL"
-            Begin Extent = 
-               Top = 281
-               Left = 560
-               Bottom = 411
-               Right = 730
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
          Begin Table = "SiteVisit (intermediate)"
             Begin Extent = 
                Top = 6
@@ -213,11 +216,13 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "IsWildlifeObserved (lookup)"
+         Begin Table = "DPL"
             Begin Extent = 
-               Top = 14
-               Left = 575
+               Top = 281
+               Left = 560
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Wildlife';
+
+
 
 
 

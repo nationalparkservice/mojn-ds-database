@@ -1,8 +1,9 @@
 ﻿CREATE VIEW analysis.Riparian
 AS
-SELECT        lookup.LifeForm.Label AS LifeForm, data.RiparianVegetationObservation.Rank, data.RiparianVegetationObservation.DominantSpecies, lookup.ProtectedStatus.Code AS ProtectedStatus, DPL.Label AS DPL, 
-                         intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, intermediate.SiteVisit.VisitType, 
-                         ref.Taxon.USDAPlantsCode, ref.Taxon.ScientificName, lookup.IsVegetationObserved.Code AS IsVegetationObserved, lookup.MistletoePresent.Code AS MistletoePresent
+SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, 
+                         lookup.IsVegetationObserved.Code AS IsVegetationObserved, lookup.MistletoePresent.Code AS MistletoePresent, lookup.LifeForm.Label AS LifeForm, data.RiparianVegetationObservation.Rank, 
+                         data.RiparianVegetationObservation.DominantSpecies, ref.Taxon.USDAPlantsCode, ref.Taxon.ScientificName, intermediate.SiteVisit.VisitType, lookup.ProtectedStatus.Code AS ProtectedStatus, 
+                         DPL.Label AS DPL
 FROM            lookup.MistletoePresent RIGHT OUTER JOIN
                          lookup.IsVegetationObserved INNER JOIN
                          intermediate.SiteVisit INNER JOIN
@@ -32,7 +33,16 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @leve
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'Left = 817
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'              Bottom = 401
+               Right = 1418
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "RiparianVegetationObservation (data)"
+            Begin Extent = 
+               Top = 16
+               Left = 817
                Bottom = 241
                Right = 1078
             End
@@ -45,16 +55,6 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'Left = 817
                Left = 1181
                Bottom = 131
                Right = 1351
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "MistletoePresent (lookup)"
-            Begin Extent = 
-               Top = 158
-               Left = 41
-               Bottom = 271
-               Right = 211
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -87,8 +87,8 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'Left = 817
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 1440
-         Alias = 1470
+         Column = 1605
+         Alias = 1935
          Table = 3240
          Output = 720
          Append = 1400
@@ -108,13 +108,15 @@ End
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[41] 4[22] 2[17] 3) )"
+         Configuration = "(H (1[28] 4[60] 2[6] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -180,15 +182,15 @@ Begin DesignProperties =
          Left = 0
       End
       Begin Tables = 
-         Begin Table = "DPL"
+         Begin Table = "MistletoePresent (lookup)"
             Begin Extent = 
-               Top = 118
-               Left = 613
-               Bottom = 248
-               Right = 783
+               Top = 158
+               Left = 41
+               Bottom = 271
+               Right = 211
             End
             DisplayFlags = 280
-            TopColumn = 2
+            TopColumn = 0
          End
          Begin Table = "IsVegetationObserved (lookup)"
             Begin Extent = 
@@ -220,6 +222,16 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 0
          End
+         Begin Table = "DPL"
+            Begin Extent = 
+               Top = 118
+               Left = 613
+               Bottom = 248
+               Right = 783
+            End
+            DisplayFlags = 280
+            TopColumn = 2
+         End
          Begin Table = "ProtectedStatus (lookup)"
             Begin Extent = 
                Top = 135
@@ -234,16 +246,9 @@ Begin DesignProperties =
             Begin Extent = 
                Top = 271
                Left = 1157
-               Bottom = 401
-               Right = 1418
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "RiparianVegetationObservation (data)"
-            Begin Extent = 
-               Top = 16
-               ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Riparian';
+ ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Riparian';
+
+
 
 
 

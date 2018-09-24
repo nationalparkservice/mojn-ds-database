@@ -1,8 +1,9 @@
 ﻿CREATE VIEW analysis.WaterQualityTemperature
 AS
 SELECT        intermediate.WaterQuality.ParkCode, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.VisitGroup, 
-                         lookup.DataQualityFlag.Code AS DataQualityFlag, intermediate.WaterQuality.DPL, intermediate.WaterQuality.VisitType, WaterQualityTemperature_1.WaterTemperature_C, 
-                         WaterQualityTemperature_1.DataQualityFlagNote, intermediate.WaterQuality.TempInstrument
+                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualityTemperature_1.WaterTemperature_C, lookup.DataQualityFlag.Code AS DataQualityFlag, 
+                         WaterQualityTemperature_1.DataQualityFlagNote, intermediate.WaterQuality.TempInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, 
+                         intermediate.WaterQuality.MonitoringStatus
 FROM            lookup.DataQualityFlag RIGHT OUTER JOIN
                          data.WaterQualityTemperature AS WaterQualityTemperature_1 ON lookup.DataQualityFlag.ID = WaterQualityTemperature_1.DataQualityFlagID RIGHT OUTER JOIN
                          intermediate.WaterQuality ON WaterQualityTemperature_1.WaterQualityActivityID = intermediate.WaterQuality.WaterQualityActivityID
@@ -22,7 +23,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[41] 4[44] 2[5] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -85,7 +86,7 @@ Begin DesignProperties =
    Begin DiagramPane = 
       Begin Origin = 
          Top = 0
-         Left = 0
+         Left = -192
       End
       Begin Tables = 
          Begin Table = "DataQualityFlag (lookup)"
@@ -94,6 +95,16 @@ Begin DesignProperties =
                Left = 55
                Bottom = 215
                Right = 225
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "WaterQualityTemperature_1"
+            Begin Extent = 
+               Top = 30
+               Left = 319
+               Bottom = 241
+               Right = 528
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -107,16 +118,6 @@ Begin DesignProperties =
             End
             DisplayFlags = 280
             TopColumn = 4
-         End
-         Begin Table = "WaterQualityTemperature_1"
-            Begin Extent = 
-               Top = 30
-               Left = 319
-               Bottom = 241
-               Right = 528
-            End
-            DisplayFlags = 280
-            TopColumn = 0
          End
       End
    End
@@ -139,8 +140,8 @@ Begin DesignProperties =
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 1440
-         Alias = 900
+         Column = 1890
+         Alias = 1485
          Table = 3045
          Output = 720
          Append = 1400
@@ -156,6 +157,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualityTemperature';
+
+
 
 
 

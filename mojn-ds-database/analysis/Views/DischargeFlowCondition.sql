@@ -1,8 +1,8 @@
 ﻿CREATE VIEW analysis.DischargeFlowCondition
 AS
 SELECT        intermediate.Discharge.ParkCode, intermediate.Discharge.SiteCode, intermediate.Discharge.SiteName, intermediate.Discharge.VisitDate, intermediate.Discharge.VisitGroup, 
-                         intermediate.Discharge.FlowCondition, intermediate.Discharge.VisitType, lookup.SpringbrookLengthFlag.Code AS SpringbrookLengthFlag, data.SpringbrookDimensions.SpringbrookLength_m, 
-                         data.SpringbrookDimensions.SpringbrookWidth_m, intermediate.Discharge.DPL
+                         intermediate.Discharge.FlowCondition, lookup.SpringbrookLengthFlag.Code AS SpringbrookLengthFlag, data.SpringbrookDimensions.SpringbrookLength_m, data.SpringbrookDimensions.SpringbrookWidth_m, 
+                         intermediate.Discharge.VisitType, intermediate.Discharge.DPL
 FROM            lookup.SpringbrookLengthFlag INNER JOIN
                          data.SpringbrookDimensions ON lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND 
                          lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND 
@@ -26,7 +26,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[43] 4[18] 2[16] 3) )"
+         Configuration = "(H (1[44] 4[39] 2[12] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -163,6 +163,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'DischargeFlowCondition';
+
+
 
 
 

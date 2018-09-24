@@ -1,9 +1,9 @@
 ﻿CREATE VIEW analysis.Disturbance
 AS
-SELECT        data.DisturbanceActivity.Roads, data.DisturbanceActivity.HumanUse, data.DisturbanceActivity.PlantManagement, data.DisturbanceActivity.HikingTrails, data.DisturbanceActivity.Livestock, 
-                         data.DisturbanceActivity.OtherAnthropogenic, data.DisturbanceActivity.Fire, data.DisturbanceActivity.Flooding, data.DisturbanceActivity.Wildlife, data.DisturbanceActivity.OtherNatural, 
-                         data.DisturbanceActivity.Overall, lookup.FlowModificationStatus.Label AS FlowModificationStatus, DPL.Label AS DPL, intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, 
-                         intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, intermediate.SiteVisit.VisitType
+SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, data.DisturbanceActivity.Roads, 
+                         data.DisturbanceActivity.HumanUse, data.DisturbanceActivity.PlantManagement, data.DisturbanceActivity.HikingTrails, data.DisturbanceActivity.Livestock, data.DisturbanceActivity.OtherAnthropogenic, 
+                         data.DisturbanceActivity.Fire, data.DisturbanceActivity.Flooding, data.DisturbanceActivity.Wildlife, data.DisturbanceActivity.OtherNatural, data.DisturbanceActivity.Overall, 
+                         lookup.FlowModificationStatus.Label AS FlowModificationStatus, intermediate.SiteVisit.VisitType, DPL.Label AS DPL
 FROM            lookup.FlowModificationStatus INNER JOIN
                          data.DisturbanceActivity ON lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID AND lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID AND 
                          lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID AND lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID AND 
@@ -34,13 +34,15 @@ End
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[49] 4[24] 2[15] 3) )"
+         Configuration = "(H (1[23] 4[69] 2[4] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -126,22 +128,22 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 2
          End
-         Begin Table = "DPL"
-            Begin Extent = 
-               Top = 206
-               Left = 878
-               Bottom = 336
-               Right = 1048
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
          Begin Table = "SiteVisit (intermediate)"
             Begin Extent = 
                Top = 6
                Left = 38
                Bottom = 136
                Right = 210
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "DPL"
+            Begin Extent = 
+               Top = 206
+               Left = 878
+               Bottom = 336
+               Right = 1048
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -177,7 +179,9 @@ Begin DesignProperties =
          Table = 1170
          Output = 720
          Append = 1400
-         NewValue = 1170', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Disturbance';
+         NewValue = 1170', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Disturbance';
+
+
 
 
 
