@@ -1,80 +1,60 @@
 ﻿CREATE VIEW analysis.Riparian
 AS
-SELECT        P.Code AS ParkCode, S.Code AS SiteCode, S.Name AS SiteName, V.VisitDate, qa.Water_Year(V.VisitDate) AS VisitGroup, lookup.LifeForm.Label AS LifeForm, data.RiparianVegetationObservation.Rank, 
-                         data.RiparianVegetationObservation.DominantSpecies, lookup.VisitType.Label AS VisitType, lookup.ProtectedStatus.Code AS ProtectedStatus, DPL.Label AS DPL
-FROM            lookup.LifeForm INNER JOIN
-                         data.RiparianVegetationObservation ON lookup.LifeForm.ID = data.RiparianVegetationObservation.LifeFormID AND lookup.LifeForm.ID = data.RiparianVegetationObservation.LifeFormID AND 
-                         lookup.LifeForm.ID = data.RiparianVegetationObservation.LifeFormID AND lookup.LifeForm.ID = data.RiparianVegetationObservation.LifeFormID AND 
-                         lookup.LifeForm.ID = data.RiparianVegetationObservation.LifeFormID AND lookup.LifeForm.ID = data.RiparianVegetationObservation.LifeFormID AND 
-                         lookup.LifeForm.ID = data.RiparianVegetationObservation.LifeFormID LEFT OUTER JOIN
-                         data.Site AS S LEFT OUTER JOIN
-                         data.Visit AS V ON S.ID = V.SiteID INNER JOIN
-                         lookup.Park AS P ON S.ParkID = P.ID INNER JOIN
-                         lookup.ProtectedStatus ON S.ProtectedStatusID = lookup.ProtectedStatus.ID INNER JOIN
-                         lookup.VisitType ON V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND 
-                         V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID INNER JOIN
-                         lookup.MonitoringStatus ON V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND 
-                         V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID INNER JOIN
-                         data.RiparianVegetationActivity ON V.ID = data.RiparianVegetationActivity.VisitID AND V.ID = data.RiparianVegetationActivity.VisitID AND V.ID = data.RiparianVegetationActivity.VisitID AND 
-                         V.ID = data.RiparianVegetationActivity.VisitID AND V.ID = data.RiparianVegetationActivity.VisitID AND V.ID = data.RiparianVegetationActivity.VisitID AND V.ID = data.RiparianVegetationActivity.VisitID AND 
-                         V.ID = data.RiparianVegetationActivity.VisitID AND V.ID = data.RiparianVegetationActivity.VisitID AND V.ID = data.RiparianVegetationActivity.VisitID AND V.ID = data.RiparianVegetationActivity.VisitID AND 
-                         V.ID = data.RiparianVegetationActivity.VisitID ON data.RiparianVegetationObservation.ProtectedStatusID = lookup.ProtectedStatus.ID AND 
-                         data.RiparianVegetationObservation.ProtectedStatusID = lookup.ProtectedStatus.ID AND data.RiparianVegetationObservation.RiparianVegetationActivityID = data.RiparianVegetationActivity.ID AND 
-                         data.RiparianVegetationObservation.RiparianVegetationActivityID = data.RiparianVegetationActivity.ID AND 
-                         data.RiparianVegetationObservation.RiparianVegetationActivityID = data.RiparianVegetationActivity.ID AND 
-                         data.RiparianVegetationObservation.RiparianVegetationActivityID = data.RiparianVegetationActivity.ID AND 
-                         data.RiparianVegetationObservation.RiparianVegetationActivityID = data.RiparianVegetationActivity.ID LEFT OUTER JOIN
+SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, 
+                         lookup.IsVegetationObserved.Code AS IsVegetationObserved, lookup.MistletoePresent.Code AS MistletoePresent, lookup.LifeForm.Label AS LifeForm, data.RiparianVegetationObservation.Rank, 
+                         data.RiparianVegetationObservation.DominantSpecies, ref.Taxon.USDAPlantsCode, ref.Taxon.ScientificName, intermediate.SiteVisit.VisitType, lookup.ProtectedStatus.Code AS ProtectedStatus, 
+                         DPL.Label AS DPL
+FROM            lookup.MistletoePresent RIGHT OUTER JOIN
+                         lookup.IsVegetationObserved INNER JOIN
+                         intermediate.SiteVisit INNER JOIN
+                         data.RiparianVegetationActivity ON intermediate.SiteVisit.VisitID = data.RiparianVegetationActivity.VisitID ON lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND 
+                         lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID ON 
+                         lookup.MistletoePresent.ID = data.RiparianVegetationActivity.MistletoePresentID AND lookup.MistletoePresent.ID = data.RiparianVegetationActivity.MistletoePresentID AND 
+                         lookup.MistletoePresent.ID = data.RiparianVegetationActivity.MistletoePresentID LEFT OUTER JOIN
                          lookup.DataProcessingLevel AS DPL ON data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND 
                          data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND 
                          data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND 
                          data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND 
                          data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID AND 
                          data.RiparianVegetationActivity.DataProcessingLevelID = DPL.ID LEFT OUTER JOIN
-                         lookup.Subunit ON S.SubunitID = lookup.Subunit.ID
+                         lookup.ProtectedStatus RIGHT OUTER JOIN
+                         ref.Taxon RIGHT OUTER JOIN
+                         data.RiparianVegetationObservation ON ref.Taxon.ID = data.RiparianVegetationObservation.TaxonID AND ref.Taxon.ID = data.RiparianVegetationObservation.TaxonID LEFT OUTER JOIN
+                         lookup.LifeForm ON data.RiparianVegetationObservation.LifeFormID = lookup.LifeForm.ID AND data.RiparianVegetationObservation.LifeFormID = lookup.LifeForm.ID AND 
+                         data.RiparianVegetationObservation.LifeFormID = lookup.LifeForm.ID AND data.RiparianVegetationObservation.LifeFormID = lookup.LifeForm.ID AND 
+                         data.RiparianVegetationObservation.LifeFormID = lookup.LifeForm.ID AND data.RiparianVegetationObservation.LifeFormID = lookup.LifeForm.ID AND 
+                         data.RiparianVegetationObservation.LifeFormID = lookup.LifeForm.ID ON lookup.ProtectedStatus.ID = data.RiparianVegetationObservation.ProtectedStatusID AND 
+                         lookup.ProtectedStatus.ID = data.RiparianVegetationObservation.ProtectedStatusID ON data.RiparianVegetationActivity.ID = data.RiparianVegetationObservation.RiparianVegetationActivityID AND 
+                         data.RiparianVegetationActivity.ID = data.RiparianVegetationObservation.RiparianVegetationActivityID AND 
+                         data.RiparianVegetationActivity.ID = data.RiparianVegetationObservation.RiparianVegetationActivityID AND 
+                         data.RiparianVegetationActivity.ID = data.RiparianVegetationObservation.RiparianVegetationActivityID AND data.RiparianVegetationActivity.ID = data.RiparianVegetationObservation.RiparianVegetationActivityID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Riparian';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'      DisplayFlags = 280
-            TopColumn = 1
-         End
-         Begin Table = "Subunit (lookup)"
-            Begin Extent = 
-               Top = 270
-               Left = 753
-               Bottom = 400
-               Right = 923
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "RiparianVegetationActivity (data)"
-            Begin Extent = 
-               Top = 406
-               Left = 35
-               Bottom = 536
-               Right = 258
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'              Bottom = 401
+               Right = 1418
             End
             DisplayFlags = 280
             TopColumn = 0
          End
          Begin Table = "RiparianVegetationObservation (data)"
             Begin Extent = 
-               Top = 433
-               Left = 344
-               Bottom = 599
-               Right = 605
+               Top = 16
+               Left = 817
+               Bottom = 241
+               Right = 1078
             End
             DisplayFlags = 280
-            TopColumn = 1
+            TopColumn = 0
          End
          Begin Table = "LifeForm (lookup)"
             Begin Extent = 
-               Top = 270
-               Left = 38
-               Bottom = 400
-               Right = 208
+               Top = 1
+               Left = 1181
+               Bottom = 131
+               Right = 1351
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -86,7 +66,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'      Disp
    Begin DataPane = 
       Begin ParameterDefaults = ""
       End
-      Begin ColumnWidths = 14
+      Begin ColumnWidths = 16
          Width = 284
          Width = 1500
          Width = 1500
@@ -94,6 +74,8 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'      Disp
          Width = 1500
          Width = 1500
          Width = 1500
+         Width = 1500
+         Width = 4380
          Width = 1500
          Width = 1500
          Width = 1500
@@ -105,8 +87,8 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'      Disp
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 1440
-         Alias = 900
+         Column = 1605
+         Alias = 1935
          Table = 3240
          Output = 720
          Append = 1400
@@ -124,13 +106,17 @@ End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Riparian';
 
 
+
+
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[28] 4[60] 2[6] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -192,76 +178,77 @@ Begin DesignProperties =
    End
    Begin DiagramPane = 
       Begin Origin = 
-         Top = -96
+         Top = 0
          Left = 0
       End
       Begin Tables = 
-         Begin Table = "S"
+         Begin Table = "MistletoePresent (lookup)"
+            Begin Extent = 
+               Top = 158
+               Left = 41
+               Bottom = 271
+               Right = 211
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "IsVegetationObserved (lookup)"
+            Begin Extent = 
+               Top = 279
+               Left = 577
+               Bottom = 402
+               Right = 747
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "SiteVisit (intermediate)"
             Begin Extent = 
                Top = 6
                Left = 38
                Bottom = 136
-               Right = 247
+               Right = 210
             End
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "V"
+         Begin Table = "RiparianVegetationActivity (data)"
             Begin Extent = 
-               Top = 6
-               Left = 285
-               Bottom = 136
-               Right = 508
+               Top = 40
+               Left = 264
+               Bottom = 262
+               Right = 471
             End
             DisplayFlags = 280
             TopColumn = 0
-         End
-         Begin Table = "P"
-            Begin Extent = 
-               Top = 6
-               Left = 546
-               Bottom = 136
-               Right = 716
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "ProtectedStatus (lookup)"
-            Begin Extent = 
-               Top = 118
-               Left = 792
-               Bottom = 248
-               Right = 962
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "VisitType (lookup)"
-            Begin Extent = 
-               Top = 138
-               Left = 38
-               Bottom = 268
-               Right = 208
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "MonitoringStatus (lookup)"
-            Begin Extent = 
-               Top = 138
-               Left = 246
-               Bottom = 268
-               Right = 416
-            End
-            DisplayFlags = 280
-            TopColumn = 1
          End
          Begin Table = "DPL"
             Begin Extent = 
-               Top = 294
-               Left = 359
-               Bottom = 424
-               Right = 529
+               Top = 118
+               Left = 613
+               Bottom = 248
+               Right = 783
             End
-      ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Riparian';
+            DisplayFlags = 280
+            TopColumn = 2
+         End
+         Begin Table = "ProtectedStatus (lookup)"
+            Begin Extent = 
+               Top = 135
+               Left = 1245
+               Bottom = 265
+               Right = 1415
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "Taxon (ref)"
+            Begin Extent = 
+               Top = 271
+               Left = 1157
+ ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Riparian';
+
+
+
+
 

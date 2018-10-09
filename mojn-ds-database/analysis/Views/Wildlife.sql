@@ -1,90 +1,36 @@
 ﻿CREATE VIEW analysis.Wildlife
 AS
-SELECT        P.Code AS ParkCode, S.Code AS SiteCode, S.Name AS SiteName, V.VisitDate, qa.Water_Year(V.VisitDate) AS VisitGroup, lookup.WildlifeType.Code AS Type, data.WildlifeObservation.SpeciesName, 
-                         lookup.WildlifeEvidence.Label AS Evidence, lookup.VisitType.Label AS VisitType, DPL.Label AS DPL
-FROM            data.Site AS S LEFT OUTER JOIN
-                         data.Visit AS V ON S.ID = V.SiteID INNER JOIN
-                         lookup.Park AS P ON S.ParkID = P.ID INNER JOIN
-                         lookup.ProtectedStatus ON S.ProtectedStatusID = lookup.ProtectedStatus.ID INNER JOIN
-                         lookup.VisitType ON V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND 
-                         V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID INNER JOIN
-                         lookup.MonitoringStatus ON V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND 
-                         V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID INNER JOIN
-                         data.WildlifeActivity ON V.ID = data.WildlifeActivity.VisitID INNER JOIN
-                         data.WildlifeObservation ON data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID AND data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID AND 
-                         data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID AND data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID AND 
-                         data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID AND data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID AND 
-                         data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID INNER JOIN
+SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, 
+                         lookup.IsWildlifeObserved.Code AS IsWildlifeObserved, lookup.WildlifeType.Code AS Type, data.WildlifeObservation.SpeciesName, lookup.WildlifeEvidence.Label AS Evidence, intermediate.SiteVisit.VisitType, 
+                         DPL.Label AS DPL
+FROM            lookup.IsWildlifeObserved RIGHT OUTER JOIN
+                         data.WildlifeActivity ON lookup.IsWildlifeObserved.ID = data.WildlifeActivity.IsWildlifeObservedID AND lookup.IsWildlifeObserved.ID = data.WildlifeActivity.IsWildlifeObservedID LEFT OUTER JOIN
+                         data.WildlifeObservation LEFT OUTER JOIN
                          lookup.WildlifeEvidence ON data.WildlifeObservation.WildlifeEvidenceID = lookup.WildlifeEvidence.ID AND data.WildlifeObservation.WildlifeEvidenceID = lookup.WildlifeEvidence.ID AND 
                          data.WildlifeObservation.WildlifeEvidenceID = lookup.WildlifeEvidence.ID AND data.WildlifeObservation.WildlifeEvidenceID = lookup.WildlifeEvidence.ID AND 
                          data.WildlifeObservation.WildlifeEvidenceID = lookup.WildlifeEvidence.ID AND data.WildlifeObservation.WildlifeEvidenceID = lookup.WildlifeEvidence.ID AND 
                          data.WildlifeObservation.WildlifeEvidenceID = lookup.WildlifeEvidence.ID AND data.WildlifeObservation.WildlifeEvidenceID = lookup.WildlifeEvidence.ID AND 
-                         data.WildlifeObservation.WildlifeEvidenceID = lookup.WildlifeEvidence.ID AND data.WildlifeObservation.WildlifeEvidenceID = lookup.WildlifeEvidence.ID INNER JOIN
+                         data.WildlifeObservation.WildlifeEvidenceID = lookup.WildlifeEvidence.ID AND data.WildlifeObservation.WildlifeEvidenceID = lookup.WildlifeEvidence.ID LEFT OUTER JOIN
                          lookup.WildlifeType ON data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID AND data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID AND 
                          data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID AND data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID AND data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID AND
                           data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID AND data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID AND 
-                         data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID AND data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID AND 
-                         data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID LEFT OUTER JOIN
+                         data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID AND data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID AND data.WildlifeObservation.WildlifeTypeID = lookup.WildlifeType.ID ON 
+                         data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID AND data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID AND 
+                         data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID AND data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID AND 
+                         data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID AND data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID AND 
+                         data.WildlifeActivity.ID = data.WildlifeObservation.WildlifeActivityID RIGHT OUTER JOIN
+                         intermediate.SiteVisit ON data.WildlifeActivity.VisitID = intermediate.SiteVisit.VisitID LEFT OUTER JOIN
                          lookup.DataProcessingLevel AS DPL ON data.WildlifeActivity.DataProcessingLevelID = DPL.ID AND data.WildlifeActivity.DataProcessingLevelID = DPL.ID AND 
                          data.WildlifeActivity.DataProcessingLevelID = DPL.ID AND data.WildlifeActivity.DataProcessingLevelID = DPL.ID AND data.WildlifeActivity.DataProcessingLevelID = DPL.ID AND 
                          data.WildlifeActivity.DataProcessingLevelID = DPL.ID AND data.WildlifeActivity.DataProcessingLevelID = DPL.ID AND data.WildlifeActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.WildlifeActivity.DataProcessingLevelID = DPL.ID LEFT OUTER JOIN
-                         lookup.Subunit ON S.SubunitID = lookup.Subunit.ID
+                         data.WildlifeActivity.DataProcessingLevelID = DPL.ID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Wildlife';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'      End
-            DisplayFlags = 280
-            TopColumn = 4
-         End
-         Begin Table = "WildlifeObservation (data)"
-            Begin Extent = 
-               Top = 183
-               Left = 641
-               Bottom = 343
-               Right = 857
-            End
-            DisplayFlags = 280
-            TopColumn = 2
-         End
-         Begin Table = "WildlifeEvidence (lookup)"
-            Begin Extent = 
-               Top = 355
-               Left = 689
-               Bottom = 468
-               Right = 859
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "WildlifeType (lookup)"
-            Begin Extent = 
-               Top = 349
-               Left = 442
-               Bottom = 479
-               Right = 612
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "DPL"
-            Begin Extent = 
-               Top = 305
-               Left = 234
-               Bottom = 435
-               Right = 404
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "Subunit (lookup)"
-            Begin Extent = 
-               Top = 270
-               Left = 38
-               Bottom = 400
-               Right = 208
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'               Bottom = 411
+               Right = 730
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -134,13 +80,17 @@ End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Wildlife';
 
 
+
+
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[18] 4[60] 2[11] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -206,71 +156,73 @@ Begin DesignProperties =
          Left = 0
       End
       Begin Tables = 
-         Begin Table = "S"
+         Begin Table = "IsWildlifeObserved (lookup)"
             Begin Extent = 
-               Top = 6
-               Left = 38
-               Bottom = 136
-               Right = 247
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "V"
-            Begin Extent = 
-               Top = 6
-               Left = 285
-               Bottom = 136
-               Right = 508
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "P"
-            Begin Extent = 
-               Top = 6
-               Left = 546
-               Bottom = 136
-               Right = 716
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "ProtectedStatus (lookup)"
-            Begin Extent = 
-               Top = 138
-               Left = 38
-               Bottom = 268
-               Right = 208
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "VisitType (lookup)"
-            Begin Extent = 
-               Top = 169
-               Left = 232
-               Bottom = 299
-               Right = 402
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "MonitoringStatus (lookup)"
-            Begin Extent = 
-               Top = 44
-               Left = 792
-               Bottom = 174
-               Right = 962
+               Top = 14
+               Left = 575
+               Bottom = 147
+               Right = 745
             End
             DisplayFlags = 280
             TopColumn = 0
          End
          Begin Table = "WildlifeActivity (data)"
             Begin Extent = 
-               Top = 167
-               Left = 450
-               Bottom = 333
-               Right = 616
-      ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Wildlife';
+               Top = 81
+               Left = 277
+               Bottom = 321
+               Right = 493
+            End
+            DisplayFlags = 280
+            TopColumn = 4
+         End
+         Begin Table = "WildlifeObservation (data)"
+            Begin Extent = 
+               Top = 138
+               Left = 779
+               Bottom = 350
+               Right = 995
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "WildlifeEvidence (lookup)"
+            Begin Extent = 
+               Top = 262
+               Left = 1094
+               Bottom = 375
+               Right = 1264
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "WildlifeType (lookup)"
+            Begin Extent = 
+               Top = 45
+               Left = 1094
+               Bottom = 175
+               Right = 1264
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "SiteVisit (intermediate)"
+            Begin Extent = 
+               Top = 6
+               Left = 38
+               Bottom = 322
+               Right = 219
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "DPL"
+            Begin Extent = 
+               Top = 281
+               Left = 560
+', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Wildlife';
+
+
+
+
 

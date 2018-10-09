@@ -141,6 +141,8 @@
     <Folder Include="analysis" />
     <Folder Include="analysis\Views\" />
     <Folder Include="data\Views" />
+    <Folder Include="intermediate\" />
+    <Folder Include="intermediate\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="data\Tables\SpringbrookDimensions.sql">
@@ -616,6 +618,19 @@
     <Build Include="data\Views\CalibrationpH_Shared.sql" />
     <Build Include="data\Views\CalibrationSpCond_Shared.sql" />
     <Build Include="ref\Views\WaterQualityInstrument_Shared.sql" />
+    <Build Include="intermediate\Views\WaterQuality.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="intermediate\Views\SiteVisit.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="intermediate\Views\Discharge.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Security\intermediate.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />

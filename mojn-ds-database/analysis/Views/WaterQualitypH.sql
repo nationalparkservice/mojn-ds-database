@@ -1,119 +1,19 @@
 ﻿CREATE VIEW analysis.WaterQualitypH
 AS
-SELECT        P.Code AS ParkCode, S.Code AS SiteCode, S.Name AS SiteName, V.VisitDate, qa.Water_Year(V.VisitDate) AS VisitGroup, data.WaterQualitypH.pH, lookup.DataQualityFlag.Code AS DataQualityFlag, 
-                         data.WaterQualitypH.DataQualityFlagNote, lookup.VisitType.Label AS VisitType, DPL.Label AS DPL
-FROM            data.Site AS S LEFT OUTER JOIN
-                         data.Visit AS V ON S.ID = V.SiteID INNER JOIN
-                         lookup.Park AS P ON S.ParkID = P.ID INNER JOIN
-                         lookup.ProtectedStatus ON S.ProtectedStatusID = lookup.ProtectedStatus.ID INNER JOIN
-                         lookup.VisitType ON V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND 
-                         V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID INNER JOIN
-                         lookup.MonitoringStatus ON V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND 
-                         V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID INNER JOIN
-                         data.WaterQualityActivity ON V.ID = data.WaterQualityActivity.VisitID AND V.ID = data.WaterQualityActivity.VisitID AND V.ID = data.WaterQualityActivity.VisitID AND V.ID = data.WaterQualityActivity.VisitID AND 
-                         V.ID = data.WaterQualityActivity.VisitID AND V.ID = data.WaterQualityActivity.VisitID AND V.ID = data.WaterQualityActivity.VisitID AND V.ID = data.WaterQualityActivity.VisitID AND 
-                         V.ID = data.WaterQualityActivity.VisitID AND V.ID = data.WaterQualityActivity.VisitID AND V.ID = data.WaterQualityActivity.VisitID AND V.ID = data.WaterQualityActivity.VisitID INNER JOIN
-                         data.WaterQualitypH ON data.WaterQualityActivity.ID = data.WaterQualitypH.WaterQualityActivityID AND data.WaterQualityActivity.ID = data.WaterQualitypH.WaterQualityActivityID AND 
-                         data.WaterQualityActivity.ID = data.WaterQualitypH.WaterQualityActivityID AND data.WaterQualityActivity.ID = data.WaterQualitypH.WaterQualityActivityID AND 
-                         data.WaterQualityActivity.ID = data.WaterQualitypH.WaterQualityActivityID INNER JOIN
-                         lookup.DataQualityFlag ON data.WaterQualitypH.DataQualityFlagID = lookup.DataQualityFlag.ID AND data.WaterQualitypH.DataQualityFlagID = lookup.DataQualityFlag.ID AND 
-                         data.WaterQualitypH.DataQualityFlagID = lookup.DataQualityFlag.ID AND data.WaterQualitypH.DataQualityFlagID = lookup.DataQualityFlag.ID AND 
-                         data.WaterQualitypH.DataQualityFlagID = lookup.DataQualityFlag.ID LEFT OUTER JOIN
-                         lookup.DataProcessingLevel AS DPL ON data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID LEFT OUTER JOIN
-                         lookup.Subunit ON S.SubunitID = lookup.Subunit.ID
+SELECT        intermediate.WaterQuality.ParkCode, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.VisitGroup, 
+                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualitypH_1.pH, lookup.DataQualityFlag.Code AS DataQualityFlag, WaterQualitypH_1.DataQualityFlagNote, 
+                         intermediate.WaterQuality.pHInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, intermediate.WaterQuality.MonitoringStatus
+FROM            lookup.DataQualityFlag RIGHT OUTER JOIN
+                         data.WaterQualitypH AS WaterQualitypH_1 ON lookup.DataQualityFlag.ID = WaterQualitypH_1.DataQualityFlagID RIGHT OUTER JOIN
+                         intermediate.WaterQuality ON WaterQualitypH_1.WaterQualityActivityID = intermediate.WaterQuality.WaterQualityActivityID
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualitypH';
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualitypH';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "DataQualityFlag (lookup)"
-            Begin Extent = 
-               Top = 270
-               Left = 38
-               Bottom = 400
-               Right = 208
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "DPL"
-            Begin Extent = 
-               Top = 270
-               Left = 246
-               Bottom = 400
-               Right = 416
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "Subunit (lookup)"
-            Begin Extent = 
-               Top = 270
-               Left = 454
-               Bottom = 400
-               Right = 624
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "WaterQualitypH_1"
-            Begin Extent = 
-               Top = 274
-               Left = 666
-               Bottom = 404
-               Right = 875
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-      End
-   End
-   Begin SQLPane = 
-   End
-   Begin DataPane = 
-      Begin ParameterDefaults = ""
-      End
-      Begin ColumnWidths = 10
-         Width = 284
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-      End
-   End
-   Begin CriteriaPane = 
-      Begin ColumnWidths = 11
-         Column = 1440
-         Alias = 900
-         Table = 3255
-         Output = 720
-         Append = 1400
-         NewValue = 1170
-         SortType = 1350
-         SortOrder = 1410
-         GroupBy = 1350
-         Filter = 1350
-         Or = 1350
-         Or = 1350
-         Or = 1350
-      End
-   End
-End
-', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualitypH';
+
 
 
 GO
@@ -122,7 +22,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[42] 4[50] 2[3] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -188,70 +88,79 @@ Begin DesignProperties =
          Left = 0
       End
       Begin Tables = 
-         Begin Table = "S"
+         Begin Table = "DataQualityFlag (lookup)"
             Begin Extent = 
-               Top = 3
-               Left = 252
-               Bottom = 133
-               Right = 461
+               Top = 182
+               Left = 910
+               Bottom = 312
+               Right = 1080
             End
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "V"
+         Begin Table = "WaterQualitypH_1"
             Begin Extent = 
-               Top = 6
-               Left = 558
-               Bottom = 136
-               Right = 781
+               Top = 166
+               Left = 485
+               Bottom = 354
+               Right = 694
             End
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "P"
+         Begin Table = "WaterQuality (intermediate)"
             Begin Extent = 
-               Top = 6
-               Left = 819
-               Bottom = 136
-               Right = 989
+               Top = 114
+               Left = 76
+               Bottom = 377
+               Right = 308
             End
             DisplayFlags = 280
-            TopColumn = 0
+            TopColumn = 2
          End
-         Begin Table = "ProtectedStatus (lookup)"
-            Begin Extent = 
-               Top = 138
-               Left = 38
-               Bottom = 268
-               Right = 208
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "VisitType (lookup)"
-            Begin Extent = 
-               Top = 138
-               Left = 246
-               Bottom = 268
-               Right = 416
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "MonitoringStatus (lookup)"
-            Begin Extent = 
-               Top = 138
-               Left = 454
-               Bottom = 268
-               Right = 624
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "WaterQualityActivity (data)"
-            Begin Extent = 
-               Top = 138
-               Left = 662
-               Bottom = 268
-               Right = 905', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualitypH';
+      End
+   End
+   Begin SQLPane = 
+   End
+   Begin DataPane = 
+      Begin ParameterDefaults = ""
+      End
+      Begin ColumnWidths = 12
+         Width = 284
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+      End
+   End
+   Begin CriteriaPane = 
+      Begin ColumnWidths = 11
+         Column = 2370
+         Alias = 900
+         Table = 3255
+         Output = 720
+         Append = 1400
+         NewValue = 1170
+         SortType = 1350
+         SortOrder = 1410
+         GroupBy = 1350
+         Filter = 1350
+         Or = 1350
+         Or = 1350
+         Or = 1350
+      End
+   End
+End
+', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualitypH';
+
+
+
+
 

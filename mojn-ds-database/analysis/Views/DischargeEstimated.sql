@@ -1,26 +1,10 @@
 ﻿CREATE VIEW analysis.DischargeEstimated
 AS
-SELECT        P.Code AS ParkCode, S.Code AS SiteCode, S.Name AS SiteName, V.VisitDate, qa.Water_Year(V.VisitDate) AS VisitGroup, lookup.FlowCondition.Label AS FlowCondition, 
-                         lookup.DischargeEstimatedFlag.Code AS DischargeFlag, data.DischargeEstimatedObservation.Discharge_L_per_min, lookup.VisitType.Label AS VisitType, DPL.Label AS DPL
-FROM            data.DischargeActivity INNER JOIN
-                         data.Site AS S LEFT OUTER JOIN
-                         data.Visit AS V ON S.ID = V.SiteID INNER JOIN
-                         lookup.Park AS P ON S.ParkID = P.ID INNER JOIN
-                         lookup.ProtectedStatus ON S.ProtectedStatusID = lookup.ProtectedStatus.ID INNER JOIN
-                         lookup.VisitType ON V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID AND 
-                         V.VisitTypeID = lookup.VisitType.ID AND V.VisitTypeID = lookup.VisitType.ID INNER JOIN
-                         lookup.MonitoringStatus ON V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND 
-                         V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID AND V.MonitoringStatusID = lookup.MonitoringStatus.ID ON 
-                         data.DischargeActivity.VisitID = V.ID INNER JOIN
-                         lookup.FlowCondition ON data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID INNER JOIN
-                         data.DischargeEstimatedObservation ON data.DischargeActivity.ID = data.DischargeEstimatedObservation.DischargeActivityID LEFT OUTER JOIN
-                         lookup.DataProcessingLevel AS DPL ON data.DischargeActivity.DataProcessingLevelID = DPL.ID AND data.DischargeActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.DischargeActivity.DataProcessingLevelID = DPL.ID AND data.DischargeActivity.DataProcessingLevelID = DPL.ID AND data.DischargeActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.DischargeActivity.DataProcessingLevelID = DPL.ID AND data.DischargeActivity.DataProcessingLevelID = DPL.ID LEFT OUTER JOIN
-                         lookup.Subunit ON S.SubunitID = lookup.Subunit.ID LEFT OUTER JOIN
+SELECT        intermediate.Discharge.ParkCode, intermediate.Discharge.SiteCode, intermediate.Discharge.SiteName, intermediate.Discharge.VisitDate, intermediate.Discharge.VisitGroup, 
+                         intermediate.Discharge.FlowCondition, lookup.DischargeEstimatedFlag.Code AS DischargeFlag, data.DischargeEstimatedObservation.Discharge_L_per_min, intermediate.Discharge.VisitType, 
+                         intermediate.Discharge.DPL
+FROM            intermediate.Discharge INNER JOIN
+                         data.DischargeEstimatedObservation ON intermediate.Discharge.DischargeActivityID = data.DischargeEstimatedObservation.DischargeActivityID LEFT OUTER JOIN
                          lookup.DischargeEstimatedFlag ON data.DischargeEstimatedObservation.DischargeEstimatedFlagID = lookup.DischargeEstimatedFlag.ID AND 
                          data.DischargeEstimatedObservation.DischargeEstimatedFlagID = lookup.DischargeEstimatedFlag.ID AND 
                          data.DischargeEstimatedObservation.DischargeEstimatedFlagID = lookup.DischargeEstimatedFlag.ID AND 
@@ -29,107 +13,13 @@ FROM            data.DischargeActivity INNER JOIN
                          data.DischargeEstimatedObservation.DischargeEstimatedFlagID = lookup.DischargeEstimatedFlag.ID AND 
                          data.DischargeEstimatedObservation.DischargeEstimatedFlagID = lookup.DischargeEstimatedFlag.ID AND data.DischargeEstimatedObservation.DischargeEstimatedFlagID = lookup.DischargeEstimatedFlag.ID
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'DischargeEstimated';
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'DischargeEstimated';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'       End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "DPL"
-            Begin Extent = 
-               Top = 270
-               Left = 38
-               Bottom = 400
-               Right = 208
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "Subunit (lookup)"
-            Begin Extent = 
-               Top = 270
-               Left = 246
-               Bottom = 400
-               Right = 416
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "DischargeEstimatedObservation (data)"
-            Begin Extent = 
-               Top = 272
-               Left = 470
-               Bottom = 402
-               Right = 696
-            End
-            DisplayFlags = 280
-            TopColumn = 1
-         End
-         Begin Table = "DischargeEstimatedFlag (lookup)"
-            Begin Extent = 
-               Top = 265
-               Left = 788
-               Bottom = 378
-               Right = 1025
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "DischargeActivity (data)"
-            Begin Extent = 
-               Top = 6
-               Left = 38
-               Bottom = 136
-               Right = 261
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-      End
-   End
-   Begin SQLPane = 
-   End
-   Begin DataPane = 
-      Begin ParameterDefaults = ""
-      End
-      Begin ColumnWidths = 14
-         Width = 284
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-         Width = 1500
-      End
-   End
-   Begin CriteriaPane = 
-      Begin ColumnWidths = 11
-         Column = 1440
-         Alias = 900
-         Table = 1170
-         Output = 720
-         Append = 1400
-         NewValue = 1170
-         SortType = 1350
-         SortOrder = 1410
-         GroupBy = 1350
-         Filter = 1350
-         Or = 1350
-         Or = 1350
-         Or = 1350
-      End
-   End
-End
-', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'DischargeEstimated';
+
 
 
 GO
@@ -138,7 +28,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[46] 4[31] 2[11] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -204,71 +94,81 @@ Begin DesignProperties =
          Left = 0
       End
       Begin Tables = 
-         Begin Table = "S"
+         Begin Table = "Discharge (intermediate)"
             Begin Extent = 
-               Top = 6
-               Left = 299
-               Bottom = 136
-               Right = 508
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "V"
-            Begin Extent = 
-               Top = 6
-               Left = 546
-               Bottom = 136
-               Right = 769
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "P"
-            Begin Extent = 
-               Top = 6
-               Left = 807
-               Bottom = 136
-               Right = 977
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "ProtectedStatus (lookup)"
-            Begin Extent = 
-               Top = 138
-               Left = 38
-               Bottom = 268
-               Right = 208
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "VisitType (lookup)"
-            Begin Extent = 
-               Top = 138
-               Left = 246
-               Bottom = 268
-               Right = 416
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "MonitoringStatus (lookup)"
-            Begin Extent = 
-               Top = 135
-               Left = 452
+               Top = 0
+               Left = 34
                Bottom = 265
-               Right = 622
+               Right = 226
             End
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "FlowCondition (lookup)"
+         Begin Table = "DischargeEstimatedObservation (data)"
             Begin Extent = 
-               Top = 145
-               Left = 691
-               Bottom = 258
-               Right = 861
-     ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'DischargeEstimated';
+               Top = 9
+               Left = 298
+               Bottom = 224
+               Right = 524
+            End
+            DisplayFlags = 280
+            TopColumn = 1
+         End
+         Begin Table = "DischargeEstimatedFlag (lookup)"
+            Begin Extent = 
+               Top = 97
+               Left = 600
+               Bottom = 261
+               Right = 837
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+      End
+   End
+   Begin SQLPane = 
+   End
+   Begin DataPane = 
+      Begin ParameterDefaults = ""
+      End
+      Begin ColumnWidths = 14
+         Width = 284
+         Width = 1500
+         Width = 1500
+         Width = 2430
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1980
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+      End
+   End
+   Begin CriteriaPane = 
+      Begin ColumnWidths = 11
+         Column = 1890
+         Alias = 1800
+         Table = 3510
+         Output = 720
+         Append = 1400
+         NewValue = 1170
+         SortType = 1350
+         SortOrder = 1410
+         GroupBy = 1350
+         Filter = 1350
+         Or = 1350
+         Or = 1350
+         Or = 1350
+      End
+   End
+End
+', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'DischargeEstimated';
+
+
+
+
 
