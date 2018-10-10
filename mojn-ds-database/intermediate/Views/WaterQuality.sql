@@ -7,10 +7,10 @@ FROM            intermediate.SiteVisit LEFT OUTER JOIN
                          data.WaterQualityActivity ON intermediate.SiteVisit.VisitID = data.WaterQualityActivity.VisitID LEFT OUTER JOIN
                          lookup.WaterQualityDataCollected ON data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID AND 
                          data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID LEFT OUTER JOIN
-                         ref.WaterQualityInstrument AS TempInstrument ON data.WaterQualityActivity.TemperatureInstrumentID = TempInstrument.ID LEFT OUTER JOIN
-                         ref.WaterQualityInstrument AS DOInstrument ON data.WaterQualityActivity.DOInstrumentID = DOInstrument.ID LEFT OUTER JOIN
-                         ref.WaterQualityInstrument AS pHInstrument ON data.WaterQualityActivity.pHInstrumentID = pHInstrument.ID LEFT OUTER JOIN
-                         ref.WaterQualityInstrument AS SpCondInstrument ON data.WaterQualityActivity.SpCondInstrumentID = SpCondInstrument.ID LEFT OUTER JOIN
+                         ref.WaterQualityInstrument_Shared AS TempInstrument ON data.WaterQualityActivity.TemperatureInstrumentID = TempInstrument.ID LEFT OUTER JOIN
+                         ref.WaterQualityInstrument_Shared AS DOInstrument ON data.WaterQualityActivity.DOInstrumentID = DOInstrument.ID LEFT OUTER JOIN
+                         ref.WaterQualityInstrument_Shared AS pHInstrument ON data.WaterQualityActivity.pHInstrumentID = pHInstrument.ID LEFT OUTER JOIN
+                         ref.WaterQualityInstrument_Shared AS SpCondInstrument ON data.WaterQualityActivity.SpCondInstrumentID = SpCondInstrument.ID LEFT OUTER JOIN
                          lookup.DataProcessingLevel AS DPL ON data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
                          data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
                          data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
@@ -22,18 +22,17 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @leve
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'    Bottom = 414
-               Right = 788
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'               Right = 1191
             End
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "DPL"
+         Begin Table = "SpCondInstrument"
             Begin Extent = 
-               Top = 332
-               Left = 312
-               Bottom = 462
-               Right = 482
+               Top = 6
+               Left = 1229
+               Bottom = 136
+               Right = 1405
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -45,7 +44,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'    Bottom
    Begin DataPane = 
       Begin ParameterDefaults = ""
       End
-      Begin ColumnWidths = 14
+      Begin ColumnWidths = 15
          Width = 284
          Width = 1500
          Width = 1500
@@ -60,13 +59,14 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'    Bottom
          Width = 1500
          Width = 1500
          Width = 1500
+         Width = 1500
       End
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
          Column = 1440
-         Alias = 900
-         Table = 1170
+         Alias = 2370
+         Table = 3090
          Output = 720
          Append = 1400
          NewValue = 1170
@@ -83,13 +83,15 @@ End
 ', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'WaterQuality';
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[48] 4[15] 2[11] 3) )"
+         Configuration = "(H (1[48] 4[14] 2[28] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -185,39 +187,42 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 0
          End
+         Begin Table = "DPL"
+            Begin Extent = 
+               Top = 332
+               Left = 312
+               Bottom = 462
+               Right = 482
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
          Begin Table = "TempInstrument"
             Begin Extent = 
-               Top = 205
-               Left = 860
-               Bottom = 393
-               Right = 1093
+               Top = 6
+               Left = 587
+               Bottom = 136
+               Right = 763
             End
             DisplayFlags = 280
             TopColumn = 0
          End
          Begin Table = "DOInstrument"
             Begin Extent = 
-               Top = 42
-               Left = 866
-               Bottom = 172
-               Right = 1042
+               Top = 6
+               Left = 801
+               Bottom = 136
+               Right = 977
             End
             DisplayFlags = 280
             TopColumn = 0
          End
          Begin Table = "pHInstrument"
             Begin Extent = 
-               Top = 10
-               Left = 603
-               Bottom = 172
-               Right = 810
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "SpCondInstrument"
-            Begin Extent = 
-               Top = 284
-               Left = 612
-           ', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'WaterQuality';
+               Top = 6
+               Left = 1015
+               Bottom = 136
+', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'WaterQuality';
+
+
 

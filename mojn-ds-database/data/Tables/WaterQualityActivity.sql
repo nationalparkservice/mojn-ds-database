@@ -15,13 +15,11 @@
     CONSTRAINT [CK_WaterQualityActivity_DataProcessingLevelNote_DisallowZeroLength] CHECK (len([DataProcessingLevelNote])>(0)),
     CONSTRAINT [CK_WaterQualityActivity_Notes_DisallowZeroLength] CHECK (len([Notes])>(0)),
     CONSTRAINT [FK_WaterQualityActivity_DataProcessingLevel] FOREIGN KEY ([DataProcessingLevelID]) REFERENCES [lookup].[DataProcessingLevel] ([ID]),
-    CONSTRAINT [FK_WaterQualityActivity_DOInstrument] FOREIGN KEY ([DOInstrumentID]) REFERENCES [ref].[WaterQualityInstrument] ([ID]),
-    CONSTRAINT [FK_WaterQualityActivity_pHInstrument] FOREIGN KEY ([pHInstrumentID]) REFERENCES [ref].[WaterQualityInstrument] ([ID]),
-    CONSTRAINT [FK_WaterQualityActivity_SpCondInstrument] FOREIGN KEY ([SpCondInstrumentID]) REFERENCES [ref].[WaterQualityInstrument] ([ID]),
-    CONSTRAINT [FK_WaterQualityActivity_TemperatureInstrument] FOREIGN KEY ([TemperatureInstrumentID]) REFERENCES [ref].[WaterQualityInstrument] ([ID]),
     CONSTRAINT [FK_WaterQualityActivity_Visit] FOREIGN KEY ([VisitID]) REFERENCES [data].[Visit] ([ID]),
     CONSTRAINT [FK_WaterQualityActivity_WaterQualityDataCollected] FOREIGN KEY ([WaterQualityDataCollectedID]) REFERENCES [lookup].[WaterQualityDataCollected] ([ID])
 );
+
+
 
 
 GO
@@ -46,19 +44,27 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Foreign key
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Foreign key to ref.WaterQualityInstrument (instrument used for measurement)', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'WaterQualityActivity', @level2type = N'COLUMN', @level2name = N'pHInstrumentID';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Foreign key to ref.WaterQualityInstrument_Shared (instrument used for measurement)', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'WaterQualityActivity', @level2type = N'COLUMN', @level2name = N'pHInstrumentID';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Foreign key to ref.WaterQualityInstrument (instrument used for measurement)', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'WaterQualityActivity', @level2type = N'COLUMN', @level2name = N'DOInstrumentID';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Foreign key to ref.WaterQualityInstrument_Shared (instrument used for measurement)', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'WaterQualityActivity', @level2type = N'COLUMN', @level2name = N'DOInstrumentID';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Foreign key to ref.WaterQualityInstrument (instrument used for measurement)', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'WaterQualityActivity', @level2type = N'COLUMN', @level2name = N'SpCondInstrumentID';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Foreign key to ref.WaterQualityInstrument_Shared (instrument used for measurement)', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'WaterQualityActivity', @level2type = N'COLUMN', @level2name = N'SpCondInstrumentID';
+
+
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Foreign key to ref.WaterQualityInstrument (instrument used for measurement)', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'WaterQualityActivity', @level2type = N'COLUMN', @level2name = N'TemperatureInstrumentID';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Foreign key to ref.WaterQualityInstrument_Shared (instrument used for measurement)', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'WaterQualityActivity', @level2type = N'COLUMN', @level2name = N'TemperatureInstrumentID';
+
+
 
 
 GO
