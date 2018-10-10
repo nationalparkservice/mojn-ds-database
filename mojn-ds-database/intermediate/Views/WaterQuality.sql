@@ -7,10 +7,10 @@ FROM            intermediate.SiteVisit LEFT OUTER JOIN
                          data.WaterQualityActivity ON intermediate.SiteVisit.VisitID = data.WaterQualityActivity.VisitID LEFT OUTER JOIN
                          lookup.WaterQualityDataCollected ON data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID AND 
                          data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID LEFT OUTER JOIN
-                         ref.WaterQualityInstrument AS TempInstrument ON data.WaterQualityActivity.TemperatureInstrumentID = TempInstrument.ID LEFT OUTER JOIN
-                         ref.WaterQualityInstrument AS DOInstrument ON data.WaterQualityActivity.DOInstrumentID = DOInstrument.ID LEFT OUTER JOIN
-                         ref.WaterQualityInstrument AS pHInstrument ON data.WaterQualityActivity.pHInstrumentID = pHInstrument.ID LEFT OUTER JOIN
-                         ref.WaterQualityInstrument AS SpCondInstrument ON data.WaterQualityActivity.SpCondInstrumentID = SpCondInstrument.ID LEFT OUTER JOIN
+                         ref.WaterQualityInstrument_Shared AS TempInstrument ON data.WaterQualityActivity.TemperatureInstrumentID = TempInstrument.ID LEFT OUTER JOIN
+                         ref.WaterQualityInstrument_Shared AS DOInstrument ON data.WaterQualityActivity.DOInstrumentID = DOInstrument.ID LEFT OUTER JOIN
+                         ref.WaterQualityInstrument_Shared AS pHInstrument ON data.WaterQualityActivity.pHInstrumentID = pHInstrument.ID LEFT OUTER JOIN
+                         ref.WaterQualityInstrument_Shared AS SpCondInstrument ON data.WaterQualityActivity.SpCondInstrumentID = SpCondInstrument.ID LEFT OUTER JOIN
                          lookup.DataProcessingLevel AS DPL ON data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
                          data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
                          data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
