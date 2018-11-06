@@ -143,6 +143,8 @@
     <Folder Include="data\Views" />
     <Folder Include="intermediate\" />
     <Folder Include="intermediate\Views\" />
+    <Folder Include="export\" />
+    <Folder Include="export\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="data\Tables\SpringbrookDimensions.sql">
@@ -197,7 +199,7 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="data\Tables\WildlifeObservation.sql">
+    <Build Include="data\Tables\RETIRED_WildlifeObservation.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
@@ -546,7 +548,7 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="analysis\Views\Wildlife.sql">
+    <Build Include="analysis\Views\RETIRED_Wildlife.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
@@ -631,6 +633,14 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+    <Build Include="data\Tables\WildlifeObservation.sql" />
+    <Build Include="lookup\Tables\WildilfeEvidencePresent.sql" />
+    <Build Include="export\Views\ToGIS.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Security\NPS_lcombs.sql" />
+    <Build Include="analysis\Views\Wildlife.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />
