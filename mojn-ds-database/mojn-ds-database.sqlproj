@@ -503,14 +503,6 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="Security\NPS_nhupp.sql" />
-    <Build Include="Security\NPS_JBrackin.sql" />
-    <Build Include="Security\NPS_jbailard.sql" />
-    <Build Include="Security\NPS_GMoret.sql" />
-    <Build Include="Security\NPS_cwilkerson.sql" />
-    <Build Include="Security\NPS_awhalen.sql" />
-    <Build Include="Security\NPS_acalvert.sql" />
-    <Build Include="Security\RoleMemberships.sql" />
     <Build Include="qa\Functions\Water_Year.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -534,12 +526,10 @@
     <Build Include="Security\qc.sql" />
     <Build Include="Security\ref.sql" />
     <Build Include="Security\temp.sql" />
-    <Build Include="Security\Permissions.sql" />
     <Build Include="ExtendedProperties.sql" />
     <None Include="Scripts\AllPhotos.sql" />
     <Build Include="temp\MissingPhotos.sql" />
     <Build Include="app\Views\ActivityDashboard.sql" />
-    <Build Include="Security\NPS_mhsteiner.sql" />
     <Build Include="analysis\Views\Visit.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -639,7 +629,6 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="Security\NPS_lcombs.sql" />
     <Build Include="analysis\Views\Wildlife.sql" />
   </ItemGroup>
   <ItemGroup>
