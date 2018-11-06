@@ -5,14 +5,9 @@ SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, 
                          data.DisturbanceActivity.Fire, data.DisturbanceActivity.Flooding, data.DisturbanceActivity.Wildlife, data.DisturbanceActivity.OtherNatural, data.DisturbanceActivity.Overall, 
                          lookup.FlowModificationStatus.Label AS FlowModificationStatus, intermediate.SiteVisit.VisitType, DPL.Label AS DPL
 FROM            lookup.FlowModificationStatus INNER JOIN
-                         data.DisturbanceActivity ON lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID AND lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID AND 
-                         lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID AND lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID AND 
-                         lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID AND lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID AND 
-                         lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID AND lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID INNER JOIN
+                         data.DisturbanceActivity ON lookup.FlowModificationStatus.ID = data.DisturbanceActivity.FlowModificationStatusID INNER JOIN
                          intermediate.SiteVisit ON data.DisturbanceActivity.VisitID = intermediate.SiteVisit.VisitID LEFT OUTER JOIN
-                         lookup.DataProcessingLevel AS DPL ON data.DisturbanceActivity.DataProcessingLevelID = DPL.ID AND data.DisturbanceActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.DisturbanceActivity.DataProcessingLevelID = DPL.ID AND data.DisturbanceActivity.DataProcessingLevelID = DPL.ID AND data.DisturbanceActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.DisturbanceActivity.DataProcessingLevelID = DPL.ID AND data.DisturbanceActivity.DataProcessingLevelID = DPL.ID
+                         lookup.DataProcessingLevel AS DPL ON data.DisturbanceActivity.DataProcessingLevelID = DPL.ID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Disturbance';
 

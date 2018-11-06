@@ -2,19 +2,16 @@
 AS
 SELECT        Park.Code AS ParkCode, Site.Code AS SiteCode, Site.Name AS SiteName, Visit.VisitDate, qa.Water_Year(Visit.VisitDate) AS VisitGroup, lookup.VisitType.Label AS VisitType, Visit.ID AS VisitID, 
                          lookup.Subunit.Label AS Subunit, lookup.ProtectedStatus.Label AS ProtectedStatus, lookup.MonitoringStatus.Label AS MonitoringStatus, lookup.SpringType.Label AS SpringType, 
-                         lookup.DataProcessingLevel.Label AS VisitDPL, lookup.GRTSPanel.Code AS SampleFrame
-FROM            lookup.MonitoringStatus RIGHT OUTER JOIN
-                         lookup.SpringType RIGHT OUTER JOIN
+                         lookup.DataProcessingLevel.Label AS VisitDPL, lookup.GRTSPanel.Code AS SampleFrame, Visit.MonitoringStatusID
+FROM            lookup.SpringType RIGHT OUTER JOIN
                          lookup.DataProcessingLevel RIGHT OUTER JOIN
                          lookup.GRTSPanel RIGHT OUTER JOIN
+                         lookup.MonitoringStatus RIGHT OUTER JOIN
                          data.Site AS Site INNER JOIN
                          lookup.Park AS Park ON Site.ParkID = Park.ID INNER JOIN
-                         data.Visit AS Visit ON Site.ID = Visit.SiteID ON lookup.GRTSPanel.ID = Site.GRTSPanelID AND lookup.GRTSPanel.ID = Site.GRTSPanelID AND lookup.GRTSPanel.ID = Site.GRTSPanelID ON 
-                         lookup.DataProcessingLevel.ID = Visit.DataProcessingLevelID ON lookup.SpringType.ID = Visit.SpringTypeID ON lookup.MonitoringStatus.ID = Visit.MonitoringStatusID AND 
-                         lookup.MonitoringStatus.ID = Visit.MonitoringStatusID AND lookup.MonitoringStatus.ID = Visit.MonitoringStatusID AND lookup.MonitoringStatus.ID = Visit.MonitoringStatusID AND 
-                         lookup.MonitoringStatus.ID = Visit.MonitoringStatusID AND lookup.MonitoringStatus.ID = Visit.MonitoringStatusID LEFT OUTER JOIN
-                         lookup.VisitType ON Visit.VisitTypeID = lookup.VisitType.ID AND Visit.VisitTypeID = lookup.VisitType.ID AND Visit.VisitTypeID = lookup.VisitType.ID AND Visit.VisitTypeID = lookup.VisitType.ID AND 
-                         Visit.VisitTypeID = lookup.VisitType.ID AND Visit.VisitTypeID = lookup.VisitType.ID LEFT OUTER JOIN
+                         data.Visit AS Visit ON Site.ID = Visit.SiteID ON lookup.MonitoringStatus.ID = Visit.MonitoringStatusID ON lookup.GRTSPanel.ID = Site.GRTSPanelID ON 
+                         lookup.DataProcessingLevel.ID = Visit.DataProcessingLevelID ON lookup.SpringType.ID = Visit.SpringTypeID LEFT OUTER JOIN
+                         lookup.VisitType ON Visit.VisitTypeID = lookup.VisitType.ID LEFT OUTER JOIN
                          lookup.ProtectedStatus ON Site.ProtectedStatusID = lookup.ProtectedStatus.ID LEFT OUTER JOIN
                          lookup.Subunit ON Site.SubunitID = lookup.Subunit.ID
 GO
@@ -22,7 +19,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @leve
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'  Right = 851
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'Right = 851
             End
             DisplayFlags = 280
             TopColumn = 1
@@ -102,13 +99,15 @@ End
 ', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'SiteVisit';
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[61] 4[16] 2[18] 3) )"
+         Configuration = "(H (1[62] 4[3] 2[32] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -174,32 +173,12 @@ Begin DesignProperties =
          Left = -144
       End
       Begin Tables = 
-         Begin Table = "MonitoringStatus (lookup)"
-            Begin Extent = 
-               Top = 21
-               Left = 121
-               Bottom = 181
-               Right = 290
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
          Begin Table = "SpringType (lookup)"
             Begin Extent = 
                Top = 325
                Left = 333
                Bottom = 455
                Right = 503
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "GRTSPanel (lookup)"
-            Begin Extent = 
-               Top = 334
-               Left = 782
-               Bottom = 447
-               Right = 952
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -213,6 +192,26 @@ Begin DesignProperties =
             End
             DisplayFlags = 280
             TopColumn = 2
+         End
+         Begin Table = "GRTSPanel (lookup)"
+            Begin Extent = 
+               Top = 334
+               Left = 782
+               Bottom = 447
+               Right = 952
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "MonitoringStatus (lookup)"
+            Begin Extent = 
+               Top = 8
+               Left = 287
+               Bottom = 168
+               Right = 456
+            End
+            DisplayFlags = 280
+            TopColumn = 0
          End
          Begin Table = "Site"
             Begin Extent = 
@@ -239,5 +238,7 @@ Begin DesignProperties =
                Top = 25
                Left = 628
                Bottom = 307
-             ', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'SiteVisit';
+               ', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'SiteVisit';
+
+
 

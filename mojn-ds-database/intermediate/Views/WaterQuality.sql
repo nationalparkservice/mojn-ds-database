@@ -2,37 +2,34 @@
 AS
 SELECT        DPL.Label AS DPL, intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, 
                          intermediate.SiteVisit.VisitType, SpCondInstrument.Label AS SpCondInstrument, TempInstrument.Label AS TempInstrument, DOInstrument.Label AS DOInstrument, pHInstrument.Label AS pHInstrument, 
-                         lookup.WaterQualityDataCollected.Label AS WaterQualityDataCollected, intermediate.SiteVisit.MonitoringStatus, data.WaterQualityActivity.ID AS WaterQualityActivityID
-FROM            intermediate.SiteVisit LEFT OUTER JOIN
-                         data.WaterQualityActivity ON intermediate.SiteVisit.VisitID = data.WaterQualityActivity.VisitID LEFT OUTER JOIN
-                         lookup.WaterQualityDataCollected ON data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID AND 
-                         data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID LEFT OUTER JOIN
+                         lookup.WaterQualityDataCollected.Label AS WaterQualityDataCollected, intermediate.SiteVisit.MonitoringStatus, data.WaterQualityActivity.ID AS WaterQualityActivityID, 
+                         data.WaterQualityActivity.WaterQualityDataCollectedID
+FROM            lookup.WaterQualityDataCollected RIGHT OUTER JOIN
+                         data.WaterQualityActivity ON lookup.WaterQualityDataCollected.ID = data.WaterQualityActivity.WaterQualityDataCollectedID RIGHT OUTER JOIN
+                         intermediate.SiteVisit ON data.WaterQualityActivity.VisitID = intermediate.SiteVisit.VisitID LEFT OUTER JOIN
                          ref.WaterQualityInstrument_Shared AS TempInstrument ON data.WaterQualityActivity.TemperatureInstrumentID = TempInstrument.ID LEFT OUTER JOIN
                          ref.WaterQualityInstrument_Shared AS DOInstrument ON data.WaterQualityActivity.DOInstrumentID = DOInstrument.ID LEFT OUTER JOIN
                          ref.WaterQualityInstrument_Shared AS pHInstrument ON data.WaterQualityActivity.pHInstrumentID = pHInstrument.ID LEFT OUTER JOIN
                          ref.WaterQualityInstrument_Shared AS SpCondInstrument ON data.WaterQualityActivity.SpCondInstrumentID = SpCondInstrument.ID LEFT OUTER JOIN
-                         lookup.DataProcessingLevel AS DPL ON data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID AND data.WaterQualityActivity.DataProcessingLevelID = DPL.ID
+                         lookup.DataProcessingLevel AS DPL ON data.WaterQualityActivity.DataProcessingLevelID = DPL.ID
 WHERE        (intermediate.SiteVisit.MonitoringStatus = 'Sampled')
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'WaterQuality';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'               Right = 1191
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'ottom = 136
+               Right = 1405
             End
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "SpCondInstrument"
+         Begin Table = "DPL"
             Begin Extent = 
-               Top = 6
-               Left = 1229
-               Bottom = 136
-               Right = 1405
+               Top = 320
+               Left = 720
+               Bottom = 450
+               Right = 890
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -81,6 +78,8 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'          
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'WaterQuality';
+
+
 
 
 
@@ -179,20 +178,10 @@ Begin DesignProperties =
          End
          Begin Table = "WaterQualityDataCollected (lookup)"
             Begin Extent = 
-               Top = 160
-               Left = 633
-               Bottom = 273
-               Right = 803
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
-         Begin Table = "DPL"
-            Begin Extent = 
-               Top = 332
-               Left = 312
-               Bottom = 462
-               Right = 482
+               Top = 180
+               Left = 747
+               Bottom = 293
+               Right = 917
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -222,7 +211,18 @@ Begin DesignProperties =
                Top = 6
                Left = 1015
                Bottom = 136
-', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'WaterQuality';
+               Right = 1191
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "SpCondInstrument"
+            Begin Extent = 
+               Top = 6
+               Left = 1229
+               B', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'WaterQuality';
+
+
 
 
 

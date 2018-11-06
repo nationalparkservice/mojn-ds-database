@@ -4,20 +4,14 @@ SELECT        lookup.FlowCondition.Label AS FlowCondition, DPL.Label AS DPL, int
                          intermediate.SiteVisit.VisitType, intermediate.SiteVisit.VisitGroup, data.DischargeActivity.ID AS DischargeActivityID, data.DischargeActivity.Notes
 FROM            intermediate.SiteVisit INNER JOIN
                          data.DischargeActivity ON intermediate.SiteVisit.VisitID = data.DischargeActivity.VisitID LEFT OUTER JOIN
-                         lookup.FlowCondition ON data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID LEFT OUTER JOIN
-                         lookup.DataProcessingLevel AS DPL ON data.DischargeActivity.DataProcessingLevelID = DPL.ID AND data.DischargeActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.DischargeActivity.DataProcessingLevelID = DPL.ID AND data.DischargeActivity.DataProcessingLevelID = DPL.ID AND data.DischargeActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.DischargeActivity.DataProcessingLevelID = DPL.ID AND data.DischargeActivity.DataProcessingLevelID = DPL.ID
+                         lookup.FlowCondition ON data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID LEFT OUTER JOIN
+                         lookup.DataProcessingLevel AS DPL ON data.DischargeActivity.DataProcessingLevelID = DPL.ID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'Discharge';
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'
-         Filter = 1350
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'       Filter = 1350
          Or = 1350
          Or = 1350
          Or = 1350
@@ -27,13 +21,15 @@ End
 ', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'Discharge';
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[35] 4[31] 2[18] 3) )"
+         Configuration = "(H (1[51] 4[23] 2[22] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -121,20 +117,20 @@ Begin DesignProperties =
          End
          Begin Table = "FlowCondition (lookup)"
             Begin Extent = 
-               Top = 114
-               Left = 1188
-               Bottom = 268
-               Right = 1358
+               Top = 32
+               Left = 834
+               Bottom = 186
+               Right = 1004
             End
             DisplayFlags = 280
             TopColumn = 0
          End
          Begin Table = "DPL"
             Begin Extent = 
-               Top = 280
-               Left = 1203
-               Bottom = 445
-               Right = 1373
+               Top = 150
+               Left = 646
+               Bottom = 315
+               Right = 816
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -170,7 +166,10 @@ Begin DesignProperties =
          NewValue = 1170
          SortType = 1350
          SortOrder = 1410
-         GroupBy = 1350', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'Discharge';
+         GroupBy = 1350
+  ', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'Discharge';
+
+
 
 
 GO
