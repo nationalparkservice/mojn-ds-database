@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[Wildlife]
+﻿CREATE VIEW [analysis].[Wildlife]
 AS 
 SELECT	sv.ParkCode,
 		sv.SiteCode,
@@ -42,5 +42,5 @@ FROM    data.WildlifeActivity as wa
 		ON wo.Vocalization = vo.ID
 		LEFT JOIN lookup.WildlifeEvidencePresent AS ot
 		ON wo.OtherEvidence = ot.ID
-
+WHERE	sv.VisitDate > {d '2018-11-04'} -- Exclude legacy data from this view
 GO
