@@ -630,6 +630,11 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="analysis\Views\Wildlife.sql" />
+    <Build Include="lookup\Tables\DischargeEstimatedClass.sql" />
+    <Build Include="data\Tables\RETIRED_DischargeEstimatedObservation.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />
