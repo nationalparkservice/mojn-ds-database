@@ -1,0 +1,2 @@
+﻿CREATE USER [NPS\GMoret] FOR LOGIN [NPS\GMoret];
+

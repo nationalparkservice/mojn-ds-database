@@ -7,10 +7,12 @@
     [DateCreated]            DATETIME2 (0)  CONSTRAINT [DF_WaterQualityTemperature_DateCreated] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_WaterQualityTemperature] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [CK_WaterQualityTemperature_DataQualityFlagNote_DisallowZeroLength] CHECK (len([DataQualityFlagNote])>(0)),
-    CONSTRAINT [CK_WaterQualityTemperature_WaterTemperature_C] CHECK ([WaterTemperature_C]>=(-5) AND [WaterTemperature_C]<=(50)),
+    CONSTRAINT [CK_WaterQualityTemperature_WaterTemperature_C] CHECK ([WaterTemperature_C]>=(-5) AND [WaterTemperature_C]<=(60)),
     CONSTRAINT [FK_WaterQualityTemperature_DataQualityFlag] FOREIGN KEY ([DataQualityFlagID]) REFERENCES [lookup].[DataQualityFlag] ([ID]),
     CONSTRAINT [FK_WaterQualityTemperature_WaterQualityActivity] FOREIGN KEY ([WaterQualityActivityID]) REFERENCES [data].[WaterQualityActivity] ([ID])
 );
+
+
 
 
 GO
