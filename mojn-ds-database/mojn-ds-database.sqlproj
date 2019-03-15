@@ -145,6 +145,7 @@
     <Folder Include="intermediate\Views\" />
     <Folder Include="export\" />
     <Folder Include="export\Views\" />
+    <Folder Include="lookup\Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="data\Tables\SpringbrookDimensions.sql">
@@ -636,6 +637,8 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="analysis\Views\DischargeEstimated.sql" />
+    <Build Include="ref\Views\Personnel_Shared.sql" />
+    <Build Include="lookup\Views\ProtectedStatus_Shared.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />
@@ -647,14 +650,15 @@
       <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
       <Private>False</Private>
     </ArtifactReference>
-    <ArtifactReference Include="..\..\mojn-shared-tables\mojn-shared-tables\Snapshots\mojn-shared-tables_20180830.dacpac">
-      <HintPath>..\..\mojn-shared-tables\mojn-shared-tables\Snapshots\mojn-shared-tables_20180830.dacpac</HintPath>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-      <DatabaseSqlCmdVariable>mojnSharedTables</DatabaseSqlCmdVariable>
-    </ArtifactReference>
   </ItemGroup>
   <ItemGroup>
-    <RefactorLog Include="mojn-ds-database.refactorlog" />
+    <ProjectReference Include="..\..\mojn-sharedtable-database\mojn-shared-tables\mojn-shared-tables.sqlproj">
+      <Name>mojn-shared-tables</Name>
+      <Project>{1c07a033-9d7b-4691-b72d-8402095f5ee2}</Project>
+      <Private>True</Private>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseSqlCmdVariable>mojnSharedTables</DatabaseSqlCmdVariable>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="mojnSharedTables">
