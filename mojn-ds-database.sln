@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "mojn-ds-database", "mojn-ds-database\mojn-ds-database.sqlproj", "{138E09B6-DED6-4681-B596-2E5876EE09C5}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "mojn-shared-tables", "..\mojn-sharedtable-database\mojn-shared-tables\mojn-shared-tables.sqlproj", "{1C07A033-9D7B-4691-B72D-8402095F5EE2}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "mojn-shared-tables", "..\mojn-shared-tables\mojn-shared-tables\mojn-shared-tables.sqlproj", "{1C07A033-9D7B-4691-B72D-8402095F5EE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

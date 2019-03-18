@@ -1,2 +1,0 @@
-﻿CREATE USER [NPS\JGLadd] FOR LOGIN [NPS\JGLadd];
-

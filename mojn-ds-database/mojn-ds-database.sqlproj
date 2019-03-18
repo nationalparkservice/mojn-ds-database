@@ -671,6 +671,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\mojn-shared-tables\mojn-shared-tables\mojn-shared-tables.sqlproj">
+      <Name>mojn-shared-tables</Name>
+      <Project>{1c07a033-9d7b-4691-b72d-8402095f5ee2}</Project>
+      <Private>True</Private>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseSqlCmdVariable>mojnSharedTables</DatabaseSqlCmdVariable>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <SqlCmdVariable Include="mojnSharedTables">
       <DefaultValue>MOJN_SharedTables</DefaultValue>
       <Value>$(SqlCmdVar__1)</Value>
