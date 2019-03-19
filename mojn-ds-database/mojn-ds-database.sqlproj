@@ -635,20 +635,6 @@
     <Build Include="analysis\Views\DischargeEstimated.sql" />
     <Build Include="ref\Views\Personnel_Shared.sql" />
     <Build Include="lookup\Views\ProtectedStatus_Shared.sql" />
-    <Build Include="Security\NPS_zhaidar.sql" />
-    <Build Include="Security\NPS_nhupp.sql" />
-    <Build Include="Security\NPS_mhsteiner.sql" />
-    <Build Include="Security\NPS_lcombs.sql" />
-    <Build Include="Security\NPS_kngodfrey.sql" />
-    <Build Include="Security\NPS_JGLadd.sql" />
-    <Build Include="Security\NPS_JBrackin.sql" />
-    <Build Include="Security\NPS_jbailard.sql" />
-    <Build Include="Security\NPS_GMoret.sql" />
-    <Build Include="Security\NPS_cwilkerson.sql" />
-    <Build Include="Security\NPS_cmerrill.sql" />
-    <Build Include="Security\NPS_awhalen.sql" />
-    <Build Include="Security\NPS_acalvert.sql" />
-    <Build Include="Security\RoleMemberships.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />
