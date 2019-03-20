@@ -634,7 +634,6 @@
     </Build>
     <Build Include="analysis\Views\DischargeEstimated.sql" />
     <Build Include="ref\Views\Personnel_Shared.sql" />
-    <Build Include="lookup\Views\ProtectedStatus_Shared.sql" />
     <Build Include="Security\NPS_zhaidar.sql" />
     <Build Include="Security\NPS_nhupp.sql" />
     <Build Include="Security\NPS_mhsteiner.sql" />
@@ -649,6 +648,9 @@
     <Build Include="Security\NPS_awhalen.sql" />
     <Build Include="Security\NPS_acalvert.sql" />
     <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="ref\Views\Camera_Shared.sql" />
+    <Build Include="ref\Views\CameraCard_Shared.sql" />
+    <Build Include="ref\Views\GPSUnit_Shared.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />
@@ -662,7 +664,7 @@
     </ArtifactReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\mojn-sharedtable-database\mojn-shared-tables\mojn-shared-tables.sqlproj">
+    <ProjectReference Include="..\..\mojn-shared-tables\mojn-shared-tables\mojn-shared-tables.sqlproj">
       <Name>mojn-shared-tables</Name>
       <Project>{1c07a033-9d7b-4691-b72d-8402095f5ee2}</Project>
       <Private>True</Private>
