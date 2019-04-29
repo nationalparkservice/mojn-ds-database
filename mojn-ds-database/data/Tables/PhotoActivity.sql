@@ -9,8 +9,6 @@
     [DateCreated]             DATETIME2 (0) CONSTRAINT [DF_PhotoActivity_DateCreated] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_PhotoActivity] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [CK_PhotoActivity_DataProcessingLevelNote_DisallowZeroLength] CHECK (len([DataProcessingLevelNote])>(0)),
-    CONSTRAINT [FK_PhotoActivity_Camera] FOREIGN KEY ([CameraID]) REFERENCES [ref].[Camera] ([ID]),
-    CONSTRAINT [FK_PhotoActivity_CameraCard] FOREIGN KEY ([CameraCardID]) REFERENCES [ref].[CameraCard] ([ID]),
     CONSTRAINT [FK_PhotoActivity_DataProcessingLevel] FOREIGN KEY ([DataProcessingLevelID]) REFERENCES [lookup].[DataProcessingLevel] ([ID]),
     CONSTRAINT [FK_PhotoActivity_Visit] FOREIGN KEY ([VisitID]) REFERENCES [data].[Visit] ([ID])
 );
