@@ -635,6 +635,9 @@
     <Build Include="analysis\Views\DischargeEstimated.sql" />
     <Build Include="ref\Views\Personnel_Shared.sql" />
     <Build Include="lookup\Views\ProtectedStatus_Shared.sql" />
+    <Build Include="analysis\Views\SensorsNeverDeployed.sql" />
+    <Build Include="analysis\Views\SensorsCurrentlyDeployed.sql" />
+    <Build Include="analysis\Views\SensorRetrievalAttempts.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />
