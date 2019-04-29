@@ -13,7 +13,6 @@
     CONSTRAINT [CK_RepeatPhotoObservation_Notes_DisallowZeroLength] CHECK (len([Notes])>(0)),
     CONSTRAINT [CK_RepeatPhotoObservation_UtmX_m] CHECK ([UtmX_m]>=(200000) AND [UtmX_m]<=(900000)),
     CONSTRAINT [CK_RepeatPhotoObservation_UtmY_m] CHECK ([UtmY_m]>=(3500000) AND [UtmY_m]<=(4350000)),
-    CONSTRAINT [FK_RepeatPhotoObservation_GPSUnit] FOREIGN KEY ([GPSUnitID]) REFERENCES [ref].[GPSUnit] ([ID]),
     CONSTRAINT [FK_RepeatPhotoObservation_HorizontalDatum] FOREIGN KEY ([HorizontalDatumID]) REFERENCES [lookup].[HorizontalDatum] ([ID]),
     CONSTRAINT [FK_RepeatPhotoObservation_RepeatPhotoActivity] FOREIGN KEY ([RepeatPhotoActivityID]) REFERENCES [data].[RepeatPhotoActivity] ([ID]),
     CONSTRAINT [FK_RepeatPhotoObservation_RepeatPhotoType] FOREIGN KEY ([RepeatPhotoTypeID]) REFERENCES [lookup].[RepeatPhotoType] ([ID]),
@@ -54,10 +53,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Foreign key
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Foreign key to ref.GPSUnit (gps units, each with a unique identifier)', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'RepeatPhotoObservation', @level2type = N'COLUMN', @level2name = N'GPSUnitID';
 
-
-GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Notes about this photo observation', @level0type = N'SCHEMA', @level0name = N'data', @level1type = N'TABLE', @level1name = N'RepeatPhotoObservation', @level2type = N'COLUMN', @level2name = N'Notes';
 
 

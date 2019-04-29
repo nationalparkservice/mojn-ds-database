@@ -16,7 +16,6 @@
     CONSTRAINT [CK_InvasivesObservation_SpeciesNotes_DisallowZeroLength] CHECK (len([SpeciesNotes])>(0)),
     CONSTRAINT [CK_InvasivesObservation_UtmX_m] CHECK ([UtmX_m]>=(200000) AND [UtmX_m]<=(900000)),
     CONSTRAINT [CK_InvasivesObservation_UtmY_m] CHECK ([UtmY_m]>=(3500000) AND [UtmY_m]<=(4350000)),
-    CONSTRAINT [FK_InvasivesObservation_GPSUnit] FOREIGN KEY ([GPSUnitID]) REFERENCES [ref].[GPSUnit] ([ID]),
     CONSTRAINT [FK_InvasivesObservation_HorizontalDatum] FOREIGN KEY ([HorizontalDatumID]) REFERENCES [lookup].[HorizontalDatum] ([ID]),
     CONSTRAINT [FK_InvasivesObservation_InvasivesActivity] FOREIGN KEY ([InvasivesActivityID]) REFERENCES [data].[InvasivesActivity] ([ID]),
     CONSTRAINT [FK_InvasivesObservation_ProtectedStatus] FOREIGN KEY ([ProtectedStatusID]) REFERENCES [lookup].[ProtectedStatus] ([ID]),

@@ -23,7 +23,6 @@
     CONSTRAINT [FK_Photo_PhotoDescriptionCode] FOREIGN KEY ([PhotoDescriptionCodeID]) REFERENCES [ref].[PhotoDescriptionCode] ([ID]),
 	CONSTRAINT [CK_Photo_UtmX_m] CHECK (UtmX_m IS NULL OR ([UtmX_m]>=(200000) AND [UtmX_m]<=(900000))),
     CONSTRAINT [CK_Photo_UtmY_m] CHECK (UtmX_m IS NULL OR ([UtmY_m]>=(3500000) AND [UtmY_m]<=(4350000))),
-    CONSTRAINT [FK_Photo_GPSUnit] FOREIGN KEY ([GPSUnitID]) REFERENCES [ref].[GPSUnit] ([ID]),
     CONSTRAINT [FK_Photo_HorizontalDatum] FOREIGN KEY ([HorizontalDatumID]) REFERENCES [lookup].[HorizontalDatum] ([ID]),
     CONSTRAINT [FK_Photo_UTMZone] FOREIGN KEY ([UTMZoneID]) REFERENCES [lookup].[UTMZone] ([ID])
 );
