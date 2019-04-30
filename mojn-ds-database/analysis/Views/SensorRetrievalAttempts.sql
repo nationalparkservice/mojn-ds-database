@@ -1,4 +1,4 @@
-﻿CREATE VIEW [analysis].[SensorsRetrieved]
+﻿CREATE VIEW [analysis].[SensorRetrievalAttempts]
 AS
 SELECT      s.Label AS SensorNumber,
 			s.SerialNumber AS SerialNumber,
