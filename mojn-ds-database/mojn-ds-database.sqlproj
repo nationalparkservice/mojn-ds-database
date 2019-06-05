@@ -628,6 +628,7 @@
     <Build Include="analysis\Views\SensorsNeverDeployed.sql" />
     <Build Include="analysis\Views\SensorsCurrentlyDeployed.sql" />
     <Build Include="analysis\Views\SensorRetrievalAttempts.sql" />
+    <Build Include="ref\Views\SensorRetrievalList.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />
