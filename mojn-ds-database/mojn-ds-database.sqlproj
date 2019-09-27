@@ -629,6 +629,7 @@
     <Build Include="analysis\Views\SensorsCurrentlyDeployed.sql" />
     <Build Include="analysis\Views\SensorRetrievalAttempts.sql" />
     <Build Include="ref\Views\SensorRetrievalList.sql" />
+    <Build Include="export\Views\SiteInfoSheet.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />
@@ -652,7 +653,7 @@
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="mojnSharedTables">
-      <DefaultValue>MOJN_SharedTables</DefaultValue>
+      <DefaultValue>mojn-shared-tables</DefaultValue>
       <Value>$(SqlCmdVar__1)</Value>
     </SqlCmdVariable>
   </ItemGroup>
