@@ -1,7 +1,7 @@
 ﻿CREATE VIEW intermediate.SiteVisit
 AS
 SELECT        Park.Code AS ParkCode, Site.Code AS SiteCode, Site.Name AS SiteName, Visit.VisitDate, qa.Water_Year(Visit.VisitDate) AS VisitGroup, lookup.VisitType.Label AS VisitType, Visit.ID AS VisitID, 
-                         lookup.Subunit.Label AS Subunit, lookup.ProtectedStatus.Label AS ProtectedStatus, lookup.MonitoringStatus.Label AS MonitoringStatus, lookup.SpringType.Label AS SpringType, 
+                         lookup.Subunit.Label AS Subunit, lookup.ProtectedStatus.Label AS ProtectedStatus, lookup.MonitoringStatus.Label AS MonitoringStatus, lookup.SpringType.Label AS SpringType, data.Visit.Notes,
                          lookup.DataProcessingLevel.Label AS VisitDPL, lookup.GRTSPanel.Code AS SampleFrame, Visit.MonitoringStatusID
 FROM            lookup.SpringType RIGHT OUTER JOIN
                          lookup.DataProcessingLevel RIGHT OUTER JOIN
