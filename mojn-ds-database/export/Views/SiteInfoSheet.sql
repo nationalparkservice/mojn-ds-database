@@ -15,7 +15,7 @@ SELECT	v.ParkCode,
 	p.UtmY_m,
 	z.Code AS UTMZone,
 	sd.Notes AS SensorNotes,
-	p.Notes
+	p.Notes AS PhotoNotes
 FROM
 (SELECT	SiteCode,
 		MAX(VisitDate) AS MostRecentVisit
