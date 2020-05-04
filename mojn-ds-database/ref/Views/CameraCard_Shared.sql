@@ -1,2 +1,3 @@
-﻿CREATE VIEW [ref].[CameraCard_Shared]
-	AS SELECT * FROM [$(mojnSharedTables)].[ref].[CameraCard]
+﻿
+CREATE VIEW [ref].[CameraCard_Shared]
+	AS SELECT * FROM [MOJN_SharedTables].[ref].[CameraCard]

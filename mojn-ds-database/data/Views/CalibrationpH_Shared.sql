@@ -1,2 +1,2 @@
 ﻿CREATE VIEW [data].[CalibrationpH_Shared]
-	AS SELECT * FROM [$(mojnSharedTables)].[data].[CalibrationpH]
+	AS SELECT * FROM [MOJN_SharedTables].[data].[CalibrationpH]

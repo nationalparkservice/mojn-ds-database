@@ -3,6 +3,8 @@
 
 
 
+
+
 GO
 GRANT UPDATE
     ON SCHEMA::[app] TO [NPS\mhsteiner];
