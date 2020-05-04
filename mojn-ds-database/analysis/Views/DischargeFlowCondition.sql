@@ -1,14 +1,13 @@
 ﻿CREATE VIEW analysis.DischargeFlowCondition
 AS
-SELECT        intermediate.Discharge.ParkCode, intermediate.Discharge.SiteCode, intermediate.Discharge.SiteName, intermediate.Discharge.VisitDate, intermediate.Discharge.VisitGroup, 
-                         intermediate.Discharge.FlowCondition, lookup.SpringbrookLengthFlag.Code AS SpringbrookLengthFlag, data.SpringbrookDimensions.SpringbrookLength_m, data.SpringbrookDimensions.SpringbrookWidth_m, 
-                         intermediate.Discharge.VisitType, intermediate.Discharge.DPL
+SELECT        intermediate.Discharge.Park, intermediate.Discharge.SiteCode, intermediate.Discharge.SiteName, intermediate.Discharge.VisitDate, intermediate.Discharge.FieldSeason, intermediate.Discharge.FlowCondition, 
+                         lookup.SpringbrookLengthFlag.Code AS SpringbrookLengthFlag, data.SpringbrookDimensions.SpringbrookLength_m, data.SpringbrookDimensions.SpringbrookWidth_m, intermediate.Discharge.VisitType, 
+                         intermediate.Discharge.DPL
 FROM            lookup.SpringbrookLengthFlag INNER JOIN
-                         data.SpringbrookDimensions ON lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND 
+                         data.SpringbrookDimensions ON lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND 
                          lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND 
                          lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND 
-                         lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND 
-                         lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID RIGHT OUTER JOIN
+                         lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID AND lookup.SpringbrookLengthFlag.ID = data.SpringbrookDimensions.SpringbrookLengthFlagID RIGHT OUTER JOIN
                          intermediate.Discharge ON data.SpringbrookDimensions.DischargeActivityID = intermediate.Discharge.DischargeActivityID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'DischargeFlowCondition';

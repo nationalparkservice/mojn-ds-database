@@ -1,7 +1,7 @@
 ﻿CREATE VIEW intermediate.WaterQuality
 AS
-SELECT        DPL.Label AS DPL, intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, 
-                         intermediate.SiteVisit.VisitType, SpCondInstrument.Label AS SpCondInstrument, TempInstrument.Label AS TempInstrument, DOInstrument.Label AS DOInstrument, pHInstrument.Label AS pHInstrument, 
+SELECT        DPL.Label AS DPL, intermediate.SiteVisit.Park, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.FieldSeason, intermediate.SiteVisit.VisitType, 
+                         SpCondInstrument.Label AS SpCondInstrument, TempInstrument.Label AS TempInstrument, DOInstrument.Label AS DOInstrument, pHInstrument.Label AS pHInstrument, 
                          lookup.WaterQualityDataCollected.Label AS WaterQualityDataCollected, intermediate.SiteVisit.MonitoringStatus, data.WaterQualityActivity.ID AS WaterQualityActivityID, 
                          data.WaterQualityActivity.WaterQualityDataCollectedID
 FROM            lookup.WaterQualityDataCollected RIGHT OUTER JOIN
@@ -156,12 +156,12 @@ Begin DesignProperties =
          Left = 0
       End
       Begin Tables = 
-         Begin Table = "SiteVisit (intermediate)"
+         Begin Table = "WaterQualityDataCollected (lookup)"
             Begin Extent = 
-               Top = 27
-               Left = 54
-               Bottom = 312
-               Right = 255
+               Top = 180
+               Left = 747
+               Bottom = 293
+               Right = 917
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -176,12 +176,12 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "WaterQualityDataCollected (lookup)"
+         Begin Table = "SiteVisit (intermediate)"
             Begin Extent = 
-               Top = 180
-               Left = 747
-               Bottom = 293
-               Right = 917
+               Top = 27
+               Left = 54
+               Bottom = 312
+               Right = 255
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -221,6 +221,8 @@ Begin DesignProperties =
                Top = 6
                Left = 1229
                B', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'WaterQuality';
+
+
 
 
 

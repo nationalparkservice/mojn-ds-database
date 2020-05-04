@@ -1,7 +1,7 @@
 ﻿CREATE VIEW analysis.DisturbanceFlowModification
 AS
-SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, 
-                         lookup.FlowModificationStatus.Label AS FlowModificationStatus, lookup.ModificationType.Label AS ModificationType, intermediate.SiteVisit.VisitType, lookup.DataProcessingLevel.Label AS DPL
+SELECT        intermediate.SiteVisit.Park, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.FieldSeason, lookup.FlowModificationStatus.Label AS FlowModificationStatus, 
+                         lookup.ModificationType.Label AS ModificationType, intermediate.SiteVisit.VisitType, lookup.DataProcessingLevel.Label AS DPL
 FROM            lookup.ModificationType RIGHT OUTER JOIN
                          data.DisturbanceFlowModification AS DisturbanceFlowModification_1 ON lookup.ModificationType.ID = DisturbanceFlowModification_1.ModificationTypeID AND 
                          lookup.ModificationType.ID = DisturbanceFlowModification_1.ModificationTypeID AND lookup.ModificationType.ID = DisturbanceFlowModification_1.ModificationTypeID RIGHT OUTER JOIN
@@ -9,11 +9,10 @@ FROM            lookup.ModificationType RIGHT OUTER JOIN
                          intermediate.SiteVisit ON data.DisturbanceActivity.VisitID = intermediate.SiteVisit.VisitID LEFT OUTER JOIN
                          lookup.DataProcessingLevel ON data.DisturbanceActivity.DataProcessingLevelID = lookup.DataProcessingLevel.ID AND data.DisturbanceActivity.DataProcessingLevelID = lookup.DataProcessingLevel.ID ON 
                          DisturbanceFlowModification_1.DisturbanceActivityID = data.DisturbanceActivity.ID LEFT OUTER JOIN
-                         lookup.FlowModificationStatus ON data.DisturbanceActivity.FlowModificationStatusID = lookup.FlowModificationStatus.ID AND 
+                         lookup.FlowModificationStatus ON data.DisturbanceActivity.FlowModificationStatusID = lookup.FlowModificationStatus.ID AND data.DisturbanceActivity.FlowModificationStatusID = lookup.FlowModificationStatus.ID AND 
                          data.DisturbanceActivity.FlowModificationStatusID = lookup.FlowModificationStatus.ID AND data.DisturbanceActivity.FlowModificationStatusID = lookup.FlowModificationStatus.ID AND 
                          data.DisturbanceActivity.FlowModificationStatusID = lookup.FlowModificationStatus.ID AND data.DisturbanceActivity.FlowModificationStatusID = lookup.FlowModificationStatus.ID AND 
-                         data.DisturbanceActivity.FlowModificationStatusID = lookup.FlowModificationStatus.ID AND data.DisturbanceActivity.FlowModificationStatusID = lookup.FlowModificationStatus.ID AND 
-                         data.DisturbanceActivity.FlowModificationStatusID = lookup.FlowModificationStatus.ID
+                         data.DisturbanceActivity.FlowModificationStatusID = lookup.FlowModificationStatus.ID AND data.DisturbanceActivity.FlowModificationStatusID = lookup.FlowModificationStatus.ID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'DisturbanceFlowModification';
 
@@ -37,7 +36,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'faults = "
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 1440
+         Column = 2535
          Alias = 2460
          Table = 3765
          Output = 720
@@ -54,6 +53,8 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'faults = "
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'DisturbanceFlowModification';
+
+
 
 
 

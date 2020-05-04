@@ -1,6 +1,6 @@
 ﻿CREATE VIEW export.WY20_SensorMostRecent
 AS
-SELECT        v.ParkCode, v.SiteCode, v.SiteName, v.VisitDate, v.VisitGroup, v.SpringType, v.Notes AS VisitNotes, v.SampleFrame, pd.Code AS PhotoType, p.UtmX_m, p.UtmY_m, z.Code AS UTMZone, sd.Notes AS SensorNotes
+SELECT        v.Park, v.SiteCode, v.SiteName, v.VisitDate, v.FieldSeason, v.SpringType, v.Notes AS VisitNotes, v.SampleFrame, pd.Code AS PhotoType, p.UtmX_m, p.UtmY_m, z.Code AS UTMZone, sd.Notes AS SensorNotes
 FROM            (SELECT        SiteCode, MAX(VisitDate) AS MostRecentVisit
                           FROM            intermediate.SiteVisit
                           WHERE        (VisitType = 'Primary')
@@ -11,10 +11,10 @@ FROM            (SELECT        SiteCode, MAX(VisitDate) AS MostRecentVisit
                          ref.PhotoDescriptionCode AS pd ON p.PhotoDescriptionCodeID = pd.ID LEFT OUTER JOIN
                          lookup.UTMZone AS z ON p.UTMZoneID = z.ID LEFT OUTER JOIN
                          data.SensorDeployment AS sd ON sd.VisitID = v.VisitID
-GROUP BY v.ParkCode, v.SiteCode, v.SiteName, v.VisitDate, v.VisitGroup, v.SpringType, v.Notes, v.SampleFrame, pd.Code, p.UtmX_m, p.UtmY_m, z.Code, sd.Notes
+GROUP BY v.Park, v.SiteCode, v.SiteName, v.VisitDate, v.FieldSeason, v.SpringType, v.Notes, v.SampleFrame, pd.Code, p.UtmX_m, p.UtmY_m, z.Code, sd.Notes
 HAVING        (pd.Code = 'SENSOR') AND (v.SampleFrame = 'Annual') OR
-                         (pd.Code = 'SENSOR') AND (v.SampleFrame = '3Yr') AND (v.ParkCode = 'JOTR' OR
-                         v.ParkCode = 'PARA')
+                         (pd.Code = 'SENSOR') AND (v.SampleFrame = '3Yr') AND (v.Park = 'JOTR' OR
+                         v.Park = 'PARA')
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @level0type = N'SCHEMA', @level0name = N'export', @level1type = N'VIEW', @level1name = N'WY20_SensorMostRecent';
 

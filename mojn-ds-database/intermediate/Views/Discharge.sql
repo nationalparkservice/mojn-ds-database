@@ -1,7 +1,7 @@
 ﻿CREATE VIEW intermediate.Discharge
 AS
-SELECT        lookup.FlowCondition.Label AS FlowCondition, DPL.Label AS DPL, intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, 
-                         intermediate.SiteVisit.VisitType, intermediate.SiteVisit.VisitGroup, data.DischargeActivity.ID AS DischargeActivityID, data.DischargeActivity.Notes
+SELECT        lookup.FlowCondition.Label AS FlowCondition, DPL.Label AS DPL, intermediate.SiteVisit.Park, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitType, 
+                         intermediate.SiteVisit.FieldSeason, data.DischargeActivity.ID AS DischargeActivityID, data.DischargeActivity.Notes
 FROM            intermediate.SiteVisit INNER JOIN
                          data.DischargeActivity ON intermediate.SiteVisit.VisitID = data.DischargeActivity.VisitID LEFT OUTER JOIN
                          lookup.FlowCondition ON data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID LEFT OUTER JOIN

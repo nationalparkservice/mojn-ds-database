@@ -1,6 +1,6 @@
 ﻿CREATE VIEW analysis.WaterQualitypH
 AS
-SELECT        intermediate.WaterQuality.ParkCode, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.VisitGroup, 
+SELECT        intermediate.WaterQuality.Park, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.FieldSeason, 
                          intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualitypH_1.pH, lookup.DataQualityFlag.Code AS DataQualityFlag, WaterQualitypH_1.DataQualityFlagNote, 
                          intermediate.WaterQuality.pHInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, intermediate.WaterQuality.MonitoringStatus
 FROM            lookup.DataQualityFlag RIGHT OUTER JOIN

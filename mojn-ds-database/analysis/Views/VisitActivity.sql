@@ -1,41 +1,36 @@
 ﻿CREATE VIEW analysis.VisitActivity
 AS
-SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, intermediate.SiteVisit.SpringType, 
-                         lookup.FlowCondition.Label AS FlowCondition, lookup.WaterQualityDataCollected.Label AS WQDataCollected, lookup.InvasivesObserved.Label AS InvasivesObserved, 
-                         lookup.IsVegetationObserved.Label AS RiparianObserved, lookup.MistletoePresent.Label AS MistletoePresent, lookup.IsWildlifeObserved.Label AS WildlifeObserved, 
-                         lookup.SpringbrookLengthFlag.Label AS SpringbrookLength_Class, data.SpringbrookDimensions.SpringbrookWidth_m, data.SpringbrookDimensions.SpringbrookLength_m, intermediate.SiteVisit.SampleFrame, 
-                         intermediate.SiteVisit.VisitType, intermediate.SiteVisit.MonitoringStatus
+SELECT        intermediate.SiteVisit.Park, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.FieldSeason, intermediate.SiteVisit.SpringType, 
+                         lookup.FlowCondition.Label AS FlowCondition, lookup.WaterQualityDataCollected.Label AS WQDataCollected, lookup.InvasivesObserved.Label AS InvasivesObserved, lookup.IsVegetationObserved.Label AS RiparianObserved, 
+                         lookup.MistletoePresent.Label AS MistletoePresent, lookup.IsWildlifeObserved.Label AS WildlifeObserved, lookup.SpringbrookLengthFlag.Label AS SpringbrookLength_Class, data.SpringbrookDimensions.SpringbrookWidth_m, 
+                         data.SpringbrookDimensions.SpringbrookLength_m, intermediate.SiteVisit.SampleFrame, intermediate.SiteVisit.VisitType, intermediate.SiteVisit.MonitoringStatus
 FROM            lookup.IsVegetationObserved RIGHT OUTER JOIN
                          data.RiparianVegetationActivity RIGHT OUTER JOIN
                          intermediate.SiteVisit LEFT OUTER JOIN
                          data.DischargeActivity LEFT OUTER JOIN
                          data.SpringbrookDimensions INNER JOIN
-                         lookup.SpringbrookLengthFlag ON data.SpringbrookDimensions.SpringbrookLengthFlagID = lookup.SpringbrookLengthFlag.ID AND 
+                         lookup.SpringbrookLengthFlag ON data.SpringbrookDimensions.SpringbrookLengthFlagID = lookup.SpringbrookLengthFlag.ID AND data.SpringbrookDimensions.SpringbrookLengthFlagID = lookup.SpringbrookLengthFlag.ID AND 
                          data.SpringbrookDimensions.SpringbrookLengthFlagID = lookup.SpringbrookLengthFlag.ID AND data.SpringbrookDimensions.SpringbrookLengthFlagID = lookup.SpringbrookLengthFlag.ID AND 
-                         data.SpringbrookDimensions.SpringbrookLengthFlagID = lookup.SpringbrookLengthFlag.ID AND data.SpringbrookDimensions.SpringbrookLengthFlagID = lookup.SpringbrookLengthFlag.ID AND 
-                         data.SpringbrookDimensions.SpringbrookLengthFlagID = lookup.SpringbrookLengthFlag.ID ON data.DischargeActivity.ID = data.SpringbrookDimensions.DischargeActivityID AND 
-                         data.DischargeActivity.ID = data.SpringbrookDimensions.DischargeActivityID AND data.DischargeActivity.ID = data.SpringbrookDimensions.DischargeActivityID ON 
-                         intermediate.SiteVisit.VisitID = data.DischargeActivity.VisitID LEFT OUTER JOIN
+                         data.SpringbrookDimensions.SpringbrookLengthFlagID = lookup.SpringbrookLengthFlag.ID AND data.SpringbrookDimensions.SpringbrookLengthFlagID = lookup.SpringbrookLengthFlag.ID ON 
+                         data.DischargeActivity.ID = data.SpringbrookDimensions.DischargeActivityID AND data.DischargeActivity.ID = data.SpringbrookDimensions.DischargeActivityID AND 
+                         data.DischargeActivity.ID = data.SpringbrookDimensions.DischargeActivityID ON intermediate.SiteVisit.VisitID = data.DischargeActivity.VisitID LEFT OUTER JOIN
                          data.WildlifeActivity ON intermediate.SiteVisit.VisitID = data.WildlifeActivity.VisitID LEFT OUTER JOIN
                          data.WaterQualityActivity ON intermediate.SiteVisit.VisitID = data.WaterQualityActivity.VisitID LEFT OUTER JOIN
                          data.InvasivesActivity ON intermediate.SiteVisit.VisitID = data.InvasivesActivity.VisitID ON data.RiparianVegetationActivity.VisitID = intermediate.SiteVisit.VisitID LEFT OUTER JOIN
                          lookup.FlowCondition ON data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
-                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID ON 
+                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
+                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
+                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
+                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
+                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID AND 
+                         data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID ON lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND 
                          lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND 
                          lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND 
                          lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND 
                          lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND 
                          lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND 
                          lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND 
-                         lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND 
-                         lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID LEFT OUTER JOIN
+                         lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID AND lookup.IsVegetationObserved.ID = data.RiparianVegetationActivity.IsVegetationObservedID LEFT OUTER JOIN
                          lookup.MistletoePresent ON data.RiparianVegetationActivity.MistletoePresentID = lookup.MistletoePresent.ID AND data.RiparianVegetationActivity.MistletoePresentID = lookup.MistletoePresent.ID AND 
                          data.RiparianVegetationActivity.MistletoePresentID = lookup.MistletoePresent.ID AND data.RiparianVegetationActivity.MistletoePresentID = lookup.MistletoePresent.ID AND 
                          data.RiparianVegetationActivity.MistletoePresentID = lookup.MistletoePresent.ID AND data.RiparianVegetationActivity.MistletoePresentID = lookup.MistletoePresent.ID AND 
@@ -59,8 +54,7 @@ FROM            lookup.IsVegetationObserved RIGHT OUTER JOIN
                          data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID AND data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID AND 
                          data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID AND data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID AND 
                          data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID AND data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID AND 
-                         data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID AND 
-                         data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID LEFT OUTER JOIN
+                         data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID AND data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID LEFT OUTER JOIN
                          lookup.IsWildlifeObserved ON data.WildlifeActivity.IsWildlifeObservedID = lookup.IsWildlifeObserved.ID AND data.WildlifeActivity.IsWildlifeObservedID = lookup.IsWildlifeObserved.ID AND 
                          data.WildlifeActivity.IsWildlifeObservedID = lookup.IsWildlifeObserved.ID AND data.WildlifeActivity.IsWildlifeObservedID = lookup.IsWildlifeObserved.ID AND 
                          data.WildlifeActivity.IsWildlifeObservedID = lookup.IsWildlifeObserved.ID AND data.WildlifeActivity.IsWildlifeObservedID = lookup.IsWildlifeObserved.ID AND 

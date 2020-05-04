@@ -1,11 +1,11 @@
 ﻿CREATE VIEW export.Springs_WY20
 AS
-SELECT        ParkCode, SiteCode, SiteName, VisitDate, VisitGroup, SpringType, VisitNotes, SampleFrame, PhotoType, UtmX_m, UtmY_m, UTMZone, 'N' AS MonitoredYN
+SELECT        Park, SiteCode, SiteName, VisitDate, FieldSeason, SpringType, VisitNotes, SampleFrame, PhotoType, UtmX_m, UtmY_m, UTMZone, 'N' AS MonitoredYN
 FROM            export.SiteInfoSheet
-GROUP BY ParkCode, SiteCode, SiteName, VisitDate, VisitGroup, SpringType, VisitNotes, SampleFrame, PhotoType, UtmX_m, UtmY_m, UTMZone
+GROUP BY Park, SiteCode, SiteName, VisitDate, FieldSeason, SpringType, VisitNotes, SampleFrame, PhotoType, UtmX_m, UtmY_m, UTMZone
 HAVING        (SampleFrame = 'Annual') AND (PhotoType = 'SOURCE') OR
-                         (SampleFrame = '3YR') AND (PhotoType = 'SOURCE') AND (ParkCode = 'JOTR' OR
-                         ParkCode = 'PARA')
+                         (SampleFrame = '3YR') AND (PhotoType = 'SOURCE') AND (Park = 'JOTR' OR
+                         Park = 'PARA')
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'export', @level1type = N'VIEW', @level1name = N'Springs_WY20';
 

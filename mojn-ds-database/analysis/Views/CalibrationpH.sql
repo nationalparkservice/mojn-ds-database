@@ -1,19 +1,14 @@
-﻿CREATE VIEW analysis.WaterQualityTemperature
+﻿CREATE VIEW analysis.CalibrationpH
 AS
-SELECT        intermediate.WaterQuality.Park, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.FieldSeason, 
-                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualityTemperature_1.WaterTemperature_C, lookup.DataQualityFlag.Code AS DataQualityFlag, 
-                         WaterQualityTemperature_1.DataQualityFlagNote, intermediate.WaterQuality.TempInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, intermediate.WaterQuality.MonitoringStatus
-FROM            lookup.DataQualityFlag RIGHT OUTER JOIN
-                         data.WaterQualityTemperature AS WaterQualityTemperature_1 ON lookup.DataQualityFlag.ID = WaterQualityTemperature_1.DataQualityFlagID RIGHT OUTER JOIN
-                         intermediate.WaterQuality ON WaterQualityTemperature_1.WaterQualityActivityID = intermediate.WaterQuality.WaterQualityActivityID
+SELECT        sv.Park, sv.SiteCode, sv.SiteName, sv.VisitDate, sv.StartTime, sv.FieldSeason, sv.VisitType, CAST(cal.CalibrationDate AS DATE) AS CalibrationDate, CAST(cal.CalibrationTime AS TIME) AS CalibrationTime, 
+                         wqi.Label AS pHInstrument, cal.StandardValue_pH, cal.TemperatureCorrectedStd_pH, cal.PreCalibrationReading_pH, cal.PreCalibrationTemperature_C, cal.PostCalibrationReading_pH, cal.PostCalibrationTemperature_C, 
+                         cal.Notes
+FROM            intermediate.VisitpHCalibrationCrosswalk AS cw INNER JOIN
+                         intermediate.SiteVisit AS sv ON cw.VisitID = sv.VisitID INNER JOIN
+                         data.CalibrationpH_Shared AS cal ON cw.CalibrationID = cal.ID LEFT OUTER JOIN
+                         ref.WaterQualityInstrument_Shared AS wqi ON cal.pHInstrumentID = wqi.ID
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualityTemperature';
-
-
-
-
-GO
-
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'CalibrationpH';
 
 
 GO
@@ -22,7 +17,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[41] 4[44] 2[5] 3) )"
+         Configuration = "(H (1[24] 4[28] 2[28] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -85,38 +80,48 @@ Begin DesignProperties =
    Begin DiagramPane = 
       Begin Origin = 
          Top = 0
-         Left = -192
+         Left = 0
       End
       Begin Tables = 
-         Begin Table = "DataQualityFlag (lookup)"
+         Begin Table = "cw"
             Begin Extent = 
-               Top = 85
-               Left = 55
-               Bottom = 215
-               Right = 225
+               Top = 6
+               Left = 38
+               Bottom = 102
+               Right = 212
             End
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "WaterQualityTemperature_1"
+         Begin Table = "sv"
             Begin Extent = 
-               Top = 30
-               Left = 319
-               Bottom = 241
-               Right = 528
+               Top = 6
+               Left = 250
+               Bottom = 136
+               Right = 442
             End
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "WaterQuality (intermediate)"
+         Begin Table = "cal"
             Begin Extent = 
-               Top = 19
-               Left = 604
-               Bottom = 252
-               Right = 838
+               Top = 6
+               Left = 480
+               Bottom = 136
+               Right = 731
             End
             DisplayFlags = 280
-            TopColumn = 4
+            TopColumn = 0
+         End
+         Begin Table = "wqi"
+            Begin Extent = 
+               Top = 6
+               Left = 769
+               Bottom = 136
+               Right = 945
+            End
+            DisplayFlags = 280
+            TopColumn = 0
          End
       End
    End
@@ -139,9 +144,9 @@ Begin DesignProperties =
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 1890
-         Alias = 1485
-         Table = 3045
+         Column = 1440
+         Alias = 900
+         Table = 1170
          Output = 720
          Append = 1400
          NewValue = 1170
@@ -155,9 +160,5 @@ Begin DesignProperties =
       End
    End
 End
-', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualityTemperature';
-
-
-
-
+', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'CalibrationpH';
 

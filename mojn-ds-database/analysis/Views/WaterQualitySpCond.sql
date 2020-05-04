@@ -1,9 +1,8 @@
 ﻿CREATE VIEW analysis.WaterQualitySpCond
 AS
-SELECT        intermediate.WaterQuality.ParkCode, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.VisitGroup, 
+SELECT        intermediate.WaterQuality.Park, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.FieldSeason, 
                          intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualitySpCond_1.SpecificConductance_microS_per_cm, lookup.DataQualityFlag.Code AS DataQualityFlag, 
-                         WaterQualitySpCond_1.DataQualityFlagNote, intermediate.WaterQuality.SpCondInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, 
-                         intermediate.WaterQuality.MonitoringStatus
+                         WaterQualitySpCond_1.DataQualityFlagNote, intermediate.WaterQuality.SpCondInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, intermediate.WaterQuality.MonitoringStatus
 FROM            lookup.DataQualityFlag RIGHT OUTER JOIN
                          data.WaterQualitySpCond AS WaterQualitySpCond_1 ON lookup.DataQualityFlag.ID = WaterQualitySpCond_1.DataQualityFlagID RIGHT OUTER JOIN
                          intermediate.WaterQuality ON WaterQualitySpCond_1.WaterQualityActivityID = intermediate.WaterQuality.WaterQualityActivityID

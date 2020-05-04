@@ -1,8 +1,8 @@
 ﻿CREATE VIEW analysis.DischargeVolumetric
 AS
-SELECT        intermediate.Discharge.ParkCode, intermediate.Discharge.SiteCode, intermediate.Discharge.SiteName, intermediate.Discharge.VisitDate, intermediate.Discharge.VisitGroup, 
-                         intermediate.Discharge.FlowCondition, data.DischargeVolumetricObservation.ContainerVolume_mL, data.DischargeVolumetricObservation.FillTime_seconds, 
-                         data.DischargeVolumetricObservation.EstimatedCapture_percent, intermediate.Discharge.VisitType, intermediate.Discharge.DPL
+SELECT        intermediate.Discharge.Park, intermediate.Discharge.SiteCode, intermediate.Discharge.SiteName, intermediate.Discharge.VisitDate, intermediate.Discharge.FieldSeason, intermediate.Discharge.FlowCondition, 
+                         data.DischargeVolumetricObservation.ContainerVolume_mL, data.DischargeVolumetricObservation.FillTime_seconds, data.DischargeVolumetricObservation.EstimatedCapture_percent, intermediate.Discharge.VisitType, 
+                         intermediate.Discharge.DPL
 FROM            data.DischargeVolumetricObservation INNER JOIN
                          intermediate.Discharge ON data.DischargeVolumetricObservation.DischargeActivityID = intermediate.Discharge.DischargeActivityID
 GO

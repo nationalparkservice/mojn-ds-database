@@ -1,6 +1,6 @@
 ﻿CREATE VIEW analysis.Site
 AS
-SELECT        Park.Code AS ParkCode, lookup.Subunit.Label AS Subunit, Site_1.Code AS SiteCode, Site_1.Name AS SiteName, lookup.GRTSDraw.Label AS GRTSDraw, Site_1.GRTSOrder, lookup.GRTSStatus.Code AS SiteStatus, 
+SELECT        Park.Code AS Park, lookup.Subunit.Label AS Subunit, Site_1.Code AS SiteCode, Site_1.Name AS SiteName, lookup.GRTSDraw.Label AS GRTSDraw, Site_1.GRTSOrder, lookup.GRTSStatus.Code AS SiteStatus, 
                          lookup.GRTSPanel.Code AS SampleFrame, lookup.ProtectedStatus.Label AS SiteProtectedStatus, Site_1.Lat_WGS84, Site_1.Lon_WGS84, Site_1.X_UTM_NAD83_11N, Site_1.Y_UTM_NAD83_11N
 FROM            data.Site AS Site_1 INNER JOIN
                          lookup.Park AS Park ON Site_1.ParkID = Park.ID LEFT OUTER JOIN

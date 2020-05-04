@@ -1,28 +1,35 @@
-﻿CREATE VIEW analysis.WaterQualityTemperature
+﻿CREATE VIEW intermediate.VisitDOCalibrationCrosswalk
 AS
-SELECT        intermediate.WaterQuality.Park, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.FieldSeason, 
-                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualityTemperature_1.WaterTemperature_C, lookup.DataQualityFlag.Code AS DataQualityFlag, 
-                         WaterQualityTemperature_1.DataQualityFlagNote, intermediate.WaterQuality.TempInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, intermediate.WaterQuality.MonitoringStatus
-FROM            lookup.DataQualityFlag RIGHT OUTER JOIN
-                         data.WaterQualityTemperature AS WaterQualityTemperature_1 ON lookup.DataQualityFlag.ID = WaterQualityTemperature_1.DataQualityFlagID RIGHT OUTER JOIN
-                         intermediate.WaterQuality ON WaterQualityTemperature_1.WaterQualityActivityID = intermediate.WaterQuality.WaterQualityActivityID
-GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualityTemperature';
-
-
-
-
-GO
-
-
-
+SELECT DISTINCT all_cal.VisitID,
+                all_cal.CalibrationID
+FROM
+  (SELECT sv.VisitID,
+          cal.ID AS CalibrationID,
+          CAST(CONVERT(DATE, cal.CalibrationDate) AS datetime) + CAST(CONVERT(TIME, cal.CalibrationTime) AS datetime) AS CalibrationDateTime
+   FROM intermediate.SiteVisit AS sv
+   INNER JOIN data.WaterQualityActivity AS wq ON wq.VisitID = sv.VisitID
+   INNER JOIN lookup.WaterQualityDataCollected AS wqc ON wq.WaterQualityDataCollectedID = wqc.ID
+   INNER JOIN data.CalibrationDO_Shared AS cal ON wq.DOInstrumentID = cal.DOInstrumentID) AS all_cal
+INNER JOIN
+  (SELECT sv.VisitID,
+          MAX(CAST(CONVERT(DATE, cal.CalibrationDate) AS datetime) + CAST(CONVERT(TIME, cal.CalibrationTime) AS datetime)) AS CalibrationDateTime
+   FROM intermediate.SiteVisit AS sv
+   INNER JOIN data.WaterQualityActivity AS wq ON wq.VisitID = sv.VisitID
+   INNER JOIN lookup.WaterQualityDataCollected AS wqc ON wq.WaterQualityDataCollectedID = wqc.ID
+   INNER JOIN data.CalibrationDO_Shared AS cal ON wq.DOInstrumentID = cal.DOInstrumentID
+   AND CAST(CONVERT(DATE, sv.VisitDate) AS datetime) + IIF(NOT sv.StartTime IS NULL, CAST(CONVERT(TIME, sv.StartTime) AS datetime), CAST('' AS datetime)) >= CAST(CONVERT(DATE, cal.CalibrationDate) AS datetime) + IIF(cal.CalibrationTime IS NULL, CAST('' AS datetime), CAST(CONVERT(TIME, cal.CalibrationTime) AS datetime))
+   WHERE (wqc.Code = 'Y')
+   GROUP BY sv.VisitID,
+            sv.VisitDate,
+            sv.StartTime) AS latest_cal ON all_cal.VisitID = latest_cal.VisitID
+AND all_cal.CalibrationDateTime = latest_cal.CalibrationDateTime
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[41] 4[44] 2[5] 3) )"
+         Configuration = "(H (1[41] 4[13] 2[29] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -85,38 +92,28 @@ Begin DesignProperties =
    Begin DiagramPane = 
       Begin Origin = 
          Top = 0
-         Left = -192
+         Left = 0
       End
       Begin Tables = 
-         Begin Table = "DataQualityFlag (lookup)"
+         Begin Table = "all_cal"
             Begin Extent = 
-               Top = 85
-               Left = 55
-               Bottom = 215
-               Right = 225
+               Top = 6
+               Left = 38
+               Bottom = 136
+               Right = 236
             End
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "WaterQualityTemperature_1"
+         Begin Table = "latest_cal"
             Begin Extent = 
-               Top = 30
-               Left = 319
-               Bottom = 241
-               Right = 528
+               Top = 6
+               Left = 274
+               Bottom = 102
+               Right = 472
             End
             DisplayFlags = 280
             TopColumn = 0
-         End
-         Begin Table = "WaterQuality (intermediate)"
-            Begin Extent = 
-               Top = 19
-               Left = 604
-               Bottom = 252
-               Right = 838
-            End
-            DisplayFlags = 280
-            TopColumn = 4
          End
       End
    End
@@ -139,9 +136,9 @@ Begin DesignProperties =
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 1890
-         Alias = 1485
-         Table = 3045
+         Column = 1440
+         Alias = 900
+         Table = 1170
          Output = 720
          Append = 1400
          NewValue = 1170
@@ -155,9 +152,9 @@ Begin DesignProperties =
       End
    End
 End
-', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualityTemperature';
+', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'VisitDOCalibrationCrosswalk';
 
 
-
-
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'VisitDOCalibrationCrosswalk';
 

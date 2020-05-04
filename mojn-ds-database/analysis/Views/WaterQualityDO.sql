@@ -1,14 +1,13 @@
 ﻿CREATE VIEW analysis.WaterQualityDO
 AS
-SELECT        intermediate.WaterQuality.ParkCode, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.VisitGroup, 
-                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualityDO_1.DissolvedOxygen_percent, WaterQualityDO_1.DissolvedOxygen_mg_per_L, 
-                         lookup.DataQualityFlag.Code AS DataQualityFlag, WaterQualityDO_1.DataQualityFlagNote, intermediate.WaterQuality.DOInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, 
-                         intermediate.WaterQuality.MonitoringStatus
+SELECT        intermediate.WaterQuality.Park, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.FieldSeason, 
+                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualityDO_1.DissolvedOxygen_percent, WaterQualityDO_1.DissolvedOxygen_mg_per_L, lookup.DataQualityFlag.Code AS DataQualityFlag, 
+                         WaterQualityDO_1.DataQualityFlagNote, intermediate.WaterQuality.DOInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, intermediate.WaterQuality.MonitoringStatus
 FROM            data.WaterQualityDO AS WaterQualityDO_1 LEFT OUTER JOIN
                          lookup.DataQualityFlag ON WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND 
+                         WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND 
                          WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND 
-                         WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND 
-                         WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID RIGHT OUTER JOIN
+                         WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID RIGHT OUTER JOIN
                          intermediate.WaterQuality ON WaterQualityDO_1.WaterQualityActivityID = intermediate.WaterQuality.WaterQualityActivityID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualityDO';
