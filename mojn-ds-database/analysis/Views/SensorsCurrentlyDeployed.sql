@@ -1,7 +1,7 @@
 ﻿CREATE VIEW analysis.SensorsCurrentlyDeployed
 AS
-SELECT        s.Label AS SensorNumber, s.SerialNumber, ds.Code AS SpringCode, ds.Name AS SpringName, dv.VisitDate AS DeploymentDate, qa.Water_Year(dv.VisitDate) AS DeploymentFieldSeason, lookup.Park.Code AS Park, 
-                         lookup.VisitType.Label AS DeploymentVisitType
+SELECT        s.Label AS SensorNumber, s.SerialNumber, ds.Code AS SiteCode, ds.Name AS SiteName, CAST(dv.VisitDate AS date) AS VisitDate, qa.Water_Year(dv.VisitDate) AS FieldSeason, lookup.Park.Code AS Park, 
+                         lookup.VisitType.Label AS VisitType
 FROM            data.SensorRetrievalAttempt AS sr RIGHT OUTER JOIN
                          ref.Sensor AS s LEFT OUTER JOIN
                          data.SensorDeployment AS sd ON sd.SensorID = s.ID INNER JOIN

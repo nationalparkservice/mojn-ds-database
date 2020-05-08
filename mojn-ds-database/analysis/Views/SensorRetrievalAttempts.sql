@@ -1,7 +1,7 @@
 ﻿CREATE VIEW analysis.SensorRetrievalAttempts
 AS
-SELECT        s.Label AS SensorNumber, s.SerialNumber, dv.VisitDate AS DeploymentDate, qa.Water_Year(dv.VisitDate) AS DeploymentVisitGroup, rv.VisitDate AS RetrievalDate, qa.Water_Year(rv.VisitDate) AS RetrievalVisitGroup, 
-                         ds.Name AS DeplSpringName, rs.Name AS RetSpringName, ds.Code AS SpringCode, ret.Code AS SensorRetrieved, sp.Label AS SensorProblem, dld.Code AS DownloadResult, rvt.Label AS RetrievalVisitType, 
+SELECT        s.Label AS SensorNumber, s.SerialNumber, CAST(dv.VisitDate AS date) AS DeploymentDate, qa.Water_Year(dv.VisitDate) AS DeploymentFieldSeason, CAST(rv.VisitDate AS date) AS RetrievalDate, qa.Water_Year(rv.VisitDate) AS RetrievalFieldSeason, 
+                         ds.Name AS SiteName, ds.Code AS SiteCode, p.Code AS Park, ret.Code AS SensorRetrieved, sp.Label AS SensorProblem, dld.Code AS DownloadResult, rvt.Label AS RetrievalVisitType, 
                          dvt.Label AS DeploymentVisitType
 FROM            ref.Sensor AS s LEFT OUTER JOIN
                          data.SensorDeployment AS sd ON sd.SensorID = s.ID INNER JOIN
@@ -10,6 +10,7 @@ FROM            ref.Sensor AS s LEFT OUTER JOIN
                          data.Visit AS rv ON sr.VisitID = rv.ID INNER JOIN
                          data.Site AS rs ON rv.SiteID = rs.ID INNER JOIN
                          data.Site AS ds ON dv.SiteID = ds.ID INNER JOIN
+						 lookup.Park AS p ON ds.ParkID = p.ID INNER JOIN
                          lookup.VisitType AS rvt ON rv.VisitTypeID = rvt.ID INNER JOIN
                          lookup.VisitType AS dvt ON dv.VisitTypeID = dvt.ID LEFT OUTER JOIN
                          lookup.SensorProblem AS sp ON sr.SensorProblemID = sp.ID LEFT OUTER JOIN
