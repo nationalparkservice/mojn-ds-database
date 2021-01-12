@@ -2,10 +2,15 @@
 AS
 SELECT        DPL.Label AS DPL, intermediate.SiteVisit.Park, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.FieldSeason, intermediate.SiteVisit.VisitType, 
                          SpCondInstrument.Label AS SpCondInstrument, TempInstrument.Label AS TempInstrument, DOInstrument.Label AS DOInstrument, pHInstrument.Label AS pHInstrument, 
-                         lookup.WaterQualityDataCollected.Label AS WaterQualityDataCollected, intermediate.SiteVisit.MonitoringStatus, data.WaterQualityActivity.ID AS WaterQualityActivityID, 
-                         data.WaterQualityActivity.WaterQualityDataCollectedID
-FROM            lookup.WaterQualityDataCollected RIGHT OUTER JOIN
-                         data.WaterQualityActivity ON lookup.WaterQualityDataCollected.ID = data.WaterQualityActivity.WaterQualityDataCollectedID RIGHT OUTER JOIN
+                         lookup.WaterQualityDataCollected.Label AS WaterQualityDataCollected, intermediate.SiteVisit.MonitoringStatus, data.WaterQualityActivity.ID AS WaterQualityActivityID, data.WaterQualityActivity.WaterQualityDataCollectedID, 
+                         pHDataQualityFlag.Code AS pHDataQualityFlag, DODataQualityFlag.Code AS DODataQualityFlag, SpCondDataQualityFlag.Code AS SpCondDataQualityFlag, TemperatureDataQualityFlag.Code AS TempDataQualityFlag, 
+                         data.WaterQualityActivity.Notes AS WaterQualityNotes
+FROM            lookup.DataQualityFlag AS pHDataQualityFlag INNER JOIN
+                         data.WaterQualityActivity ON pHDataQualityFlag.ID = data.WaterQualityActivity.pHDataQualityFlagID INNER JOIN
+                         lookup.DataQualityFlag AS DODataQualityFlag ON data.WaterQualityActivity.DissolvedOxygenDataQualityFlagID = DODataQualityFlag.ID INNER JOIN
+                         lookup.DataQualityFlag AS SpCondDataQualityFlag ON data.WaterQualityActivity.SpecificConductanceDataQualityFlagID = SpCondDataQualityFlag.ID INNER JOIN
+                         lookup.DataQualityFlag AS TemperatureDataQualityFlag ON data.WaterQualityActivity.WaterTemperatureDataQualityFlagID = TemperatureDataQualityFlag.ID LEFT OUTER JOIN
+                         lookup.WaterQualityDataCollected ON data.WaterQualityActivity.WaterQualityDataCollectedID = lookup.WaterQualityDataCollected.ID RIGHT OUTER JOIN
                          intermediate.SiteVisit ON data.WaterQualityActivity.VisitID = intermediate.SiteVisit.VisitID LEFT OUTER JOIN
                          ref.WaterQualityInstrument_Shared AS TempInstrument ON data.WaterQualityActivity.TemperatureInstrumentID = TempInstrument.ID LEFT OUTER JOIN
                          ref.WaterQualityInstrument_Shared AS DOInstrument ON data.WaterQualityActivity.DOInstrumentID = DOInstrument.ID LEFT OUTER JOIN
@@ -18,7 +23,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @leve
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'ottom = 136
+EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'Bottom = 136
                Right = 1405
             End
             DisplayFlags = 280
@@ -30,6 +35,46 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'ottom = 13
                Left = 720
                Bottom = 450
                Right = 890
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "pHDataQualityFlag"
+            Begin Extent = 
+               Top = 40
+               Left = 697
+               Bottom = 170
+               Right = 867
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "DODataQualityFlag"
+            Begin Extent = 
+               Top = 78
+               Left = 728
+               Bottom = 208
+               Right = 898
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "SpCondDataQualityFlag"
+            Begin Extent = 
+               Top = 110
+               Left = 761
+               Bottom = 240
+               Right = 931
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "TemperatureDataQualityFlag"
+            Begin Extent = 
+               Top = 161
+               Left = 772
+               Bottom = 291
+               Right = 942
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -64,7 +109,7 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'ottom = 13
          Column = 1440
          Alias = 2370
          Table = 3090
-         Output = 720
+         Output = 795
          Append = 1400
          NewValue = 1170
          SortType = 1350
@@ -84,13 +129,15 @@ End
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane1', @value = N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
 Begin DesignProperties = 
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[48] 4[14] 2[28] 3) )"
+         Configuration = "(H (1[39] 4[40] 2[12] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -158,10 +205,10 @@ Begin DesignProperties =
       Begin Tables = 
          Begin Table = "WaterQualityDataCollected (lookup)"
             Begin Extent = 
-               Top = 180
-               Left = 747
-               Bottom = 293
-               Right = 917
+               Top = 147
+               Left = 988
+               Bottom = 260
+               Right = 1158
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -170,11 +217,11 @@ Begin DesignProperties =
             Begin Extent = 
                Top = 38
                Left = 306
-               Bottom = 308
-               Right = 549
+               Bottom = 314
+               Right = 604
             End
             DisplayFlags = 280
-            TopColumn = 0
+            TopColumn = 4
          End
          Begin Table = "SiteVisit (intermediate)"
             Begin Extent = 
@@ -220,7 +267,9 @@ Begin DesignProperties =
             Begin Extent = 
                Top = 6
                Left = 1229
-               B', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'WaterQuality';
+               ', @level0type = N'SCHEMA', @level0name = N'intermediate', @level1type = N'VIEW', @level1name = N'WaterQuality';
+
+
 
 
 

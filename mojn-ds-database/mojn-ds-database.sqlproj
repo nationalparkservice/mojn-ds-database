@@ -518,7 +518,6 @@
     <Build Include="Security\temp.sql" />
     <Build Include="ExtendedProperties.sql" />
     <None Include="Scripts\AllPhotos.sql" />
-    <Build Include="temp\MissingPhotos.sql" />
     <Build Include="app\Views\ActivityDashboard.sql" />
     <Build Include="analysis\Views\Visit.sql">
       <AnsiNulls>On</AnsiNulls>

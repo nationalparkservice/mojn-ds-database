@@ -1,13 +1,10 @@
 ﻿CREATE VIEW analysis.WaterQualityDO
 AS
 SELECT        intermediate.WaterQuality.Park, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.FieldSeason, 
-                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualityDO_1.DissolvedOxygen_percent, WaterQualityDO_1.DissolvedOxygen_mg_per_L, lookup.DataQualityFlag.Code AS DataQualityFlag, 
-                         WaterQualityDO_1.DataQualityFlagNote, intermediate.WaterQuality.DOInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, intermediate.WaterQuality.MonitoringStatus
-FROM            data.WaterQualityDO AS WaterQualityDO_1 LEFT OUTER JOIN
-                         lookup.DataQualityFlag ON WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND 
-                         WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND 
-                         WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID AND 
-                         WaterQualityDO_1.DataQualityFlagID = lookup.DataQualityFlag.ID RIGHT OUTER JOIN
+                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualityDO_1.DissolvedOxygen_percent, WaterQualityDO_1.DissolvedOxygen_mg_per_L, 
+                         intermediate.WaterQuality.DODataQualityFlag AS DataQualityFlag, intermediate.WaterQuality.WaterQualityNotes AS DataQualityFlagNote, intermediate.WaterQuality.DOInstrument, intermediate.WaterQuality.VisitType, 
+                         intermediate.WaterQuality.DPL, intermediate.WaterQuality.MonitoringStatus
+FROM            data.WaterQualityDO AS WaterQualityDO_1 RIGHT OUTER JOIN
                          intermediate.WaterQuality ON WaterQualityDO_1.WaterQualityActivityID = intermediate.WaterQuality.WaterQualityActivityID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualityDO';
@@ -25,7 +22,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[38] 4[49] 2[3] 3) )"
+         Configuration = "(H (1[44] 4[23] 2[20] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -87,7 +84,7 @@ Begin DesignProperties =
    End
    Begin DiagramPane = 
       Begin Origin = 
-         Top = -192
+         Top = -96
          Left = 0
       End
       Begin Tables = 
@@ -101,16 +98,6 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "DataQualityFlag (lookup)"
-            Begin Extent = 
-               Top = 193
-               Left = 721
-               Bottom = 377
-               Right = 891
-            End
-            DisplayFlags = 280
-            TopColumn = 1
-         End
          Begin Table = "WaterQuality (intermediate)"
             Begin Extent = 
                Top = 102
@@ -119,7 +106,7 @@ Begin DesignProperties =
                Right = 270
             End
             DisplayFlags = 280
-            TopColumn = 0
+            TopColumn = 3
          End
       End
    End
@@ -128,7 +115,7 @@ Begin DesignProperties =
    Begin DataPane = 
       Begin ParameterDefaults = ""
       End
-      Begin ColumnWidths = 14
+      Begin ColumnWidths = 15
          Width = 284
          Width = 2220
          Width = 2385
@@ -139,6 +126,7 @@ Begin DesignProperties =
          Width = 1500
          Width = 1500
          Width = 1845
+         Width = 95520
          Width = 1500
          Width = 1500
          Width = 1500
@@ -148,8 +136,8 @@ Begin DesignProperties =
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
          Column = 2730
-         Alias = 900
-         Table = 1170
+         Alias = 2445
+         Table = 3000
          Output = 1425
          Append = 1400
          NewValue = 1170
@@ -164,6 +152,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualityDO';
+
+
 
 
 

@@ -1,10 +1,10 @@
 ﻿CREATE VIEW analysis.WaterQualitypH
 AS
 SELECT        intermediate.WaterQuality.Park, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.FieldSeason, 
-                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualitypH_1.pH, lookup.DataQualityFlag.Code AS DataQualityFlag, WaterQualitypH_1.DataQualityFlagNote, 
-                         intermediate.WaterQuality.pHInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, intermediate.WaterQuality.MonitoringStatus
-FROM            lookup.DataQualityFlag RIGHT OUTER JOIN
-                         data.WaterQualitypH AS WaterQualitypH_1 ON lookup.DataQualityFlag.ID = WaterQualitypH_1.DataQualityFlagID RIGHT OUTER JOIN
+                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualitypH_1.pH, intermediate.WaterQuality.pHDataQualityFlag AS DataQualityFlag, 
+                         intermediate.WaterQuality.WaterQualityNotes AS DataQualityFlagNote, intermediate.WaterQuality.pHInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, 
+                         intermediate.WaterQuality.MonitoringStatus
+FROM            data.WaterQualitypH AS WaterQualitypH_1 RIGHT OUTER JOIN
                          intermediate.WaterQuality ON WaterQualitypH_1.WaterQualityActivityID = intermediate.WaterQuality.WaterQualityActivityID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualitypH';
@@ -88,16 +88,6 @@ Begin DesignProperties =
          Left = 0
       End
       Begin Tables = 
-         Begin Table = "DataQualityFlag (lookup)"
-            Begin Extent = 
-               Top = 182
-               Left = 910
-               Bottom = 312
-               Right = 1080
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
          Begin Table = "WaterQualitypH_1"
             Begin Extent = 
                Top = 166
@@ -143,7 +133,7 @@ Begin DesignProperties =
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
          Column = 2370
-         Alias = 900
+         Alias = 3105
          Table = 3255
          Output = 720
          Append = 1400
@@ -159,6 +149,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualitypH';
+
+
 
 
 
