@@ -7,6 +7,10 @@
     [SpCondInstrumentID]          TINYINT        NULL,
     [TemperatureInstrumentID]     TINYINT        NULL,
     [Notes]                       VARCHAR (2000) NULL,
+	[pHDataQualityFlagID]		  TINYINT		 NOT NULL,
+	[DissolvedOxygenDataQualityFlagID]		TINYINT		 NOT NULL,
+	[SpecificConductanceDataQualityFlagID]		TINYINT		 NOT NULL,
+	[WaterTemperatureDataQualityFlagID]		TINYINT		 NOT NULL,
     [DataProcessingLevelID]       TINYINT        CONSTRAINT [DF_WaterQualityActivity_DataProcessingLevelID] DEFAULT ((1)) NOT NULL,
     [DataProcessingLevelDate]     DATETIME2 (0)  CONSTRAINT [DF_WaterQualityActivity_DataProcessingLevelDate] DEFAULT (getdate()) NOT NULL,
     [DataProcessingLevelNote]     VARCHAR (500)  NULL,
@@ -16,7 +20,11 @@
     CONSTRAINT [CK_WaterQualityActivity_Notes_DisallowZeroLength] CHECK (len([Notes])>(0)),
     CONSTRAINT [FK_WaterQualityActivity_DataProcessingLevel] FOREIGN KEY ([DataProcessingLevelID]) REFERENCES [lookup].[DataProcessingLevel] ([ID]),
     CONSTRAINT [FK_WaterQualityActivity_Visit] FOREIGN KEY ([VisitID]) REFERENCES [data].[Visit] ([ID]),
-    CONSTRAINT [FK_WaterQualityActivity_WaterQualityDataCollected] FOREIGN KEY ([WaterQualityDataCollectedID]) REFERENCES [lookup].[WaterQualityDataCollected] ([ID])
+    CONSTRAINT [FK_WaterQualityActivity_WaterQualityDataCollected] FOREIGN KEY ([WaterQualityDataCollectedID]) REFERENCES [lookup].[WaterQualityDataCollected] ([ID]),
+	CONSTRAINT [FK_WaterQualityActivity_pHDataQualityFlag] FOREIGN KEY ([pHDataQualityFlagID]) REFERENCES [lookup].[DataQualityFlag] ([ID]),
+	CONSTRAINT [FK_WaterQualityActivity_DissolvedOxygenDataQualityFlag] FOREIGN KEY ([DissolvedOxygenDataQualityFlagID]) REFERENCES [lookup].[DataQualityFlag] ([ID]),
+	CONSTRAINT [FK_WaterQualityActivity_SpecificConductanceDataQualityFlag] FOREIGN KEY ([SpecificConductanceDataQualityFlagID]) REFERENCES [lookup].[DataQualityFlag] ([ID]),
+	CONSTRAINT [FK_WaterQualityActivity_WaterTemperatureDataQualityFlag] FOREIGN KEY ([WaterTemperatureDataQualityFlagID]) REFERENCES [lookup].[DataQualityFlag] ([ID])
 );
 
 

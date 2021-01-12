@@ -1,11 +1,10 @@
 ﻿CREATE VIEW analysis.WaterQualitySpCond
 AS
-SELECT        intermediate.WaterQuality.ParkCode, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.VisitGroup, 
-                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualitySpCond_1.SpecificConductance_microS_per_cm, lookup.DataQualityFlag.Code AS DataQualityFlag, 
-                         WaterQualitySpCond_1.DataQualityFlagNote, intermediate.WaterQuality.SpCondInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, 
+SELECT        intermediate.WaterQuality.Park, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.FieldSeason, 
+                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualitySpCond_1.SpecificConductance_microS_per_cm, intermediate.WaterQuality.SpCondDataQualityFlag AS DataQualityFlag, 
+                         intermediate.WaterQuality.WaterQualityNotes AS DataQualityFlagNote, intermediate.WaterQuality.SpCondInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, 
                          intermediate.WaterQuality.MonitoringStatus
-FROM            lookup.DataQualityFlag RIGHT OUTER JOIN
-                         data.WaterQualitySpCond AS WaterQualitySpCond_1 ON lookup.DataQualityFlag.ID = WaterQualitySpCond_1.DataQualityFlagID RIGHT OUTER JOIN
+FROM            data.WaterQualitySpCond AS WaterQualitySpCond_1 RIGHT OUTER JOIN
                          intermediate.WaterQuality ON WaterQualitySpCond_1.WaterQualityActivityID = intermediate.WaterQuality.WaterQualityActivityID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualitySpCond';
@@ -85,20 +84,10 @@ Begin DesignProperties =
    End
    Begin DiagramPane = 
       Begin Origin = 
-         Top = -96
-         Left = -384
+         Top = 0
+         Left = 0
       End
       Begin Tables = 
-         Begin Table = "DataQualityFlag (lookup)"
-            Begin Extent = 
-               Top = 61
-               Left = 44
-               Bottom = 191
-               Right = 214
-            End
-            DisplayFlags = 280
-            TopColumn = 2
-         End
          Begin Table = "WaterQualitySpCond_1"
             Begin Extent = 
                Top = 40
@@ -142,8 +131,8 @@ Begin DesignProperties =
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 3195
-         Alias = 1485
+         Column = 3600
+         Alias = 2880
          Table = 2520
          Output = 720
          Append = 1400
@@ -159,6 +148,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualitySpCond';
+
+
 
 
 

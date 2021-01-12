@@ -17,7 +17,7 @@
     <ModelCollation>1033,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <TargetLanguage>CS</TargetLanguage>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SqlServerVerification>False</SqlServerVerification>
@@ -84,6 +84,7 @@
     <Recovery>FULL</Recovery>
     <EnableFullTextSearch>True</EnableFullTextSearch>
     <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -517,7 +518,6 @@
     <Build Include="Security\temp.sql" />
     <Build Include="ExtendedProperties.sql" />
     <None Include="Scripts\AllPhotos.sql" />
-    <Build Include="temp\MissingPhotos.sql" />
     <Build Include="app\Views\ActivityDashboard.sql" />
     <Build Include="analysis\Views\Visit.sql">
       <AnsiNulls>On</AnsiNulls>
@@ -575,10 +575,22 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="data\Views\CalibrationDO_Shared.sql" />
-    <Build Include="data\Views\CalibrationpH_Shared.sql" />
-    <Build Include="data\Views\CalibrationSpCond_Shared.sql" />
-    <Build Include="ref\Views\WaterQualityInstrument_Shared.sql" />
+    <Build Include="data\Views\CalibrationDO_Shared.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="data\Views\CalibrationpH_Shared.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="data\Views\CalibrationSpCond_Shared.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="ref\Views\WaterQualityInstrument_Shared.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
     <Build Include="intermediate\Views\WaterQuality.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -621,15 +633,103 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="analysis\Views\DischargeEstimated.sql" />
-    <Build Include="ref\Views\Personnel_Shared.sql" />
-    <Build Include="ref\Views\Camera_Shared.sql" />
-    <Build Include="ref\Views\CameraCard_Shared.sql" />
-    <Build Include="ref\Views\GPSUnit_Shared.sql" />
+    <Build Include="ref\Views\Personnel_Shared.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="ref\Views\Camera_Shared.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="ref\Views\CameraCard_Shared.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="ref\Views\GPSUnit_Shared.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
     <Build Include="analysis\Views\SensorsNeverDeployed.sql" />
     <Build Include="analysis\Views\SensorsCurrentlyDeployed.sql" />
     <Build Include="analysis\Views\SensorRetrievalAttempts.sql" />
     <Build Include="ref\Views\SensorRetrievalList.sql" />
     <Build Include="export\Views\SiteInfoSheet.sql" />
+    <Build Include="ref\Tables\RETIRED_GPSUnit.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="ref\Tables\RETIRED_CameraCard.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="ref\Tables\RETIRED_Camera.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="export\Views\WY20_SourceMostRecent.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="export\Views\WY20_SensorMostRecent.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="export\Views\WY20_PhotoMostRecent.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="export\Views\Springs_WY20.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="app\Views\VisitDPL.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="intermediate\Views\VisitSpCondCalibrationCrosswalk.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="intermediate\Views\VisitDOCalibrationCrosswalk.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="intermediate\Views\VisitpHCalibrationCrosswalk.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\CalibrationSpCond.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\CalibrationpH.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="analysis\Views\CalibrationDO.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="ref\Tables\RETIRED_Personnel.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="data\Tables\RETIRED_RiparianVegetationPhoto.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="data\Tables\RETIRED_RepeatPhoto_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="data\Tables\RETIRED_InvasivesPhoto.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="ref\Views\SensorToDeploymentIDCrosswalk.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\MigrateData.sql" />
@@ -639,8 +739,13 @@
       <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\130\SqlSchemas\master.dacpac</HintPath>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
       <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
-      <Private>False</Private>
     </ArtifactReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="mojnSharedTables">
+      <DefaultValue>mojn-shared-tables</DefaultValue>
+      <Value>$(SqlCmdVar__1)</Value>
+    </SqlCmdVariable>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\mojn-shared-tables\mojn-shared-tables\mojn-shared-tables.sqlproj">
@@ -648,13 +753,7 @@
       <Project>{1c07a033-9d7b-4691-b72d-8402095f5ee2}</Project>
       <Private>True</Private>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-      <DatabaseSqlCmdVariable>mojnSharedTables</DatabaseSqlCmdVariable>
+      <DatabaseVariableLiteralValue>MOJN_SharedTables</DatabaseVariableLiteralValue>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <SqlCmdVariable Include="mojnSharedTables">
-      <DefaultValue>mojn-shared-tables</DefaultValue>
-      <Value>$(SqlCmdVar__1)</Value>
-    </SqlCmdVariable>
   </ItemGroup>
 </Project>

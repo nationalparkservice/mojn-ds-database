@@ -12,6 +12,12 @@
 
 
 
+
+
+
+
+
+
 GO
 GRANT UPDATE
     ON SCHEMA::[data] TO [NPS\mhsteiner];

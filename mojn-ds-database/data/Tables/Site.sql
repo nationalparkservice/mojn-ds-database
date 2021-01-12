@@ -4,8 +4,7 @@
     [Name]              VARCHAR (50)   NOT NULL,
     [Code]              VARCHAR (20)   NOT NULL,
     [SubunitID]         SMALLINT       NULL,
-    [AccessDirections]  VARCHAR (MAX)  NULL,
-    [LEGACY_GRTSNumber]        INT            NULL,
+    [LEGACY_GRTSNumber] INT            NULL,
     [Lat_WGS84]         DECIMAL (8, 6) NULL,
     [Lon_WGS84]         DECIMAL (9, 6) NULL,
     [X_UTM_NAD83_11N]   DECIMAL (8, 2) NULL,
@@ -18,6 +17,7 @@
     [GRTSStatusID]      TINYINT        NULL,
     [GRTSPanelID]       TINYINT        NULL,
     [DateCreated]       DATETIME2 (0)  CONSTRAINT [DF_Site_DateCreated] DEFAULT (getdate()) NOT NULL,
+    [AccessDirections]  VARCHAR (MAX)  NULL,
     CONSTRAINT [PK_Site] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [CK_Site_AccessDirections_DisallowZeroLength] CHECK (len([AccessDirections])>(0)),
     CONSTRAINT [CK_Site_Code_DisallowZeroLength] CHECK (len([Code])>(0)),
@@ -35,6 +35,8 @@
     CONSTRAINT [FK_Site_ProtectedStatus] FOREIGN KEY ([ProtectedStatusID]) REFERENCES [lookup].[ProtectedStatus] ([ID]),
     CONSTRAINT [FK_Site_Subunit] FOREIGN KEY ([SubunitID]) REFERENCES [lookup].[Subunit] ([ID])
 );
+
+
 
 
 GO

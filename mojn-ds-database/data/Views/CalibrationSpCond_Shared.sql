@@ -1,2 +1,2 @@
 ﻿CREATE VIEW [data].[CalibrationSpCond_Shared]
-	AS SELECT * FROM [$(mojnSharedTables)].[data].[CalibrationSpCond]
+	AS SELECT * FROM [MOJN_SharedTables].[data].[CalibrationSpCond]

@@ -1,10 +1,10 @@
 ﻿CREATE VIEW [export].[SiteInfoSheet]
 	AS
-SELECT	v.ParkCode,
+SELECT	v.Park,
 	v.SiteCode,
 	v.SiteName,
 	v.VisitDate,
-	v.VisitGroup,
+	v.FieldSeason,
 	v.SpringType,
 	v.Notes AS VisitNotes,
 	v.SampleFrame,

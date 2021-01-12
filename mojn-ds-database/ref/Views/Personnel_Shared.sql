@@ -1,2 +1,2 @@
 ﻿CREATE VIEW [ref].[Personnel_Shared]
-	AS SELECT * FROM [$(mojnSharedTables)].[ref].[Personnel]
+	AS SELECT * FROM [MOJN_SharedTables].[ref].[Personnel]

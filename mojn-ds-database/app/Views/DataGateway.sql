@@ -1,16 +1,16 @@
-﻿CREATE VIEW [app].[DataGateway]
+﻿CREATE VIEW app.DataGateway
 AS
-SELECT        S.ID AS SiteID, V.ID AS VisitID, S.Code AS SiteCode, S.Name AS SiteName, P.Code AS ParkCode, lookup.Subunit.Label AS Subunit, V.VisitDate, qa.Water_Year(V.VisitDate) AS VisitGroup, 
-                         lookup.GRTSStatus.Code AS SiteStatus, lookup.GRTSPanel.Code AS SampleFrame, DPL.Label AS DPL, lookup.ProtectedStatus.Label AS SiteProtectedStatus, S.ParkID, S.SubunitID, V.DataProcessingLevelID, 
-                         S.GRTSStatusID AS SiteStatusID, S.GRTSPanelID AS SampleFrameID
+SELECT        S.ID AS SiteID, V.ID AS VisitID, S.Code AS SiteCode, S.Name AS SiteName, P.Code AS ParkCode, lookup.Subunit.Label AS Subunit, V.VisitDate, qa.Water_Year(V.VisitDate) AS VisitGroup, lookup.GRTSStatus.Code AS SiteStatus, 
+                         lookup.GRTSPanel.Code AS SampleFrame, app.VisitDPL.MinDPL AS DPL, lookup.ProtectedStatus.Label AS SiteProtectedStatus, S.ParkID, S.SubunitID, V.DataProcessingLevelID, S.GRTSStatusID AS SiteStatusID, 
+                         S.GRTSPanelID AS SampleFrameID
 FROM            data.Site AS S LEFT OUTER JOIN
                          data.Visit AS V ON S.ID = V.SiteID INNER JOIN
                          lookup.Park AS P ON S.ParkID = P.ID INNER JOIN
                          lookup.GRTSPanel ON S.GRTSPanelID = lookup.GRTSPanel.ID INNER JOIN
                          lookup.GRTSStatus ON S.GRTSStatusID = lookup.GRTSStatus.ID INNER JOIN
                          lookup.ProtectedStatus ON S.ProtectedStatusID = lookup.ProtectedStatus.ID LEFT OUTER JOIN
-                         lookup.Subunit ON S.SubunitID = lookup.Subunit.ID LEFT OUTER JOIN
-                         lookup.DataProcessingLevel AS DPL ON V.DataProcessingLevelID = DPL.ID
+                         app.VisitDPL ON V.ID = app.VisitDPL.VisitID LEFT OUTER JOIN
+                         lookup.Subunit ON S.SubunitID = lookup.Subunit.ID
 
 
 
@@ -160,12 +160,12 @@ GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'            DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "DPL"
+         Begin Table = "VisitDPL (app)"
             Begin Extent = 
-               Top = 206
-               Left = 538
-               Bottom = 336
-               Right = 708
+               Top = 237
+               Left = 769
+               Bottom = 350
+               Right = 949
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -217,6 +217,8 @@ EXECUTE sp_addextendedproperty @name = N'MS_DiagramPane2', @value = N'          
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'app', @level1type = N'VIEW', @level1name = N'DataGateway';
+
+
 
 
 GO

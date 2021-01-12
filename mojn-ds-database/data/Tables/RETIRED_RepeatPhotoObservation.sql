@@ -1,14 +1,16 @@
 ﻿CREATE TABLE [data].[RepeatPhotoObservation] (
-    [ID]                    INT            IDENTITY (1, 1) NOT NULL,
-    [RepeatPhotoActivityID] INT            NOT NULL,
-    [RepeatPhotoTypeID]     TINYINT        NOT NULL,
-    [UtmX_m]                DECIMAL (8, 2) NULL,
-    [UtmY_m]                DECIMAL (9, 2) NULL,
-    [HorizontalDatumID]     TINYINT        NULL,
-    [UTMZone]               TINYINT        NULL,
-    [GPSUnitID]             TINYINT        NULL,
-    [Notes]                 VARCHAR (500)  NULL,
-    [DateCreated]           DATETIME2 (0)  CONSTRAINT [DF_RepeatPhotoObservation_DateCreated] DEFAULT (getdate()) NOT NULL,
+    [ID]                    INT             IDENTITY (1, 1) NOT NULL,
+    [RepeatPhotoActivityID] INT             NOT NULL,
+    [RepeatPhotoTypeID]     TINYINT         NOT NULL,
+    [UtmX_m]                DECIMAL (8, 2)  NULL,
+    [UtmY_m]                DECIMAL (9, 2)  NULL,
+    [HorizontalDatumID]     TINYINT         NULL,
+    [UTMZone]               TINYINT         NULL,
+    [GPSUnitID]             TINYINT         NULL,
+    [Notes]                 VARCHAR (500)   NULL,
+    [DateCreated]           DATETIME2 (0)   CONSTRAINT [DF_RepeatPhotoObservation_DateCreated] DEFAULT (getdate()) NOT NULL,
+    [GpsX]                  DECIMAL (13, 8) NULL,
+    [GpsY]                  DECIMAL (13, 8) NULL,
     CONSTRAINT [PK_RepeatPhotoObservation] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [CK_RepeatPhotoObservation_Notes_DisallowZeroLength] CHECK (len([Notes])>(0)),
     CONSTRAINT [CK_RepeatPhotoObservation_UtmX_m] CHECK ([UtmX_m]>=(200000) AND [UtmX_m]<=(900000)),
@@ -18,6 +20,8 @@
     CONSTRAINT [FK_RepeatPhotoObservation_RepeatPhotoType] FOREIGN KEY ([RepeatPhotoTypeID]) REFERENCES [lookup].[RepeatPhotoType] ([ID]),
     CONSTRAINT [FK_RepeatPhotoObservation_UTMZone] FOREIGN KEY ([UTMZone]) REFERENCES [lookup].[UTMZone] ([ID])
 );
+
+
 
 
 GO

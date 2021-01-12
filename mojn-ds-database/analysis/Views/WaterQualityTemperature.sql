@@ -1,11 +1,10 @@
 ﻿CREATE VIEW analysis.WaterQualityTemperature
 AS
-SELECT        intermediate.WaterQuality.ParkCode, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.VisitGroup, 
-                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualityTemperature_1.WaterTemperature_C, lookup.DataQualityFlag.Code AS DataQualityFlag, 
-                         WaterQualityTemperature_1.DataQualityFlagNote, intermediate.WaterQuality.TempInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, 
+SELECT        intermediate.WaterQuality.Park, intermediate.WaterQuality.SiteCode, intermediate.WaterQuality.SiteName, intermediate.WaterQuality.VisitDate, intermediate.WaterQuality.FieldSeason, 
+                         intermediate.WaterQuality.WaterQualityDataCollected AS WQDataCollected, WaterQualityTemperature_1.WaterTemperature_C, intermediate.WaterQuality.TempDataQualityFlag AS DataQualityFlag, 
+                         intermediate.WaterQuality.WaterQualityNotes AS DataQualityFlagNote, intermediate.WaterQuality.TempInstrument, intermediate.WaterQuality.VisitType, intermediate.WaterQuality.DPL, 
                          intermediate.WaterQuality.MonitoringStatus
-FROM            lookup.DataQualityFlag RIGHT OUTER JOIN
-                         data.WaterQualityTemperature AS WaterQualityTemperature_1 ON lookup.DataQualityFlag.ID = WaterQualityTemperature_1.DataQualityFlagID RIGHT OUTER JOIN
+FROM            data.WaterQualityTemperature AS WaterQualityTemperature_1 RIGHT OUTER JOIN
                          intermediate.WaterQuality ON WaterQualityTemperature_1.WaterQualityActivityID = intermediate.WaterQuality.WaterQualityActivityID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 1, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualityTemperature';
@@ -86,19 +85,9 @@ Begin DesignProperties =
    Begin DiagramPane = 
       Begin Origin = 
          Top = 0
-         Left = -192
+         Left = 0
       End
       Begin Tables = 
-         Begin Table = "DataQualityFlag (lookup)"
-            Begin Extent = 
-               Top = 85
-               Left = 55
-               Bottom = 215
-               Right = 225
-            End
-            DisplayFlags = 280
-            TopColumn = 0
-         End
          Begin Table = "WaterQualityTemperature_1"
             Begin Extent = 
                Top = 30
@@ -140,8 +129,8 @@ Begin DesignProperties =
    End
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
-         Column = 1890
-         Alias = 1485
+         Column = 2955
+         Alias = 2880
          Table = 3045
          Output = 720
          Append = 1400
@@ -157,6 +146,8 @@ Begin DesignProperties =
    End
 End
 ', @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'WaterQualityTemperature';
+
+
 
 
 

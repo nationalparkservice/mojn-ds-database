@@ -1,35 +1,31 @@
-
-CREATE VIEW [app].[ActivityDashboard]
+﻿CREATE VIEW app.ActivityDashboard
 AS
-SELECT        'Discharge' AS Activity, lookup.FlowCondition.Label AS Status, lookup.DataProcessingLevel.Label AS DPL, data.DischargeActivity.DataProcessingLevelDate AS Date, data.DischargeActivity.VisitID
+SELECT        'Discharge' AS Activity, lookup.FlowCondition.Label AS Status, lookup.DataProcessingLevel.Label AS DPL, lookup.DataProcessingLevel.ProcessOrder, data.DischargeActivity.DataProcessingLevelDate AS Date, data.DischargeActivity.VisitID
 FROM            data.DischargeActivity INNER JOIN
                          lookup.FlowCondition ON data.DischargeActivity.FlowConditionID = lookup.FlowCondition.ID INNER JOIN
                          lookup.DataProcessingLevel ON data.DischargeActivity.DataProcessingLevelID = lookup.DataProcessingLevel.ID
 UNION
-SELECT        'Wildlife' AS Activity, lookup.IsWildlifeObserved.Label AS Status, lookup.DataProcessingLevel.Label AS DPL, data.WildlifeActivity.DataProcessingLevelDate AS Date, data.WildlifeActivity.VisitID
+SELECT        'Wildlife' AS Activity, lookup.IsWildlifeObserved.Label AS Status, lookup.DataProcessingLevel.Label AS DPL, lookup.DataProcessingLevel.ProcessOrder, data.WildlifeActivity.DataProcessingLevelDate AS Date, data.WildlifeActivity.VisitID
 FROM            lookup.DataProcessingLevel INNER JOIN
                          data.WildlifeActivity ON lookup.DataProcessingLevel.ID = data.WildlifeActivity.DataProcessingLevelID INNER JOIN
                          lookup.IsWildlifeObserved ON data.WildlifeActivity.IsWildlifeObservedID = lookup.IsWildlifeObserved.ID AND data.WildlifeActivity.IsWildlifeObservedID = lookup.IsWildlifeObserved.ID
 UNION
-SELECT        'Riparian' AS Activity, lookup.IsVegetationObserved.Label AS Status, lookup.DataProcessingLevel.Label AS DPL, data.RiparianVegetationActivity.DataProcessingLevelDate AS Date, 
-                         data.RiparianVegetationActivity.VisitID
+SELECT        'Riparian' AS Activity, lookup.IsVegetationObserved.Label AS Status, lookup.DataProcessingLevel.Label AS DPL, lookup.DataProcessingLevel.ProcessOrder, data.RiparianVegetationActivity.DataProcessingLevelDate AS Date, data.RiparianVegetationActivity.VisitID
 FROM            lookup.DataProcessingLevel INNER JOIN
                          data.RiparianVegetationActivity ON lookup.DataProcessingLevel.ID = data.RiparianVegetationActivity.DataProcessingLevelID INNER JOIN
-                         lookup.IsVegetationObserved ON data.RiparianVegetationActivity.IsVegetationObservedID = lookup.IsVegetationObserved.ID AND 
-                         data.RiparianVegetationActivity.IsVegetationObservedID = lookup.IsVegetationObserved.ID
+                         lookup.IsVegetationObserved ON data.RiparianVegetationActivity.IsVegetationObservedID = lookup.IsVegetationObserved.ID AND data.RiparianVegetationActivity.IsVegetationObservedID = lookup.IsVegetationObserved.ID
 UNION
-SELECT        'Invasives' AS Activity, lookup.InvasivesObserved.Label AS Status, lookup.DataProcessingLevel.Label AS DPL, data.InvasivesActivity.DataProcessingLevelDate AS Date, data.InvasivesActivity.VisitID
+SELECT        'Invasives' AS Activity, lookup.InvasivesObserved.Label AS Status, lookup.DataProcessingLevel.Label AS DPL, lookup.DataProcessingLevel.ProcessOrder, data.InvasivesActivity.DataProcessingLevelDate AS Date, data.InvasivesActivity.VisitID
 FROM            lookup.DataProcessingLevel INNER JOIN
                          data.InvasivesActivity ON lookup.DataProcessingLevel.ID = data.InvasivesActivity.DataProcessingLevelID AND lookup.DataProcessingLevel.ID = data.InvasivesActivity.DataProcessingLevelID INNER JOIN
                          lookup.InvasivesObserved ON data.InvasivesActivity.InvasivesObservedID = lookup.InvasivesObserved.ID AND data.InvasivesActivity.InvasivesObservedID = lookup.InvasivesObserved.ID AND 
                          data.InvasivesActivity.InvasivesObservedID = lookup.InvasivesObserved.ID
 UNION
-SELECT        'Disturbance' AS Activity, 'Yes' AS Status, lookup.DataProcessingLevel.Label AS DPL, data.DisturbanceActivity.DataProcessingLevelDate AS Date, data.DisturbanceActivity.VisitID
+SELECT        'Disturbance' AS Activity, 'Yes' AS Status, lookup.DataProcessingLevel.Label AS DPL, lookup.DataProcessingLevel.ProcessOrder, data.DisturbanceActivity.DataProcessingLevelDate AS Date, data.DisturbanceActivity.VisitID
 FROM            lookup.DataProcessingLevel INNER JOIN
                          data.DisturbanceActivity ON lookup.DataProcessingLevel.ID = data.DisturbanceActivity.DataProcessingLevelID AND lookup.DataProcessingLevel.ID = data.DisturbanceActivity.DataProcessingLevelID
 UNION
-SELECT        'Quality' AS Activity, lookup.WaterQualityDataCollected.Label AS Status, lookup.DataProcessingLevel.Label AS DPL, data.WaterQualityActivity.DataProcessingLevelDate AS Date, 
-                         data.WaterQualityActivity.VisitID
+SELECT        'Quality' AS Activity, lookup.WaterQualityDataCollected.Label AS Status, lookup.DataProcessingLevel.Label AS DPL, lookup.DataProcessingLevel.ProcessOrder, data.WaterQualityActivity.DataProcessingLevelDate AS Date, data.WaterQualityActivity.VisitID
 FROM            lookup.DataProcessingLevel INNER JOIN
                          data.WaterQualityActivity ON lookup.DataProcessingLevel.ID = data.WaterQualityActivity.DataProcessingLevelID AND lookup.DataProcessingLevel.ID = data.WaterQualityActivity.DataProcessingLevelID AND 
                          lookup.DataProcessingLevel.ID = data.WaterQualityActivity.DataProcessingLevelID INNER JOIN

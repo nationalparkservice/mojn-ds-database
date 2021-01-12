@@ -1,31 +1,34 @@
 ﻿CREATE TABLE [data].[Photo] (
-    [ID]                     INT           IDENTITY (1, 1) NOT NULL,
-    [PhotoActivityID]        INT           NOT NULL,
-	[DateTaken]				 DATETIME2 (0) NOT NULL,
-    [PhotoDescriptionCodeID] SMALLINT      NOT NULL,
-    [IsLibraryPhotoID]       TINYINT       NOT NULL,
-    [OriginalFilePath]       VARCHAR (300) NOT NULL,
-    [RenamedFilePath]        VARCHAR (300) NULL,
-	[GPSUnitID]				TINYINT        NULL,
-    [HorizontalDatumID]		TINYINT        NULL,
-    [UTMZoneID]				TINYINT        NULL,
-    [UtmX_m]				DECIMAL (8, 2) NULL,
-    [UtmY_m]				DECIMAL (9, 2) NULL,
-    [Notes]                  VARCHAR (500) NULL,
-    [DateCreated]            DATETIME2 (0) CONSTRAINT [DF_Photo_DateCreated] DEFAULT (getdate()) NOT NULL,
-
+    [ID]                     INT             IDENTITY (1, 1) NOT NULL,
+    [PhotoActivityID]        INT             NOT NULL,
+    [DateTaken]              DATETIME2 (0)   NOT NULL,
+    [PhotoDescriptionCodeID] SMALLINT        NOT NULL,
+    [IsLibraryPhotoID]       TINYINT         NOT NULL,
+    [OriginalFilePath]       VARCHAR (300)   NOT NULL,
+    [RenamedFilePath]        VARCHAR (300)   NULL,
+    [GPSUnitID]              TINYINT         NULL,
+    [HorizontalDatumID]      TINYINT         NULL,
+    [UTMZoneID]              TINYINT         NULL,
+    [UtmX_m]                 DECIMAL (8, 2)  NULL,
+    [UtmY_m]                 DECIMAL (9, 2)  NULL,
+    [Notes]                  VARCHAR (500)   NULL,
+    [DateCreated]            DATETIME2 (0)   CONSTRAINT [DF_Photo_DateCreated] DEFAULT (getdate()) NOT NULL,
+    [GpsX]                   DECIMAL (13, 8) NULL,
+    [GpsY]                   DECIMAL (13, 8) NULL,
     CONSTRAINT [PK_Photo] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [CK_Photo_Notes_DisallowZeroLength] CHECK (len([Notes])>(0)),
     CONSTRAINT [CK_Photo_OriginalFilePath_DisallowZeroLength] CHECK (len([OriginalFilePath])>(0)),
     CONSTRAINT [CK_Photo_RenamedFilePath_DisallowZeroLength] CHECK (len([RenamedFilePath])>(0)),
+    CONSTRAINT [CK_Photo_UtmX_m] CHECK ([UtmX_m] IS NULL OR [UtmX_m]>=(200000) AND [UtmX_m]<=(900000)),
+    CONSTRAINT [CK_Photo_UtmY_m] CHECK ([UtmX_m] IS NULL OR [UtmY_m]>=(3500000) AND [UtmY_m]<=(4350000)),
+    CONSTRAINT [FK_Photo_HorizontalDatum] FOREIGN KEY ([HorizontalDatumID]) REFERENCES [lookup].[HorizontalDatum] ([ID]),
     CONSTRAINT [FK_Photo_IsLibraryPhoto] FOREIGN KEY ([IsLibraryPhotoID]) REFERENCES [lookup].[IsLibraryPhoto] ([ID]),
     CONSTRAINT [FK_Photo_PhotoActivity] FOREIGN KEY ([PhotoActivityID]) REFERENCES [data].[PhotoActivity] ([ID]),
     CONSTRAINT [FK_Photo_PhotoDescriptionCode] FOREIGN KEY ([PhotoDescriptionCodeID]) REFERENCES [ref].[PhotoDescriptionCode] ([ID]),
-	CONSTRAINT [CK_Photo_UtmX_m] CHECK (UtmX_m IS NULL OR ([UtmX_m]>=(200000) AND [UtmX_m]<=(900000))),
-    CONSTRAINT [CK_Photo_UtmY_m] CHECK (UtmX_m IS NULL OR ([UtmY_m]>=(3500000) AND [UtmY_m]<=(4350000))),
-    CONSTRAINT [FK_Photo_HorizontalDatum] FOREIGN KEY ([HorizontalDatumID]) REFERENCES [lookup].[HorizontalDatum] ([ID]),
     CONSTRAINT [FK_Photo_UTMZone] FOREIGN KEY ([UTMZoneID]) REFERENCES [lookup].[UTMZone] ([ID])
 );
+
+
 
 
 GO

@@ -1,8 +1,7 @@
 ﻿CREATE VIEW analysis.Invasives
 AS
-SELECT        intermediate.SiteVisit.ParkCode, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.VisitGroup, 
-                         lookup.InvasivesObserved.Code AS InvasivesObserved, lookup.RiparianVegetationBuffer.Code AS InRiparianVegBuffer, ref.Taxon.USDAPlantsCode, ref.Taxon.ScientificName, intermediate.SiteVisit.VisitType, 
-                         lookup.ProtectedStatus.Code AS ProtectedStatus, DPL.Label AS DPL
+SELECT        intermediate.SiteVisit.Park, intermediate.SiteVisit.SiteCode, intermediate.SiteVisit.SiteName, intermediate.SiteVisit.VisitDate, intermediate.SiteVisit.FieldSeason, lookup.InvasivesObserved.Code AS InvasivesObserved, 
+                         lookup.RiparianVegetationBuffer.Code AS InRiparianVegBuffer, ref.Taxon.USDAPlantsCode, ref.Taxon.ScientificName, intermediate.SiteVisit.VisitType, lookup.ProtectedStatus.Code AS ProtectedStatus, DPL.Label AS DPL
 FROM            lookup.ProtectedStatus RIGHT OUTER JOIN
                          intermediate.SiteVisit INNER JOIN
                          data.InvasivesActivity ON intermediate.SiteVisit.VisitID = data.InvasivesActivity.VisitID LEFT OUTER JOIN
@@ -18,11 +17,11 @@ FROM            lookup.ProtectedStatus RIGHT OUTER JOIN
                          ref.Taxon ON data.InvasivesObservation.TaxonID = ref.Taxon.ID AND data.InvasivesObservation.TaxonID = ref.Taxon.ID AND data.InvasivesObservation.TaxonID = ref.Taxon.ID AND 
                          data.InvasivesObservation.TaxonID = ref.Taxon.ID AND data.InvasivesObservation.TaxonID = ref.Taxon.ID AND data.InvasivesObservation.TaxonID = ref.Taxon.ID AND 
                          data.InvasivesObservation.TaxonID = ref.Taxon.ID LEFT OUTER JOIN
-                         lookup.DataProcessingLevel AS DPL ON data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND 
+                         lookup.DataProcessingLevel AS DPL ON data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND 
                          data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND 
                          data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND 
                          data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND 
-                         data.InvasivesActivity.DataProcessingLevelID = DPL.ID AND data.InvasivesActivity.DataProcessingLevelID = DPL.ID
+                         data.InvasivesActivity.DataProcessingLevelID = DPL.ID
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_DiagramPaneCount', @value = 2, @level0type = N'SCHEMA', @level0name = N'analysis', @level1type = N'VIEW', @level1name = N'Invasives';
 
