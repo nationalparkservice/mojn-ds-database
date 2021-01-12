@@ -3,7 +3,7 @@
     [RiparianVegetationActivityID]  INT           NOT NULL,
     [LifeFormID]                    TINYINT       NOT NULL,
     [Rank]                          TINYINT       NOT NULL,
-    [DominantSpecies]               VARCHAR (50)  NULL,
+    [DominantSpecies]               VARCHAR (500) NULL,
     [TaxonID]                       INT           NULL,
     [ProtectedStatusID]             TINYINT       NOT NULL,
     [TaxonomicReferenceAuthorityID] INT           NOT NULL,
@@ -17,6 +17,8 @@
     CONSTRAINT [FK_RiparianVegetationObservation_Taxon] FOREIGN KEY ([TaxonID]) REFERENCES [ref].[Taxon] ([ID]),
     CONSTRAINT [FK_RiparianVegetationObservation_TaxonomicReferenceAuthority] FOREIGN KEY ([TaxonomicReferenceAuthorityID]) REFERENCES [lookup].[TaxonomicReferenceAuthority] ([ID])
 );
+
+
 
 
 GO

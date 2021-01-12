@@ -1,17 +1,19 @@
 ﻿CREATE TABLE [data].[InvasivesObservation] (
-    [ID]                            INT            IDENTITY (1, 1) NOT NULL,
-    [InvasivesActivityID]           INT            NOT NULL,
-    [TaxonID]                       INT            NOT NULL,
-    [SpeciesNotes]                  VARCHAR (100)  NULL,
-    [RiparianVegetationBufferID]    TINYINT        NOT NULL,
-    [UtmX_m]                        DECIMAL (8, 2) NULL,
-    [UtmY_m]                        DECIMAL (9, 2) NULL,
-    [HorizontalDatumID]             TINYINT        NULL,
-    [UTMZoneID]                     TINYINT        NULL,
-    [GPSUnitID]                     TINYINT        NULL,
-    [ProtectedStatusID]             TINYINT        NOT NULL,
-    [TaxonomicReferenceAuthorityID] INT            NOT NULL,
-    [DateCreated]                   DATETIME2 (0)  CONSTRAINT [DF_InvasivesObservation_DateCreated] DEFAULT (getdate()) NOT NULL,
+    [ID]                            INT             IDENTITY (1, 1) NOT NULL,
+    [InvasivesActivityID]           INT             NOT NULL,
+    [TaxonID]                       INT             NOT NULL,
+    [SpeciesNotes]                  VARCHAR (100)   NULL,
+    [RiparianVegetationBufferID]    TINYINT         NOT NULL,
+    [UtmX_m]                        DECIMAL (8, 2)  NULL,
+    [UtmY_m]                        DECIMAL (9, 2)  NULL,
+    [HorizontalDatumID]             TINYINT         NULL,
+    [UTMZoneID]                     TINYINT         NULL,
+    [GPSUnitID]                     TINYINT         NULL,
+    [ProtectedStatusID]             TINYINT         NOT NULL,
+    [TaxonomicReferenceAuthorityID] INT             NOT NULL,
+    [DateCreated]                   DATETIME2 (0)   CONSTRAINT [DF_InvasivesObservation_DateCreated] DEFAULT (getdate()) NOT NULL,
+    [GpsX]                          DECIMAL (13, 8) NULL,
+    [GpsY]                          DECIMAL (13, 8) NULL,
     CONSTRAINT [PK_InvasivesObservation] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [CK_InvasivesObservation_SpeciesNotes_DisallowZeroLength] CHECK (len([SpeciesNotes])>(0)),
     CONSTRAINT [CK_InvasivesObservation_UtmX_m] CHECK ([UtmX_m]>=(200000) AND [UtmX_m]<=(900000)),
@@ -24,6 +26,8 @@
     CONSTRAINT [FK_InvasivesObservation_TaxonomicReferenceAuthority] FOREIGN KEY ([TaxonomicReferenceAuthorityID]) REFERENCES [lookup].[TaxonomicReferenceAuthority] ([ID]),
     CONSTRAINT [FK_InvasivesObservation_UTMZone] FOREIGN KEY ([UTMZoneID]) REFERENCES [lookup].[UTMZone] ([ID])
 );
+
+
 
 
 GO
